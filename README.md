@@ -1,2 +1,0 @@
-# veridoc
-Document verification tool

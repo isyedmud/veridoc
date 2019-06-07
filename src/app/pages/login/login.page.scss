@@ -1,0 +1,40 @@
+
+#login-btn-container {
+    margin-top: 2vh;
+    div {
+        margin-bottom: 2vh;
+        width: 100%;
+        text-align: center;
+        ion-button {
+            width: 70%;
+        }
+    }
+}
+
+#l-btnfb {
+    ion-button {
+        --background: var(--ion-color-fbbtn);
+    }
+}
+
+#l-forgotornew-container {
+    display: flex;
+    padding: 16px;
+    div {
+        flex: 1;
+    }
+}
+
+#l-forgotpwd, #l-newaccount {
+    font-size: .9em;
+    color: #808080;
+    text-align: center;
+}
+
+#l-newaccount {
+    text-align: left;
+}
+
+#l-forgotpwd {
+    text-align: right;
+}

@@ -1,0 +1,27 @@
+ion-toolbar {
+    img {
+        margin-left: 16px;
+    }
+}
+
+#faq-header {
+    p {
+        color: #505050;
+        text-align: center;
+        font-size: 1.8em;
+        margin: 0;
+    }
+}
+
+#faq-questions {
+    li {
+        p {
+            color: #4c5963;
+            text-decoration: underline;
+            margin: 5px 0;
+        }
+        div {
+            color: #9a9a9a;
+        }
+    }
+}

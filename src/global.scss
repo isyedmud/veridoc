@@ -1,0 +1,39 @@
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+.info-modal .modal-wrapper {
+    width: 80%;
+    height: 60%;
+    border-radius: 15px;
+}
+
+ion-button {
+    text-transform: none;
+}
+
+.star-rating {
+    margin-top: 5px;
+    ion-button {
+        width: 32px !important;
+        height: 32px !important;
+        display: contents;
+    }
+}
+
+.invalid {
+    font-size: 0.8em;
+    color: #ff5353;
+}
+
+.profile-container {
+    width: 10em;
+}

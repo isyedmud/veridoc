@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="98" height="93" viewBox="0 0 98 93">
+  <g id="Group_1" data-name="Group 1" transform="translate(-48 -2133)">
+    <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(48 2133)" fill="none" stroke="#3f9fef" stroke-width="3">
+      <circle cx="43" cy="43" r="43" stroke="none"/>
+      <circle cx="43" cy="43" r="41.5" fill="none"/>
+    </g>
+    <g id="Ellipse_2" data-name="Ellipse 2" transform="translate(61 2146)" fill="none" stroke="#3f9fef" stroke-width="3">
+      <circle cx="30" cy="30" r="30" stroke="none"/>
+      <circle cx="30" cy="30" r="28.5" fill="none"/>
+    </g>
+    <text id="L" transform="translate(85 2185)" fill="#44d344" font-size="24" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="0">L</tspan></text>
+    <g id="Ellipse_3" data-name="Ellipse 3" transform="translate(97 2177)" fill="#fff" stroke="#3f9fef" stroke-width="3">
+      <circle cx="24.5" cy="24.5" r="24.5" stroke="none"/>
+      <circle cx="24.5" cy="24.5" r="23" fill="none"/>
+    </g>
+    <text id="_24" data-name="24" transform="translate(108 2211)" fill="#44d344" font-size="24" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="0">24</tspan></text>
+  </g>
+</svg>

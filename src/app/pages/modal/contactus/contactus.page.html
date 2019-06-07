@@ -1,0 +1,44 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>Contact Us</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label position="stacked">
+      Email
+    </ion-label>
+    <ion-input type="email" disabled="true" [value]="contactInfo.email"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">
+      Number
+    </ion-label>
+    <ion-input type="email" disabled="true" [value]="contactInfo.number"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">
+      User Email
+    </ion-label>
+    <ion-input type="email" [(ngModel)]="userEmail"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">
+      User Phone Number
+    </ion-label>
+    <ion-input type="tel" [(ngModel)]="userPhone"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-textarea placeholder="Enter your message here..." [(ngModel)]="userMsg"></ion-textarea>
+  </ion-item>
+
+  <div id="contact-modal-btn-send">
+    <ion-button color="success" (click)="onClickSendBtn()">Send</ion-button>
+  </div>
+
+</ion-content>

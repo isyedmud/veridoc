@@ -1,0 +1,25 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <img src="assets/imgs/logo-veridoc.svg" />
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div id="faq-header">
+    <p>
+      FAQ
+    </p>
+  </div>
+
+  <div id="faq-questions">
+    <ul>
+      <li *ngFor="let faq of arrFaqs; let i = index;" (click)="onClickQuestion(i)">
+        <p>{{faq.question}}</p>
+        <div *ngIf="faq.isshowing">
+          {{faq.answer}}
+        </div>
+      </li>
+    </ul>
+  </div>
+</ion-content>

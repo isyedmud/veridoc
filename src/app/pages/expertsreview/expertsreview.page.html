@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClickNavBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <img src="assets/imgs/logo-veridoc.svg" />
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!isLoggedIn" fill="solid" color="success" (click)="onClickGetStarted()">Get Started</ion-button>
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="verify-progress-container">
+    <div class="verify-progress-header">
+      <p>
+        Verify your documents in Just 3 steps
+      </p>
+    </div>
+  
+    <div class="verify-progress-indicator">
+      <div [class]="initVerifyStep>=1?'verify-progress-active-step': 'verify-progress-inactive-step'">1</div>
+      <div class="verify-progress-connector"></div>
+      <div [class]="initVerifyStep>=2?'verify-progress-active-step': 'verify-progress-inactive-step'">2</div>
+      <div class="verify-progress-connector"></div>
+      <div [class]="initVerifyStep>=3?'verify-progress-active-step': 'verify-progress-inactive-step'">3</div>
+    </div>
+  </div>
+
+  <div [ngSwitch]="initVerifyStep">
+    <div *ngSwitchCase="1">
+      <div class="verify-progress-upload-container" (click)="onClickSelectFile()">
+        <p>Select files</p>
+      </div>
+      <input id="verify-progress-file-selector" type="file" (change)="onSelectFile($event)"/>
+    </div>
+    <div *ngSwitchCase="2" class="verify-progress-new-user">
+      <ion-item>
+        <ion-label position="stacked">First name</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Last name</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input type="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Aadhar</ion-label>
+        <ion-input type="number"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Username</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+    </div>
+    <div *ngSwitchCase="3" class="verify-progress-payment">
+      <ion-item>
+        <ion-label>Payment</ion-label>
+        <ion-select [(ngModel)]="defaultPaymentOpt">
+          <ion-select-option *ngFor="let opt of arrPaymentopts; let i = index;" [value]="i">
+            {{opt}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+  </div>
+
+  <div id="verify-progress-controllers">
+    <div>
+      <ion-button color="hardmedium" (click)="onClickBack()">Back</ion-button>
+    </div>
+    <div>
+      <ion-button color="success" (click)="onClickNext()">
+        {{initVerifyStep==3?'Finish': 'Next'}}
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

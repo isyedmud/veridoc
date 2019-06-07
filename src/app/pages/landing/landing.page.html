@@ -1,0 +1,231 @@
+<ion-header>
+  <ion-toolbar>
+    <img src="assets/imgs/logo-veridoc.svg" />
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!isLoggedIn" fill="solid" color="success" (click)="onClickGetStarted()">Get Started</ion-button>
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div #landingCarousel>
+    <ion-slides pager="true" [options]="carouselSlideOpts">
+      <ion-slide *ngFor="let img of arrImgs; let i = index;">
+        <div class="landing-carousel-container">
+          <div class="landing-btn-getexperts" *ngIf="i==0">
+            <ion-button (click)="onClickGetExpertsReviewBtn($event)">Get Experts Review</ion-button>
+          </div>
+          <img [src]="img"/>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div #howitworks class="landing-item">
+    <div class="landing-item-header">
+      <div></div>
+      <p>
+        How it works
+      </p>
+    </div>
+    <div class="landing-item-content">
+      <div class="howitworks-item" *ngFor="let item of landingPageContents[0].childs; let i = index;">
+        <ng-container *ngIf="i%2==0; else rightSide">
+          <div class="howitworks-txt">
+            <div class="howitworks-item-header">
+              <p>
+                {{item.id}}
+              </p>
+              <p>
+                {{item.subheader}}
+              </p>
+            </div>
+            <div class="howitworks-item-content">
+              <p>
+                {{item.content}}
+              </p>
+            </div>
+          </div>
+          <div class="howitworks-img">
+            <img [src]="item.img" />
+          </div>
+        </ng-container>
+        <ng-template #rightSide let-id="i">
+          <div class="howitworks-img">
+            <img [src]="item.img" />
+          </div>
+          <div class="howitworks-txt">
+            <div class="howitworks-item-header">
+              <p>
+                {{item.id}}
+              </p>
+              <p>
+                {{item.subheader}}
+              </p>
+            </div>
+            <div class="howitworks-item-content">
+              <p>
+                {{item.content}}
+              </p>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <div #whyverify class="landing-item">
+    <div class="landing-item-header">
+      <div></div>
+      <p>
+        Why VeriDoc
+      </p>
+    </div>
+    <div class="landing-item-content">
+      <ion-slides pager="true" [options]="slideOpts">
+        <ion-slide *ngFor="let item of landingPageContents[1].childs">
+          <div class="whyveridoc-item-content">
+            <div>
+              <img [src]="item.img"/>
+            </div>
+            <p>
+              {{item.header}}
+            </p>
+            <p>
+              {{item.subheader}}
+            </p>
+            <p>
+              {{item.content}}
+            </p>
+          </div>
+        </ion-slide>
+      </ion-slides>
+      <div class="whyveridoc-btn-container">
+        <ion-button color="success">Verify Documents Now</ion-button>
+      </div>
+    </div>
+  </div>
+
+  <div #ourexperts class="landing-item" id="ourexperts-container">
+    <div class="landing-item-header">
+      <div></div>
+      <p>
+        Our Experts
+      </p>
+    </div>
+    <div class="landing-item-content ourexperts-content">
+      <ion-slides pager="true" [options]="slideOpts">
+        <ion-slide *ngFor="let profile of landingPageContents[2].childs">
+          <div class="ourexperts-item-content">
+            <div>
+              <img [src]="profile.img"/>
+            </div>
+            <p>
+              {{profile.header}}
+            </p>
+            <p>
+              {{profile.subheader}}
+            </p>
+            <p>
+              {{profile.content}}
+            </p>
+          </div>
+        </ion-slide>
+      </ion-slides>
+      <div id="ourexperts-btn-more">
+        <ion-button color="success" (click)="onClickViewOurExperts()">Browse Experts</ion-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="landing-item" id="briefinfo-container">
+    <div class="landing-item-header">
+      <div></div>
+      <p>
+        We have logs of milestones
+      </p>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <div>
+            <p>
+              {{numExperts}}<span>&nbsp;&nbsp;Experts</span>
+            </p>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div>
+            <p>
+              {{numCategories}}<span>&nbsp;&nbsp;Categories</span>
+            </p>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <div>
+            <p>
+              {{numReviewedDoc}}<span>&nbsp;&nbsp;Reviewed</span>
+            </p>
+          </div>
+        </ion-col>
+        <ion-col size="6"></ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="landing-item" id="popular-review-container">
+    <div class="landing-item-header">
+      <div></div>
+      <p>
+        Reviews
+      </p>
+    </div>
+    <ion-slides pager="true" [options]="slideOpts">
+      <ion-slide *ngFor="let review of arrReviews">
+        <div class="review-item">
+          <div class="review-img">
+            <div>
+              <img [src]="review.img"/>
+            </div>
+          </div>
+          <div class="review-content">
+            <p>
+              {{review.name}}
+            </p>
+            <p>
+              {{review.feedback}}
+            </p>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div id="landing-footer">
+    <div>
+      <img src="assets/imgs/logo-veridoc.svg" />
+    </div>
+    <p>
+      Email: {{contactInfo.email}}
+    </p>
+    <p>
+      Contact: {{contactInfo.number}}
+    </p>
+    <ion-grid id="landing-footer-menu">
+      <ion-row>
+        <ion-col size-sm="4" size-xs="6" size-xl="2" *ngFor="let menu of arrFooterMenus">
+          <p (click)="onClickFooterMenuItem(menu.id)">
+            {{menu.title}}
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div id="landing-footer-social">
+      <ion-icon name="logo-googleplus"></ion-icon>
+      <ion-icon name="logo-facebook"></ion-icon>
+    </div>
+  </div>
+</ion-content>

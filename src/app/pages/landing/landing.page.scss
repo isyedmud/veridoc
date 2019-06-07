@@ -1,0 +1,316 @@
+ion-toolbar {
+    img {
+        margin-left: 16px;
+    }
+}
+
+ion-slides {
+    max-height: 60vh;
+    ion-slide {
+        max-height: 60vh;
+    }
+}
+
+.landing-item-header {
+    p {
+        margin: 16px 0;
+    }
+}
+
+.landing-carousel-container {
+    position: relative;
+    max-height: 60vh;
+}
+
+.landing-carousel-container img {
+    max-height: 60vh;
+    width: 100%;
+}
+
+.landing-btn-getexperts {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 1em;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.landing-item {
+    padding: 16px;
+}
+
+.landing-item-header {
+    div {
+        width: 20vw;
+        height: .6em;
+        margin: auto;
+        background-color: #3F9FEF;
+    }
+
+    p {
+        text-align: center;
+        font-size: 2.8em;
+        color: #505050;
+    }
+}
+
+.howitworks-item {
+    margin-bottom: 3vh;
+}    
+
+.howitworks-item-header {
+    position: relative;
+}
+
+.howitworks-item-header>p:first-child {
+    margin: 0;
+    color: #EDEDED;
+}
+
+.howitworks-item-header>p:nth-child(2) {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    margin: 0;
+    color: #3F9FEF;
+    font-weight: bold;
+    transform: translate(0, -50%);
+}
+
+.howitworks-item-content,
+.whyveridoc-content {
+    p {
+        color: #969EA5;
+    }
+}
+
+.whyveridoc-header {
+    text-align: center;
+
+    p {
+        color: #505050;
+        font-size: 1.4em;
+    }
+}
+
+.whyveridoc-item-content {
+    margin-bottom: 6vh;
+}
+
+.whyveridoc-item-content>p:nth-child(3) {
+    color: #505050;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.whyveridoc-item-content>p:nth-child(4) {
+    color: #929BA2;
+}
+
+.whyveridoc-btn-container {
+    text-align: center;
+    width: 100%;
+}
+
+#ourexperts-container {
+    background-color: #F8F4F4;
+}
+
+.ourexperts-content {
+    margin-top: 8vh;
+}
+
+.ourexperts-item-content {
+    height: 100%;
+    margin-bottom: 3vh;
+    padding: 16px;
+}
+
+.ourexperts-item-content > div {
+    width: 4.8em;
+    height: 4.8em;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 50%;
+
+    img {
+        width: 100%;
+    }
+
+    p {
+        font-size: 1.2em;
+    }
+}
+
+.ourexperts-item-content>p:nth-child(2) {
+    color: #505050;
+    margin: 5px 0;
+}
+
+.ourexperts-item-content>p:nth-child(4) {
+    color: #A8AEB4;
+    margin-bottom: 5px 0 8vh 0;
+}
+
+#ourexperts-btn-more {
+    width: 100%;
+    text-align: center;
+}
+
+#briefinfo-container {
+    ion-grid {
+        p {
+            margin: 5px 0;
+            font-size: 1.4em;
+            color: #4889D9;
+        
+            span {
+                font-size: .6em;
+            }
+        }
+    }
+}
+
+.review-item {
+    display: flex;
+    margin-bottom: 3vh;
+    padding: 16px;
+}
+
+.review-img {
+    flex: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    div {
+        width: 4.8em;
+        height: 4.8em;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.review-content {
+    flex: 2;
+    padding-left: 16px;
+    p {
+        text-align: left;
+    }
+}
+
+.review-content > p:first-child {
+    font-size: 1em;
+    color: #3a4652;
+}
+
+.review-content > p:nth-child(2) {
+    font-size: .8em;
+    color: #6e7b88;
+}
+
+#landing-footer {
+    padding: 16px;
+    background: #484848;
+}
+
+#landing-footer > p {
+    color: #c1c1c1;
+    font-size: .8em;
+    margin: 5px 0;
+}
+
+#landing-footer-menu {
+    ion-row {
+        ion-col  {
+            p {
+                color: #c1c1c1;
+                font-size: 1em;
+                margin: 5px 0;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .btn-side-navmenu {
+        display: none;
+    }
+
+    .howitworks-item {
+        display: initial;
+    }
+
+    .howitworks-img {
+        display: none;
+    }
+
+    .howitworks-item-header>p:first-child {
+        font-size: 12em;
+    }
+
+    .howitworks-item-header>p:nth-child(2) {
+        font-size: 1.8em;
+    }
+
+    .howitworks-item-content {
+        p {
+            font-size: 1.2em;
+        }
+    }
+}
+
+@media only screen and (min-width: 641px) {
+    .btn-side-menu {
+        display: none;
+    }
+
+    .howitworks-item {
+        display: flex;
+    }
+
+    .howitworks-txt {
+        flex: 1;
+    }
+
+    .howitworks-img {
+        flex: 1;
+    }
+
+    .howitworks-img {
+        display: block;
+        margin: auto;
+        text-align: center;
+        img {
+            width: 250px;
+        }
+    }
+
+    .howitworks-item-header>p:first-child {
+        font-size: 6em;
+    }
+
+    .howitworks-item-header>p:nth-child(2) {
+        font-size: 1.2em;
+    }
+
+    .howitworks-item-content {
+        p {
+            font-size: .9em;
+        }
+    }
+}
+
+#landing-footer-social {
+    width: 100%;
+    text-align: right;
+    padding: 16px;
+    ion-icon {
+        margin-left: 2vw;
+        color: var(--ion-color-medium);
+        font-size: 1.4em;
+    }
+}

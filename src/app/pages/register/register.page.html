@@ -1,0 +1,79 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form [formGroup]="registerForm">
+    <ion-item>
+      <ion-label>Type</ion-label>
+      <ion-select formControlName="role">
+        <ion-select-option value="0">I'm Requestor</ion-select-option>
+        <ion-select-option value="1">I'm Expert</ion-select-option>
+      </ion-select>
+    </ion-item>
+  
+    <!-- First Name -->
+    <ion-item>
+      <ion-input type='text' formControlName="fname" placeholder="First Name"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!registerForm.controls.fname.valid && submitAttempt">
+      <p [class.invalid]="!registerForm.controls.fname.valid && submitAttempt">Please enter a First Name.</p>
+    </ion-item>
+  
+    <!-- Last Name -->
+    <ion-item>
+      <ion-input type='text' formControlName="lname" placeholder="Last Name"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!registerForm.controls.lname.valid && submitAttempt">
+      <p [class.invalid]="!registerForm.controls.lname.valid && submitAttempt">Please enter a Last Name.</p>
+    </ion-item>
+  
+    <!-- Email -->
+    <ion-item>
+      <ion-input type='email' formControlName="email" placeholder="Email"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!registerForm.controls.email.valid && submitAttempt">
+      <p [class.invalid]="!registerForm.controls.email.valid && submitAttempt">Please enter a valid Email Address.</p>
+    </ion-item>
+  
+    <!-- Birthdate -->
+    <ion-item>
+      <ion-label>BOD</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" formControlName="dob" pickerFormat="DD MMMM YYYY"></ion-datetime>
+    </ion-item>
+  
+    <!-- User Name -->
+    <ion-item>
+      <ion-input type="text" formControlName="username" placeholder="Username"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!registerForm.controls.username.valid && submitAttempt">
+      <p [class.invalid]="!registerForm.controls.username.valid && submitAttempt">Please enter a Username.</p>
+    </ion-item>
+  
+    <ion-item>
+      <ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!registerForm.controls.password.valid && submitAttempt">
+      <p [class.invalid]="!registerForm.controls.password.valid && submitAttempt">Please enter password.</p>
+    </ion-item>
+  
+    <ion-item *ngIf="isExpert">Bank Detail</ion-item>
+    <ion-item *ngIf="isExpert">License Documents</ion-item>
+  </form>
+
+  <p id="r-registered" (click)="onClickAlreadyRegisteredBtn()">
+    Already Registered?
+  </p>
+
+  <ion-item lines="none">
+    <ion-checkbox slot="start" (ionChange)="onChangeTermsAndConditions($event)"></ion-checkbox>
+    <ion-label>Accept terms and conditions</ion-label>
+  </ion-item>
+
+  <div id="r-btn-register">
+    <ion-button (click)="onClickSignupBtn()">Sign Up</ion-button>
+  </div>
+</ion-content>

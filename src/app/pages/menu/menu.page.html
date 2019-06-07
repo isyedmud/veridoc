@@ -1,0 +1,22 @@
+
+<ion-split-pane disabled=true>
+  <ion-menu side="end" contentId="content" type="overlay">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false" *ngFor="let page of pages; let i = index;">
+          <ion-item button="true" (click)="onClickMainMenuItem(page.id)">
+            {{page.name}}
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="content" main></ion-router-outlet>
+</ion-split-pane>

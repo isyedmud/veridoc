@@ -1,0 +1,103 @@
+ion-toolbar {
+    // --background: #F3F6F9;
+    img {
+        margin-left: 16px;
+    }
+}
+
+.verify-progress-container {
+    background: #F3F6F9;
+    padding: 8vh 16px;
+}
+
+.verify-progress-header {
+    p {
+        text-align: center;
+        font-size: 2em;
+        color: #505050;
+    }
+}
+
+.verify-progress-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.verify-progress-active-step {
+    width: 2em;
+    height: 2em;
+    background: #E1F0E1;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 12px #dadada;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #3CC93C;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.verify-progress-inactive-step {
+    width: 2em;
+    height: 2em;
+    background: #EAEBEB;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 12px #dadada;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #929BA2;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.verify-progress-connector {
+    width: 8vw;
+    height: .3em;
+    background: #929BA2;
+    margin: 0 8px;
+}
+
+#verify-progress-controllers {
+    display: flex;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    div {
+        flex: 1;
+        text-align: center;
+        ion-button {
+            width: 50%;
+        }
+    }
+}
+
+.verify-progress-upload-container {
+    height: 25vh;
+    margin: 16px;
+    border: 1px dashed #adadad;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    p {
+        color: #9e9e9e;
+        font-size: .9em;
+    }
+}
+
+#verify-progress-file-selector {
+    visibility: hidden;
+    z-index: -1;
+}
+
+.verify-progress-new-user {
+    padding: 16px;
+}
+
+.verify-progress-payment {
+    padding: 16px;
+}

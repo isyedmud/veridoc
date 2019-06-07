@@ -1,0 +1,21 @@
+#pf-user-image-container {
+    position: relative;
+    height: 6em;
+}
+
+#pf-user-image-inner {
+    position: absolute;
+    width: 6em;
+    height: 6em;
+    border-radius: 50%;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#pf-btn-save {
+    width: 100%;
+    text-align: center;
+    margin-top: 3vh;
+}

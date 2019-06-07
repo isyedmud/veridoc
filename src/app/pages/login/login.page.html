@@ -1,58 +1,69 @@
 <ion-header no-border>
   <ion-toolbar>
-    <ion-title>Login</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClickNavBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="loginForm">
-    <ion-item>
-      <ion-label position="stacked">
-        Email
-      </ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
-    </ion-item>
-
-    <ion-item *ngIf="!loginForm.controls.email.valid && submitAttempt">
-      <p [class.invalid]="!loginForm.controls.email.valid && submitAttempt">Please enter a valid Email Address.</p>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label position="stacked">
-        Password
-      </ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
-
-    <ion-item *ngIf="!loginForm.controls.password.valid && submitAttempt">
-      <p [class.invalid]="!loginForm.controls.password.valid && submitAttempt">Please enter a Password.</p>
-    </ion-item>
-  </form>
-
-  <div id="l-forgotornew-container">
-    <div>
-      <p id="l-newaccount" (click)="onClickForgotpwd()">Forgot Password?</p>
-    </div>
-    <div>
-      <p id="l-forgotpwd" (click)="onClickSignup()">Signup?</p>
-    </div>
-  </div>
-
-  <div id="login-btn-container">
-    <div id="l-btnlogin">
-      <ion-button (click)="onClickLogin()">Login</ion-button>
-    </div>
-    <div id="l-btnfb">
-      <ion-button (click)="onClickFBLogin()">
-        <ion-icon name="logo-facebook"></ion-icon>
-        <ion-label>Facebook</ion-label>
-      </ion-button>
-    </div>
-    <div id="l-btngplus">
-      <ion-button color="danger" (click)="onClickGPlusLogin()">
-        <ion-icon name="logo-googleplus"></ion-icon>
-        <ion-label>Google Plus</ion-label>
-      </ion-button>
+  <div id="l-page-container">
+    <p id="l-page-header">
+      Login
+    </p>
+    <div id="l-page-main-content">
+      <form [formGroup]="loginForm">
+        <ion-item>
+          <ion-label position="stacked">
+            Email
+          </ion-label>
+          <ion-input type="email" formControlName="email"></ion-input>
+        </ion-item>
+    
+        <ion-item *ngIf="!loginForm.controls.email.valid && submitAttempt">
+          <p [class.invalid]="!loginForm.controls.email.valid && submitAttempt">Please enter a valid Email Address.</p>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label position="stacked">
+            Password
+          </ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+    
+        <ion-item *ngIf="!loginForm.controls.password.valid && submitAttempt">
+          <p [class.invalid]="!loginForm.controls.password.valid && submitAttempt">Please enter a Password.</p>
+        </ion-item>
+      </form>
+    
+      <div id="l-forgotornew-container">
+        <div>
+          <p id="l-newaccount" (click)="onClickForgotpwd()">Forgot Password?</p>
+        </div>
+        <div>
+          <p id="l-forgotpwd" (click)="onClickSignup()">Signup?</p>
+        </div>
+      </div>
+    
+      <div id="login-btn-container">
+        <div id="l-btnlogin">
+          <ion-button (click)="onClickLogin()">Login</ion-button>
+        </div>
+        <div id="l-btnfb">
+          <ion-button (click)="onClickFBLogin()">
+            <ion-icon name="logo-facebook"></ion-icon>
+            <ion-label>Facebook</ion-label>
+          </ion-button>
+        </div>
+        <div id="l-btngplus">
+          <ion-button color="danger" (click)="onClickGPlusLogin()">
+            <ion-icon name="logo-googleplus"></ion-icon>
+            <ion-label>Google Plus</ion-label>
+          </ion-button>
+        </div>
+      </div>
     </div>
   </div>
 </ion-content>

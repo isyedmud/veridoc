@@ -1,6 +1,29 @@
 
+@media only screen and (min-width: 641px) {
+    #l-page-container {
+        margin: 10vh 20% 0 20%;
+        box-shadow: 0 4px 4px #d2d2d2;
+    }
+
+    #l-page-header {
+        background-color: #418faf;
+        color: white;
+    }
+
+    #l-page-main-content {
+        padding: 16px;
+    }
+}
+
+#l-page-header {
+    text-align: center;
+    font-size: 1.4em;
+    margin: 0;
+    padding: 16px 0;
+}
+
 #login-btn-container {
-    margin-top: 2vh;
+    padding: 2vh 0;
     div {
         margin-bottom: 2vh;
         width: 100%;

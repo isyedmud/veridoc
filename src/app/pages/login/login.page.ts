@@ -171,4 +171,8 @@ export class LoginPage implements OnInit {
     this.navCtrl.navigateForward('/register');
   }
 
+  onClickNavBack() {
+    this.navCtrl.navigateBack('/menu/landing');
+  }
+
 }

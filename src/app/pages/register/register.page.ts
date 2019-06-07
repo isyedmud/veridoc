@@ -110,4 +110,8 @@ export class RegisterPage implements OnInit {
     }
   }
 
+  onClickNavBack() {
+    this.navCtrl.navigateBack('/menu/landing');
+  }
+
 }

@@ -19,6 +19,8 @@ export class LandingPage implements OnInit {
    */
   private isLoggedIn: boolean;
 
+  private userRole: String;
+
   /**
    * Array of Menu items for Browser platform.
    */
@@ -229,10 +231,10 @@ export class LandingPage implements OnInit {
    */
   initPage() {
     this.isLoggedIn = localStorage.getItem("isLoggedIn")=='true'?true: false;
+    this.userRole = localStorage.getItem("role");
     if(!this.platform.is("mobile")) {
       this.slideOpts.slidesPerView = 3;
     }
-    console.log(this.slideOpts);
   }
 
   /**
@@ -285,8 +287,11 @@ export class LandingPage implements OnInit {
     this.navCtrl.navigateForward('/menu/expertsreview');
   }
 
+  /**
+   * View All Experts
+   */
   onClickViewOurExperts() {
-
+    this.navCtrl.navigateForward('/our-experts');
   }
 
   /**

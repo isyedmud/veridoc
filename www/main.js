@@ -833,19 +833,55 @@ module.exports = webpackAsyncContext;
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"../expertsreview/expertsreview.module": [
-		"./src/app/pages/expertsreview/expertsreview.module.ts",
+	"../admin/admin-requests/admin-requests.module": [
+		"./src/app/pages/admin/admin-requests/admin-requests.module.ts",
+		"default~admin-admin-requests-admin-requests-module~expert-request-request-module~pages-expert-review~8f8240fe",
 		"common",
-		"expertsreview-expertsreview-module"
+		"admin-admin-requests-admin-requests-module"
+	],
+	"../admin/all-cases/all-cases.module": [
+		"./src/app/pages/admin/all-cases/all-cases.module.ts",
+		"admin-all-cases-all-cases-module"
+	],
+	"../admin/users/users.module": [
+		"./src/app/pages/admin/users/users.module.ts",
+		"common",
+		"admin-users-users-module"
+	],
+	"../expert/request/request.module": [
+		"./src/app/pages/expert/request/request.module.ts",
+		"default~admin-admin-requests-admin-requests-module~expert-request-request-module~pages-expert-review~8f8240fe",
+		"common",
+		"expert-request-request-module"
 	],
 	"../landing/landing.module": [
 		"./src/app/pages/landing/landing.module.ts",
 		"common",
 		"landing-landing-module"
 	],
+	"../user/expertsreview/expertsreview.module": [
+		"./src/app/pages/user/expertsreview/expertsreview.module.ts",
+		"common",
+		"user-expertsreview-expertsreview-module"
+	],
+	"../user/request-list/request-list.module": [
+		"./src/app/pages/user/request-list/request-list.module.ts",
+		"common",
+		"user-request-list-request-list-module"
+	],
 	"./pages/contact/contact.module": [
 		"./src/app/pages/contact/contact.module.ts",
 		"pages-contact-contact-module"
+	],
+	"./pages/expert/reviewed-cases/reviewed-cases.module": [
+		"./src/app/pages/expert/reviewed-cases/reviewed-cases.module.ts",
+		"default~admin-admin-requests-admin-requests-module~expert-request-request-module~pages-expert-review~8f8240fe",
+		"common",
+		"pages-expert-reviewed-cases-reviewed-cases-module"
+	],
+	"./pages/expert/view-attachment/view-attachment.module": [
+		"./src/app/pages/expert/view-attachment/view-attachment.module.ts",
+		"pages-expert-view-attachment-view-attachment-module"
 	],
 	"./pages/faq/faq.module": [
 		"./src/app/pages/faq/faq.module.ts",
@@ -868,6 +904,7 @@ var map = {
 	],
 	"./pages/profile/profile.module": [
 		"./src/app/pages/profile/profile.module.ts",
+		"common",
 		"pages-profile-profile-module"
 	],
 	"./pages/register/register.module": [
@@ -876,9 +913,10 @@ var map = {
 		"common",
 		"pages-register-register-module"
 	],
-	"./pages/user-request/user-request.module": [
-		"./src/app/pages/user-request/user-request.module.ts",
-		"pages-user-request-user-request-module"
+	"./pages/user/mydocuments/mydocuments.module": [
+		"./src/app/pages/user/mydocuments/mydocuments.module.ts",
+		"common",
+		"pages-user-mydocuments-mydocuments-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -916,6 +954,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/auth/auth.guard */ "./src/app/services/auth/auth.guard.ts");
+
 
 
 
@@ -926,9 +966,11 @@ var routes = [
     { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
     { path: 'contact', loadChildren: './pages/contact/contact.module#ContactPageModule' },
     { path: 'faq', loadChildren: './pages/faq/faq.module#FaqPageModule' },
-    { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule' },
-    { path: 'pay-opt', loadChildren: './pages/pay-opt/pay-opt.module#PayOptPageModule' },
-    { path: 'user-request', loadChildren: './pages/user-request/user-request.module#UserRequestPageModule' },
+    { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule', canActivate: [_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'pay-opt', loadChildren: './pages/pay-opt/pay-opt.module#PayOptPageModule', canActivate: [_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'mydocuments', loadChildren: './pages/user/mydocuments/mydocuments.module#MydocumentsPageModule', canActivate: [_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'view-attachment', loadChildren: './pages/expert/view-attachment/view-attachment.module#ViewAttachmentPageModule', canActivate: [_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'reviewed-cases', loadChildren: './pages/expert/reviewed-cases/reviewed-cases.module#ReviewedCasesPageModule', canActivate: [_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -974,25 +1016,50 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
+/* harmony import */ var _ionic_native_android_permissions_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/android-permissions/ngx */ "./node_modules/@ionic-native/android-permissions/ngx/index.js");
+
 
 
 
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar) {
+    function AppComponent(platform, splashScreen, statusBar, androidPermissions) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
+        this.androidPermissions = androidPermissions;
         this.initializeApp();
     }
     AppComponent.prototype.initializeApp = function () {
-        var _this = this;
-        var isBrowser = this.platform.is("mobile") ? "false" : "true";
-        localStorage.setItem("isBrowser", isBrowser);
-        this.platform.ready().then(function () {
-            _this.statusBar.styleDefault();
-            _this.splashScreen.hide();
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var permResult, err_1;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 5, , 6]);
+                        return [4 /*yield*/, this.platform.ready()];
+                    case 1:
+                        _a.sent();
+                        if (!this.platform.is("android")) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)];
+                    case 2:
+                        permResult = _a.sent();
+                        if (!!permResult.hasPermission) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)];
+                    case 3:
+                        _a.sent();
+                        _a.label = 4;
+                    case 4:
+                        this.statusBar.styleDefault();
+                        this.splashScreen.hide();
+                        return [3 /*break*/, 6];
+                    case 5:
+                        err_1 = _a.sent();
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
+                }
+            });
         });
     };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1002,7 +1069,8 @@ var AppComponent = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__["SplashScreen"],
-            _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"]])
+            _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"],
+            _ionic_native_android_permissions_ngx__WEBPACK_IMPORTED_MODULE_5__["AndroidPermissions"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -1033,6 +1101,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/email-composer/ngx */ "./node_modules/@ionic-native/email-composer/ngx/index.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/google-plus/ngx */ "./node_modules/@ionic-native/google-plus/ngx/index.js");
+/* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
+/* harmony import */ var _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/file/ngx */ "./node_modules/@ionic-native/file/ngx/index.js");
+/* harmony import */ var _ionic_native_android_permissions_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/android-permissions/ngx */ "./node_modules/@ionic-native/android-permissions/ngx/index.js");
+
+
+
 
 
 
@@ -1059,6 +1133,9 @@ var AppModule = /** @class */ (function () {
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"]
             ],
             providers: [
+                _ionic_native_android_permissions_ngx__WEBPACK_IMPORTED_MODULE_14__["AndroidPermissions"],
+                _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_13__["File"],
+                _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_12__["FileTransfer"],
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
                 _ionic_native_email_composer_ngx__WEBPACK_IMPORTED_MODULE_9__["EmailComposer"],
@@ -1069,6 +1146,52 @@ var AppModule = /** @class */ (function () {
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/auth/auth.guard.ts":
+/*!*********************************************!*\
+  !*** ./src/app/services/auth/auth.guard.ts ***!
+  \*********************************************/
+/*! exports provided: AuthGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGuard", function() { return AuthGuard; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+var AuthGuard = /** @class */ (function () {
+    function AuthGuard(router) {
+        this.router = router;
+    }
+    AuthGuard.prototype.canActivate = function (next, state) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var isLoggedIn = localStorage.getItem("isLoggedIn") == 'true' ? true : false;
+            if (isLoggedIn) {
+                resolve(true);
+            }
+            else {
+                _this.router.navigate(['/menu/landing']);
+                resolve(false);
+            }
+        });
+    };
+    AuthGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root',
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    ], AuthGuard);
+    return AuthGuard;
 }());
 
 

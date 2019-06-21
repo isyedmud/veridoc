@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button fill="clear" (click)="onClickNavBack()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>All Requests</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <div id="admin-requests-list">
+      <div *ngFor="let request of arrRequests; let i = index;" class="admin-requests-item">
+        <div class="admin-request-item-header">
+          <p>
+            {{request._id}}
+          </p>
+        </div>
+        <div class="admin-request-item-content">
+          <p>
+            Status: {{arrStatus[request.status]}}
+          </p>
+          <p>
+            Comments: {{request.comments}}
+          </p>
+          <p>
+            Queries: {{request.queries}}
+          </p>
+          <p>
+            Requestor: 
+          </p>
+          <ion-item lines="none" (click)="onToggleViewAttachment(i)">
+            <ion-icon *ngIf="!request.expanded" name="arrow-dropright"></ion-icon>
+            <ion-icon *ngIf="request.expanded" name="arrow-dropdown"></ion-icon>
+            <ion-label>View Attachments</ion-label>
+          </ion-item>
+          <ion-list *ngIf="request.expanded" no-padding>
+            <div *ngFor="let file of request.files">
+              <p (click)="onClickAttachments(file.filename)">
+                {{file.filename}}
+              </p>
+            </div>
+          </ion-list>
+          <div class="admin-requests-controllers-container">
+            <p (click)="onClickSentToRequestor(request)">
+              Send To Requestor
+            </p>
+            <p (click)="onClickBackToReviewer(request)">
+              Back To Reviewer
+            </p>
+            <p (click)="onClickAbort(request)">
+              Abort Request
+            </p>
+          </div>
+        </div>
+        <div class="admin-request-item-footer">
+          <p>
+            Created At: {{request.createdAt | doctime}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+  <ion-footer>
+    <ion-toolbar (click)="onClickAllCases()">
+      <ion-title>All Cases</ion-title>
+    </ion-toolbar>
+  </ion-footer>

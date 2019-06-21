@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="80" viewBox="0 0 64 80">
+  <g id="file" transform="translate(-6)">
+    <path id="Path_4" data-name="Path 4" d="M45,25H20a1,1,0,0,0,0,2H45a1,1,0,0,0,0-2Z" transform="translate(9.905 8.621)" fill="#4d596e"/>
+    <path id="Path_5" data-name="Path 5" d="M20,19H30a1,1,0,0,0,0-2H20a1,1,0,0,0,0,2Z" transform="translate(5.778 5.862)" fill="#4d596e"/>
+    <path id="Path_6" data-name="Path 6" d="M45,33H20a1,1,0,0,0,0,2H45a1,1,0,0,0,0-2Z" transform="translate(9.905 11.379)" fill="#4d596e"/>
+    <path id="Path_7" data-name="Path 7" d="M45,41H20a1,1,0,0,0,0,2H45a1,1,0,0,0,0-2Z" transform="translate(9.905 14.138)" fill="#4d596e"/>
+    <path id="Path_8" data-name="Path 8" d="M45,49H20a1,1,0,0,0,0,2H45a1,1,0,0,0,0-2Z" transform="translate(9.905 20)" fill="#4d596e"/>
+    <path id="Path_9" data-name="Path 9" d="M63.333,19.448V0H6V73.333h6.667V80H70V26.115Zm-12-8.229,12,12,2.115,2.115H51.333ZM8.667,70.667v-68h52V16.781L50.552,6.667H12.667v64Zm6.667,6.667v-68H48.667V28H67.333V77.333Z" fill="#4d596e"/>
+  </g>
+</svg>

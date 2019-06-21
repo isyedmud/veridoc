@@ -161,7 +161,7 @@ ion-slides {
 #briefinfo-container {
     ion-grid {
         p {
-            margin: 5px 0;
+            margin: 5px 0 5px 16px;
             font-size: 1.4em;
             color: #4889D9;
         
@@ -232,6 +232,14 @@ ion-slides {
                 margin: 5px 0;
             }
         }
+    }
+}
+
+.milestones-item {
+    display: flex;
+    align-items: center;
+    img {
+        height: 1.6em;
     }
 }
 

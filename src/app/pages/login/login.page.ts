@@ -105,11 +105,13 @@ export class LoginPage implements OnInit {
         password: md5(this.loginForm.controls.password.value)
       };
       this.apiService.login(credential)
-        .subscribe(data => {
-          loginLoader.dismiss();
+        .subscribe((res: any) => {
           this.toastService.showToast("Login Successful!");
           localStorage.setItem("isLoggedIn", 'true');
+          localStorage.setItem("uid", res.user._id);
+          localStorage.setItem("role", res.user.role);
           this.event.publish("onLoginStatusChange");
+          loginLoader.dismiss();
           this.navCtrl.navigateRoot('/menu/landing');
         }, error => {
           loginLoader.dismiss();

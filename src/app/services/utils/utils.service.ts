@@ -9,15 +9,7 @@ import { Injectable } from '@angular/core';
 })
 export class UtilsService {
 
-  private _userInfo = {};
+  private _userInfo = null;
 
   constructor() { }
-
-  getUserInfo() {
-    return this._userInfo;
-  }
-
-  setUserInfo(userInfo)  {
-    this._userInfo = userInfo;
-  }
 }

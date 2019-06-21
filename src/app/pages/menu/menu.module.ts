@@ -19,7 +19,12 @@ import { AuthGuard } from 'src/app/services/auth/auth.guard';
         component: MenuPage,
         children: [
           {path: 'landing', loadChildren: '../landing/landing.module#LandingPageModule'},
-          {path: 'expertsreview', loadChildren: '../expertsreview/expertsreview.module#ExpertsreviewPageModule', canActivate: [ AuthGuard ]},
+          {path: 'expertsreview', loadChildren: '../user/expertsreview/expertsreview.module#ExpertsreviewPageModule', canActivate: [ AuthGuard ]},
+          {path: 'myrequests', loadChildren: '../user/request-list/request-list.module#RequestListPageModule', canActivate: [ AuthGuard ] },
+          {path: 'expert-requests', loadChildren: '../expert/request/request.module#RequestPageModule', canActivate: [ AuthGuard ]},
+          { path: 'admin-requests', loadChildren: '../admin/admin-requests/admin-requests.module#AdminRequestsPageModule', canActivate: [AuthGuard] },
+          { path: 'adminallcases', loadChildren: '../admin/all-cases/all-cases.module#AllCasesPageModule', canActivate: [AuthGuard] },
+          { path: 'admin-users', loadChildren: '../admin/users/users.module#UsersPageModule' },
         ]
       }
     ])

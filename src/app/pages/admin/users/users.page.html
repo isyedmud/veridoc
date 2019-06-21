@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="onClickNavBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>User Management</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list id="admin-users-list">
+    <div *ngFor="let user of arrUsers; let i = index" class="admin-users-item">
+      <div class="admin-users-item-header" (click)="onClickExpandUserRow(i)">
+        <p>
+          {{user.fname + " " + user.lname}}
+        </p>
+      </div>
+      <div class="admin-users-item-content" *ngIf="user.expanded">
+        <p [class]="user.isverified==true?'admin-users-item-status green-tag': 'admin-users-item-status red-tag'">
+          {{user.isverified?'Verified': 'Not Verified'}}
+        </p>
+        <p class="admin-users-item-content-field">
+          Username: {{user.username}}
+        </p>
+        <p class="admin-users-item-content-field">
+          Birthday: {{user.birthday}}
+        </p>
+        <p class="admin-users-item-content-field">
+          Email: {{user.email}}
+        </p>
+        <p class="admin-users-item-createdat">
+          Created At: {{user.createdAt | doctime}}
+        </p>
+        <div *ngIf="!user.isverified" class="admin-users-item-controller">
+          <div>
+            <ion-button color="success" (click)="onClickAcceptUser(i)">
+              Accept
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-list>
+</ion-content>

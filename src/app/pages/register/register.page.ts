@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, NavController, AlertController, Events } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api/api.service';
 import md5 from 'md5';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { TERMSANDCONDITIONSTXT } from '../constants';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+  @ViewChild('avatarSelector') avatarSelector: ElementRef;
 
   /**
    * Form Group Validator
@@ -19,6 +21,11 @@ export class RegisterPage implements OnInit {
   private registerForm: FormGroup;
 
   private isAcceptedTerms = false;
+
+  /**
+   * terms and conditions text
+   */
+  private txtTerms = TERMSANDCONDITIONSTXT;
 
   constructor(
     private loadingCtrl: LoadingController,
@@ -63,17 +70,20 @@ export class RegisterPage implements OnInit {
         lname: this.registerForm.controls.lname.value,
         birthday: this.registerForm.controls.dob.value,
         username: this.registerForm.controls.username.value,
-        password: md5(this.registerForm.controls.password.value)
+        password: md5(this.registerForm.controls.password.value),
+        isverified: false,
       };
       const signupLoader = await this.loadingCtrl.create({
         message: "Please wait..."
       });
       await signupLoader.present();
       this.apiService.signUp(reqData)
-        .subscribe(() => {
+        .subscribe((res: any) => {
           signupLoader.dismiss();
           this.toastService.showToast("Successfully Registered!");
           localStorage.setItem("isLoggedIn", 'true');
+          localStorage.setItem("uid", res.user._id);
+          localStorage.setItem("role", res.user.role);
           this.event.publish("onLoginStatusChange");
           this.navCtrl.navigateRoot('/menu/landing');
         }, (error: any) => {
@@ -86,6 +96,10 @@ export class RegisterPage implements OnInit {
           }
         });
     }
+  }
+
+  onClickAvatar() {
+    this.avatarSelector.nativeElement.click();
   }
 
   /**
@@ -103,7 +117,7 @@ export class RegisterPage implements OnInit {
     if(this.isAcceptedTerms == true) {
       const termsAlt = await this.altCtrl.create({
         header: "Terms and Conditions",
-        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        message: this.txtTerms,
         buttons: ['OK']
       });
       await termsAlt.present();

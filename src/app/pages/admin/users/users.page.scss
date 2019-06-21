@@ -1,0 +1,64 @@
+#admin-users-list {
+    padding: 16px;
+}
+
+.admin-users-item {
+    box-shadow: 0 0 6px #a7a7a7;
+    margin-bottom: 2vh;
+}
+
+.admin-users-item-header {
+    background-color: #3780ff;
+    cursor: pointer;
+    p {
+        margin: 0;
+        padding: 16px;
+        color: white;
+    }
+}
+
+.admin-users-item-content {
+    position: relative;
+    padding: 16px;
+}
+
+.admin-users-item-content-field {
+    color: #585858;
+    font-size: 1em;
+}
+
+.admin-users-item-status {
+    position: absolute;
+    margin: 0;
+    right: 16px;
+    top: 32px;
+    font-size: .8em;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.green-tag {
+    border: 1px solid #72c63a;
+    color: #72c63a;
+}
+
+.red-tag {
+    border: 1px solid #ff0000;
+    color: #ff0000;
+}
+
+.admin-users-item-controller {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.admin-users-item-createdat {
+    margin: 0;
+    text-align: right;
+    color: #797979;
+    font-size: .8em;
+}
+
+ion-icon {
+    font-size: 1.4em;
+}

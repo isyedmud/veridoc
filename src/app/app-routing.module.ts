@@ -9,9 +9,13 @@ const routes: Routes = [
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
   { path: 'contact', loadChildren: './pages/contact/contact.module#ContactPageModule'},
   { path: 'faq', loadChildren: './pages/faq/faq.module#FaqPageModule' },
-  { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule' },
-  { path: 'pay-opt', loadChildren: './pages/pay-opt/pay-opt.module#PayOptPageModule' },
-  { path: 'user-request', loadChildren: './pages/user-request/user-request.module#UserRequestPageModule' },
+  { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule', canActivate: [AuthGuard]},
+  { path: 'pay-opt', loadChildren: './pages/pay-opt/pay-opt.module#PayOptPageModule', canActivate: [AuthGuard]},
+  { path: 'mydocuments', loadChildren: './pages/user/mydocuments/mydocuments.module#MydocumentsPageModule', canActivate: [AuthGuard]},
+  { path: 'view-attachment', loadChildren: './pages/expert/view-attachment/view-attachment.module#ViewAttachmentPageModule', canActivate:[AuthGuard] },
+  { path: 'reviewed-cases', loadChildren: './pages/expert/reviewed-cases/reviewed-cases.module#ReviewedCasesPageModule', canActivate:[AuthGuard] },
+  { path: 'our-experts', loadChildren: './pages/our-experts/our-experts.module#OurExpertsPageModule' },
+  
 ];
 
 @NgModule({

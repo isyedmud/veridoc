@@ -5,7 +5,7 @@
     }
 
     #register-page-header {
-        background-color: #418faf;
+        background-color: #3780ff;
         color: white;
     }
 
@@ -21,6 +21,13 @@
     padding: 16px 0;
 }
 
+#register-page-avatar {
+    text-align: center;
+    img {
+        width: 80px;
+    }
+}
+
 #r-registered {
     font-size: .9em;
     color: #808080;
@@ -34,4 +41,8 @@
     ion-button {
         width: 70%;
     }
+}
+
+#avatarSelector {
+    display: none;
 }

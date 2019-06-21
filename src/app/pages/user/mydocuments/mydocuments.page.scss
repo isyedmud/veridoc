@@ -1,0 +1,36 @@
+.mydocuments-request-item {
+    margin: 16px 16px 3vh 16px;
+    box-shadow: 0 0 8px #c7c7c7;
+}
+
+.mydocuments-request-header {
+    background-color: #3780ff;
+    p {
+        margin: 0;
+        padding: 16px;
+        color: white;
+    }
+}
+
+.mydocuments-request-contents {
+    padding: 16px;
+}
+
+.mydocuments-request-contents-image {
+    width: 200px;
+    margin-bottom: 2vh;
+}
+
+.mydocuments-request-contents-document {
+    margin-bottom: 2vh;
+}
+
+.mydocuments-request-footer {
+    p {
+        margin: 0;
+        padding: 16px;
+        text-align: right;
+        font-size: .9em;
+        color: #696969;
+    }
+}

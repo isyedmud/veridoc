@@ -11,6 +11,10 @@
 <ion-content padding>
   <div id="register-page-container">
     <p id="register-page-header">Register</p>
+    <div id="register-page-avatar">
+      <img src="assets/imgs/img-default-profile.svg" (click)="onClickAvatar()"/>
+    </div>
+    <input type="file" id="avatarSelector" #avatarSelector />
     <div id="register-page-main-content">
       <form [formGroup]="registerForm">
         <ion-item>

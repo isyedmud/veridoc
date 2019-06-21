@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="onClickNavBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Requests</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="request-list">
+    <div *ngFor="let request of arrRequests; let i = index;" class="request-item">
+      <div class="request-item-header">
+        <p>
+          {{request._id}}
+        </p>
+        <div>
+          <ion-button fill="clear" color="white" (click)="onClickReview(i)">
+            <ion-icon name="checkmark"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+      <div class="request-item-content">
+        <p>
+          Comments: {{request.comments}}
+        </p>
+        <p>
+          Queries: {{request.queries}}
+        </p>
+        <ion-item lines="none" (click)="onToggleViewAttachment(i)">
+          <ion-icon *ngIf="!request.expanded" name="arrow-dropright"></ion-icon>
+          <ion-icon *ngIf="request.expanded" name="arrow-dropdown"></ion-icon>
+          <ion-label>View Attachments</ion-label>
+        </ion-item>
+        <ion-list *ngIf="request.expanded" no-padding>
+          <div *ngFor="let file of request.files">
+            <p (click)="onClickAttachments(file.filename)">
+              {{file.filename}}
+            </p>
+          </div>
+        </ion-list>
+      </div>
+      <div class="request-item-footer">
+        <p>
+          Created At: {{request.createdAt | doctime}}
+        </p>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar (click)="onClickReviewedCases()">
+    <ion-title>Reviewd Cases</ion-title>
+  </ion-toolbar>
+</ion-footer>

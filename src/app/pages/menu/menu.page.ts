@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, Events, AlertController } from '@ionic/angular';
+import { NavController, Events, AlertController, LoadingController } from '@ionic/angular';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
   selector: 'app-menu',
@@ -14,11 +15,21 @@ export class MenuPage implements OnInit {
    */
   private pages = [];
 
+  /**
+   * User Role
+   * 0: User
+   * 1: Expert
+   * 2: Admin
+   */
+  private userRole: String;
+
   constructor(
     private navCtrl: NavController,
     private event: Events,
     private altCtrl: AlertController,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private loadingCtrl: LoadingController,
+    private apiService: ApiService
   ) { }
 
   ngOnInit() {}
@@ -29,6 +40,7 @@ export class MenuPage implements OnInit {
 
   initPage() {
     const isLoggedIn = localStorage.getItem("isLoggedIn")=='true'?true: false;
+    this.userRole = localStorage.getItem("role");
     if(isLoggedIn == false) {
       this.pages = [
         {
@@ -41,32 +53,78 @@ export class MenuPage implements OnInit {
         },
       ];
     } else {
-      this.pages = [
-        {
-          id: 5,
-          name: "Request"
-        },
-        {
-          id: 6,
-          name: "My profile"
-        },
-        {
-          id: 7,
-          name: "Payment Option"
-        },
-        {
-          id: 8,
-          name: "Change Password"
-        },
+      const commonMenu = [
         {
           id: 9,
-          name: "Delete Account"
+          name: "Change Password"
         },
         {
           id: 11,
           name: "Log Out"
         },
-      ]
+      ];
+
+      if(this.userRole == '0') {
+        this.pages = [
+          {
+            id: 5,
+            name: "New Request"
+          },
+          {
+            id: 6,
+            name: "My Requests"
+          },
+          {
+            id: 7,
+            name: "My profile"
+          },
+          {
+            id: 8,
+            name: "Payment Option"
+          },
+          {
+            id: 10,
+            name: "Delete Account"
+          },
+        ];
+      } else if(this.userRole == '1') {
+        this.pages = [
+          {
+            id: 6,
+            name: "Requests"
+          },
+          {
+            id: 7,
+            name: "My profile"
+          },
+          {
+            id: 8,
+            name: "Bank Details"
+          },
+          {
+            id: 10,
+            name: "Delete Account"
+          },
+        ];
+      } else if(this.userRole == '2') {
+        this.pages = [
+          {
+            id: 5,
+            name: "Users"
+          },
+          {
+            id: 6,
+            name: "Requests"
+          },
+          {
+            id: 7,
+            name: "My profile"
+          },
+        ]
+      }
+      this.pages = this.pages.concat(commonMenu);
+      this.pages.sort((a, b) => a.id - b.id);
+      console.log(this.pages);
     }
   }
 
@@ -83,16 +141,32 @@ export class MenuPage implements OnInit {
         this.navCtrl.navigateForward('/register');
         break;
       case 5: 
-        this.navCtrl.navigateForward('/menu/expertsreview');
+        if(this.userRole == '0') {
+          this.navCtrl.navigateForward('/menu/expertsreview');
+        } else {
+          this.navCtrl.navigateForward('/menu/admin-users');
+        }
         break;
-      case 6:
-        this.navCtrl.navigateForward('/profile');
+      case 6: 
+        if(this.userRole == '0') {
+          this.navCtrl.navigateForward('/menu/myrequests');
+        } else if(this.userRole == '1') {
+          this.navCtrl.navigateForward('/menu/expert-requests');
+        } else {
+          this.navCtrl.navigateForward('/menu/admin-requests');
+        }
         break;
       case 7:
+        this.navCtrl.navigateForward('/profile');
+        break;
+      case 8:
         this.navCtrl.navigateForward('/pay-opt');
         break;
-      case 8: 
+      case 9: 
         this.showPasswordResetDlg();
+        break;
+      case 10:
+        this.showDeleteAccountAlert();
         break;
       case 11:
         this.showLogoutAlert();
@@ -183,6 +257,53 @@ export class MenuPage implements OnInit {
    */
   resetPassword(oldPwd, newPwd) {
     console.log("Old New", oldPwd, newPwd);
+  }
+
+  async showDeleteAccountAlert() {
+    const deleteAlt = await this.altCtrl.create({
+      header: "You want to delete the account?",
+      subHeader: "",
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            
+          }
+        }, {
+          text: 'Ok',
+          handler: () => {
+            this.deleteAccount();
+          }
+        }
+      ]
+    });
+
+    await deleteAlt.present();
+  }
+
+  async deleteAccount() {
+    const deleteLoader = await this.loadingCtrl.create({
+      message: "Please wait..."
+    });
+    await deleteLoader.present();
+
+    const uid = localStorage.getItem("uid");
+    const role = localStorage.getItem("role");
+    this.apiService.deleteAccount(uid, role)
+      .subscribe((res: any) => {
+        this.toastService.showToast("Account is Deleted!");
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("uid");
+        this.initPage();
+        this.event.publish("onLoginStatusChange");
+        deleteLoader.dismiss();
+        this.navCtrl.navigateBack('/menu/landing');
+      }, error => {
+        console.log(error);
+        deleteLoader.dismiss();
+      })
   }
 
 }

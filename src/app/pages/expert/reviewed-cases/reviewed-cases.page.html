@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button fill="clear" (click)="onClickNavBack()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Reviewed Cases</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+
+  <div id="myrequests-searchbar">
+    <ion-searchbar placeholder="Filter Requests" [(ngModel)]="strKeyword" (ionChange)="onChangeSearchInput()" no-padding></ion-searchbar>
+  </div>
+
+  <div id="myrequests-list">
+    <div *ngFor="let request of arrFilterRequests; let i = index;" class="myrequests-item">
+      <div class="myrequests-item-header">
+        <p>
+          RequestId: {{request._id}}
+        </p>
+      </div>
+      <div class="myrequests-item-content">
+        <div class="myrequests-item-status">
+          <p>
+            Status: {{arrStatus[request.status]}}
+          </p>
+          <p *ngIf="request.paymentStatus==1" class="myrequests-item-payment-status">
+            Payment Processed
+          </p>
+          <div *ngIf="request.paymentStatus==0" class="myrequests-item-btn-receivepayment">
+            <ion-button color="danger" [disabled]="request.status==0" (click)="onClickReceivePayment(i)">Payment Received</ion-button>
+          </div>
+        </div>
+        <p>
+          Comments: {{request.comments}}
+        </p>
+        <p>Queries: {{request.queries}}</p>
+        <ion-item lines="none" (click)="onToggleViewAttachment(i)">
+          <ion-icon *ngIf="!request.expanded" name="arrow-dropright"></ion-icon>
+          <ion-icon *ngIf="request.expanded" name="arrow-dropdown"></ion-icon>
+          <ion-label>View Attachments</ion-label>
+        </ion-item>
+        <ion-list *ngIf="request.expanded" no-padding>
+          <div *ngFor="let file of request.files">
+            <p (click)="onClickAttachments(file.filename)">
+              {{file.filename}}
+            </p>
+          </div>
+        </ion-list>
+      </div>
+      <div class="myrequests-item-footer">
+        <p>
+          Created At: {{request.createdAt | doctime}}
+        </p>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -11,6 +11,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +26,9 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
     AppRoutingModule
   ],
   providers: [
+    AndroidPermissions,
+    File,
+    FileTransfer,
     StatusBar,
     SplashScreen,
     EmailComposer,

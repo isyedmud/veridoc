@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="onClickNavBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>My Requests</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div id="request-list-newrequest">
+    <ion-button (click)="onClickNewRequest()">Get Experts Review</ion-button>
+  </div>
+
+  <ion-list no-padding>
+    <div *ngFor="let request of arrMyRequests; let i = index;" class="request-item">
+      <div class="request-item-header">
+        <div>
+          <p>
+            {{arrStatus[request.status]}}
+          </p>
+        </div>
+        <div>
+          <ion-buttons>
+            <ion-button fill="clear" color="white" *ngIf="request.status==1 || request.status==0">
+              <ion-icon name="create"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="white" (click)="onClickCloseRequest(i)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </div>
+      </div>
+      <div class="request-item-inner">
+        <div>
+          <p class="request-item-subheader">
+            Query
+          </p>
+          <p class="request-item-txtcontent">
+            {{request.queries}}
+          </p>
+        </div>
+        <div>
+          <p class="request-item-subheader">
+            Comment
+          </p>
+          <p class="request-item-txtcontent">
+            {{request.comments}}
+          </p>
+        </div>
+        <div>
+
+        </div>
+      </div>
+    </div>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar (click)="onClickMyDocuments()">
+    <ion-title>My Documents</ion-title>
+  </ion-toolbar>
+</ion-footer>

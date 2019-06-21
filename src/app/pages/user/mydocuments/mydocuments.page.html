@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="onClickNavBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>My Documents</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="mydocuments-list-container">
+    <ion-list>
+      <div *ngFor="let request of arrMyRequests" class="mydocuments-request-item">
+        <div class="mydocuments-request-header">
+          <p>
+            RequestId: {{request._id}}
+          </p>
+        </div>
+        <div class="mydocuments-request-contents">
+          <ng-container *ngIf="request.files">
+            <div *ngFor="let file of request.files">
+              <img *ngIf="file.type!='pdf'" class="mydocuments-request-contents-image" [src]="serverAssetsPath + file.filename" (click)="onClickAttachment(file.filename)"/>
+              <img *ngIf="file.type=='pdf'" class="mydocuments-request-contents-document" src="assets/icons/icon-documents.svg" (click)="onClickAttachment(file.filename)"/>
+            </div>
+          </ng-container>
+        </div>
+        <div class="mydocuments-request-footer">
+          <p>
+            Created At: {{request.createdAt | doctime}}
+          </p>
+        </div>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>

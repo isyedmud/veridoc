@@ -1,0 +1,83 @@
+#myrequests-searchbar {
+    padding: 16px;
+}
+
+@media only screen and (max-width: 640px) {
+    #myrequests-searchbar {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 641px) {
+    #myrequests-searchbar {
+        width: 50%;
+    }
+}
+
+#myrequests-list {
+    margin: 16px;
+}
+
+.myrequests-item {
+    margin-bottom: 2vh;
+    box-shadow: 0 0 8px #c7c7c7;
+}
+
+.myrequests-item-status {
+    position: relative;
+    p {
+        margin: 0;
+    }
+}
+
+.myrequests-item-payment-status {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    color: #4dca64;
+    border: 1px solid #4dca64;
+    padding: 4px;
+    border-radius: 6px;
+    font-size: .8em;
+}
+
+.myrequests-item-btn-receivepayment {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+    ion-button {
+        font-size: .8em;
+        --padding-bottom: 4px;
+        --padding-end: 8px;
+        --padding-start: 8px;
+        --padding-top: 4px;
+    }
+}
+
+.myrequests-item-header {
+    padding: 16px;
+    background-color: #3780ff;
+    p {
+        margin: 0;
+        color: white;
+    }
+}
+
+.myrequests-item-content {
+    padding: 16px;
+}
+
+.myrequests-item-footer {
+    padding: 0 16px 16px;
+    p {
+        margin: 0;
+        text-align: right;
+        font-size: .9em;
+    }
+}
+
+ion-list {
+    margin-left: 32px;
+}

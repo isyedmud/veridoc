@@ -11,59 +11,74 @@
   
   <ion-content>
     <div id="admin-requests-list">
-      <div *ngFor="let request of arrRequests; let i = index;" class="admin-requests-item">
-        <div class="admin-request-item-header">
-          <p>
-            {{request._id}}
-          </p>
+      <div *ngFor="let request of arrRequests; let i = index;" class="admin-requests-item" (click)="onClickRequest(i)">
+        <div class="admin-requests-item-header">
+          <div>
+            {{request.createdAt | doctime: false}}
+          </div>
+          <div>
+            <span [class]="'status-' + request.status">
+              {{arrStatus[request.status]}}
+            </span>
+          </div>
         </div>
-        <div class="admin-request-item-content">
+        <div class="admin-requests-item-body">
           <p>
-            Status: {{arrStatus[request.status]}}
+            {{arrCategories[request.category]}}
           </p>
-          <p>
-            Comments: {{request.comments}}
-          </p>
-          <p>
-            Queries: {{request.queries}}
-          </p>
-          <p>
-            Requestor: 
-          </p>
-          <ion-item lines="none" (click)="onToggleViewAttachment(i)">
-            <ion-icon *ngIf="!request.expanded" name="arrow-dropright"></ion-icon>
-            <ion-icon *ngIf="request.expanded" name="arrow-dropdown"></ion-icon>
+          <ion-item lines="none" (click)="onToggleViewAttachment($event, i)">
+            <ion-icon *ngIf="!request.expandattachment" name="arrow-dropright"></ion-icon>
+            <ion-icon *ngIf="request.expandattachment" name="arrow-dropdown"></ion-icon>
             <ion-label>View Attachments</ion-label>
           </ion-item>
-          <ion-list *ngIf="request.expanded" no-padding>
+          <ion-list *ngIf="request.expandattachment" no-padding>
             <div *ngFor="let file of request.files">
-              <p (click)="onClickAttachments(file.filename)">
+              <p (click)="onClickAttachments($event, file.filename)">
                 {{file.filename}}
               </p>
             </div>
           </ion-list>
-          <div class="admin-requests-controllers-container">
-            <p (click)="onClickSentToRequestor(request)">
-              Send To Requestor
-            </p>
-            <p (click)="onClickBackToReviewer(request)">
-              Back To Reviewer
-            </p>
-            <p (click)="onClickAbort(request)">
-              Abort Request
-            </p>
+          <div class="admin-requests-detail" *ngIf="request.expanded">
+            <!-- Initialize request -->
+            <div class="admin-requests-detail-time">
+              <div class="admin-requests-detail-indicator status-1"></div>
+              <p>
+                {{request.createdAt | doctime: true}}
+              </p>
+            </div>
+            <div class="admin-requests-detail-main">
+              <p>
+                Request Initialized
+              </p>
+              <p>
+                {{request.comments}}
+              </p>
+            </div>
+
+            <!-- Complete request -->
+            <ng-container *ngIf="request.status == 3 || request.status == 4">
+                <div class="admin-requests-detail-time">
+                  <div class="admin-requests-detail-indicator status-3"></div>
+                  <p>
+                    {{request.updatedAt | doctime: true}}
+                  </p>
+                </div>
+                <div class="admin-requests-detail-main">
+                  <p>
+                    {{arrStatus[request.status]}}
+                  </p>
+                  <p>
+                    {{request.comments}}
+                  </p>
+                </div>
+            </ng-container>
           </div>
         </div>
-        <div class="admin-request-item-footer">
-          <p>
-            Created At: {{request.createdAt | doctime}}
-          </p>
+        <div class="admin-requests-item-footer">
+          <div>
+            <span *ngIf="request.category == 16" (click)="onClickAssignRequest($event, request)">Assign To Expert</span>
+          </div>
         </div>
       </div>
     </div>
   </ion-content>
-  <ion-footer>
-    <ion-toolbar (click)="onClickAllCases()">
-      <ion-title>All Cases</ion-title>
-    </ion-toolbar>
-  </ion-footer>

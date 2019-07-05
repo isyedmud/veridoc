@@ -32,7 +32,8 @@ var CATEGORIES = [
     "Precision Oncology",
     "Physical Med/Rehab",
     "Pulmonary Medicine and Critical Care",
-    "Rheumatology"
+    "Rheumatology",
+    "I don't know"
 ];
 /**
  * Payment option List
@@ -54,18 +55,23 @@ var CONTACTINFO = {
 /**
  * backend server url
  */
-var BACKENDURL = 'http://192.168.0.104:4200/api/v1';
+var BACKENDURL = 'http://192.168.0.108:4200/api/v1';
 /**
  * uploaded file path on backend server
  */
-var SERVERASSETS = 'http://192.168.0.104:4200/attachments/';
+var SERVERASSETS = 'http://192.168.0.108:4200/attachments/';
 /**
  * Request status
  */
 var STATUS = [
-    "Pending",
+    "Draft",
     "In Progress",
+    "Provide Input",
+    "Completed",
     "Closed"
+    // "Pending",
+    // "In Progress",
+    // "Closed"
 ];
 /**
  * Terms and conditions text
@@ -231,7 +237,7 @@ var MydocumentsPage = /** @class */ (function () {
         window.open(this.serverAssetsPath + path, '_blank');
     };
     MydocumentsPage.prototype.onClickNavBack = function () {
-        this.navCtrl.navigateBack('/menu/request-list');
+        this.navCtrl.navigateBack('/menu/myrequests');
     };
     MydocumentsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -244,91 +250,6 @@ var MydocumentsPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"]])
     ], MydocumentsPage);
     return MydocumentsPage;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/pipes/doctime/doctime.pipe.ts":
-/*!***********************************************!*\
-  !*** ./src/app/pipes/doctime/doctime.pipe.ts ***!
-  \***********************************************/
-/*! exports provided: DoctimePipe */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DoctimePipe", function() { return DoctimePipe; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-var DoctimePipe = /** @class */ (function () {
-    function DoctimePipe() {
-    }
-    DoctimePipe.prototype.transform = function (value) {
-        var result = "";
-        var d = new Date(value);
-        var minVal = d.getMinutes();
-        minVal = minVal < 10 ? '0' + minVal : minVal;
-        var hourVal = d.getHours();
-        var ampm = hourVal >= 12 ? 'pm' : 'am';
-        hourVal = hourVal % 12;
-        hourVal = hourVal ? hourVal : 12;
-        var dayVal = d.getDate();
-        var monVal = d.getMonth() + 1;
-        var yearVal = d.getFullYear();
-        result = monVal + "/" + dayVal + "/" + yearVal + " " + hourVal + ":" + minVal + " " + ampm;
-        return result;
-    };
-    DoctimePipe = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Pipe"])({
-            name: 'doctime'
-        })
-    ], DoctimePipe);
-    return DoctimePipe;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/pipes/pipes.module.ts":
-/*!***************************************!*\
-  !*** ./src/app/pipes/pipes.module.ts ***!
-  \***************************************/
-/*! exports provided: PipesModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PipesModule", function() { return PipesModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _doctime_doctime_pipe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./doctime/doctime.pipe */ "./src/app/pipes/doctime/doctime.pipe.ts");
-
-
-
-
-var PipesModule = /** @class */ (function () {
-    function PipesModule() {
-    }
-    PipesModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [
-                _doctime_doctime_pipe__WEBPACK_IMPORTED_MODULE_3__["DoctimePipe"]
-            ],
-            imports: [
-                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]
-            ],
-            exports: [
-                _doctime_doctime_pipe__WEBPACK_IMPORTED_MODULE_3__["DoctimePipe"]
-            ]
-        })
-    ], PipesModule);
-    return PipesModule;
 }());
 
 
@@ -412,10 +333,18 @@ var ApiService = /** @class */ (function () {
         headers = headers.set("Content-type", "application/json");
         return this.http.post(this.apiUrl + "/user/updateUser", { user: user }, { headers: headers });
     };
-    ApiService.prototype.getAllUsers = function () {
+    /**
+     * Get users by their role
+     * @param role user role
+     * 0: normal user
+     * 1: expert
+     * 2: admin
+     */
+    ApiService.prototype.getUsers = function (role) {
+        if (role === void 0) { role = ""; }
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/getAllUser", { headers: headers });
+        return this.http.post(this.apiUrl + "/user/getUsers", { role: role }, { headers: headers });
     };
     ApiService.prototype.acceptUser = function (uid) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
@@ -457,10 +386,19 @@ var ApiService = /** @class */ (function () {
         headers = headers.set("Content-type", "application/json");
         return this.http.post(this.apiUrl + "/post/getAllRequests", { expertId: expertId }, { headers: headers });
     };
+    /**
+     * Assign request to expert
+     * @param reqdata request data
+     */
     ApiService.prototype.requestSetExpert = function (reqdata) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers = headers.set("Content-type", "application/json");
         return this.http.post(this.apiUrl + "/post/setExpert", reqdata, { headers: headers });
+    };
+    ApiService.prototype.getRequestById = function (reqId) {
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
+        headers = headers.set("Content-type", "application/json");
+        return this.http.post(this.apiUrl + "/post/getRequestById", { reqId: reqId }, { headers: headers });
     };
     ApiService.prototype.uploadFiles = function (formData) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
@@ -490,6 +428,34 @@ var ApiService = /** @class */ (function () {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers = headers.set("Content-type", "application/json");
         return this.http.post(this.apiUrl + "/post/closeRequest", { id: id }, { headers: headers });
+    };
+    /**
+     * Update Request Status
+     * @param id request id
+     * @param status request status
+     */
+    ApiService.prototype.updateRequestStatus = function (id, status) {
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
+        headers = headers.set("Content-type", "application/json");
+        return this.http.post(this.apiUrl + "/post/updateStatus", { id: id, status: status }, { headers: headers });
+    };
+    /**
+     * Provide user's feedback to expert
+     * @param feedback User Feedback: Object
+     */
+    ApiService.prototype.provideFeedback = function (feedback) {
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
+        headers = headers.set("Content-type", "application/json");
+        return this.http.post(this.apiUrl + "/review/provideReview", { feedback: feedback }, { headers: headers });
+    };
+    /**
+     * Provide expert's review for Request
+     * @param expertComment Expert's Comment: Object
+     */
+    ApiService.prototype.provideExpertComment = function (expertComment) {
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
+        headers = headers.set("Content-type", "application/json");
+        return this.http.post(this.apiUrl + "/expert/provideExpertComment", { comment: expertComment }, { headers: headers });
     };
     ApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({

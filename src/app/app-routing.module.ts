@@ -14,7 +14,9 @@ const routes: Routes = [
   { path: 'mydocuments', loadChildren: './pages/user/mydocuments/mydocuments.module#MydocumentsPageModule', canActivate: [AuthGuard]},
   { path: 'view-attachment', loadChildren: './pages/expert/view-attachment/view-attachment.module#ViewAttachmentPageModule', canActivate:[AuthGuard] },
   { path: 'reviewed-cases', loadChildren: './pages/expert/reviewed-cases/reviewed-cases.module#ReviewedCasesPageModule', canActivate:[AuthGuard] },
-  { path: 'our-experts', loadChildren: './pages/our-experts/our-experts.module#OurExpertsPageModule' },
+  { path: 'our-experts', loadChildren: './pages/expert/our-experts/our-experts.module#OurExpertsPageModule' },
+  { path: 'admin-assign-expert/:reqId', loadChildren: './pages/admin/admin-assign-expert/admin-assign-expert.module#AdminAssignExpertPageModule' },
+  { path: 'expert-detail/:expertId', loadChildren: './pages/expert/expert-detail/expert-detail.module#ExpertDetailPageModule' },
   
 ];
 

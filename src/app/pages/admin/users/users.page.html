@@ -30,8 +30,14 @@
         <p class="admin-users-item-content-field">
           Email: {{user.email}}
         </p>
+        <p class="admin-users-item-content-field">
+          Experienced Year: {{user.experiencedyear}}
+        </p>
+        <p class="admin-users-item-content-field">
+          Category: {{arrCategories[user.category]}}
+        </p>
         <p class="admin-users-item-createdat">
-          Created At: {{user.createdAt | doctime}}
+          Created At: {{user.createdAt | doctime: true}}
         </p>
         <div *ngIf="!user.isverified" class="admin-users-item-controller">
           <div>

@@ -4,6 +4,8 @@ import { AlertController, Events, NavController, LoadingController } from '@ioni
 import { MultiFileUploadComponent } from 'src/app/components/multi-file-upload/multi-file-upload.component';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-expertsreview',
@@ -13,9 +15,15 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 export class ExpertsreviewPage implements OnInit {
   @ViewChild(MultiFileUploadComponent) fileField: MultiFileUploadComponent;
 
+  private arrCategories = CATEGORIES;
+
+  private draftRequestId = "";
+  private objDraftRequest = null;
+
+  private requestCategory = 0;
+  private isRequestBehalf = false;
   private initVerifyStep = 1;
   private isFinishCurrentStep = false;
-  private arrCategories = CATEGORIES;
   private arrPaymentopts = PAYMENTOPTIONS;
   private selectedPaymentOpt = 0;
   private isLoggedIn: boolean;
@@ -31,17 +39,38 @@ export class ExpertsreviewPage implements OnInit {
    */
   private strComment = "";
 
+  /**
+   * Behalf request fields
+   */
+  private behalfofname = "";
+  private behalfofrelation = "";
+  private behalfofbod = "1/1/1970";
+  private behalfofgender = "m";
+  private behalfofcountry = "";
+
+  private paymentOptFormSubmit = false;
+  private paymentOptForm: FormGroup;
+
   constructor(
     private altCtrl: AlertController,
     private event: Events,
     private navCtrl: NavController,
     private loadingCtrl: LoadingController,
     private apiService: ApiService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private route: ActivatedRoute,
+    public formBuilder: FormBuilder,
   ) { 
     this.event.subscribe("onLoginStatusChange", data => {
       this.initPage();
     });
+    this.paymentOptForm = formBuilder.group({
+      accountholdername: ['', Validators.compose([Validators.required])],
+      accountnumber: ['', Validators.compose([Validators.required])],
+      ifsccode: ['', Validators.compose([Validators.required])],
+      bankname: ['', Validators.compose([Validators.required])],
+      bankaddress: ['', Validators.compose([Validators.required])]
+    })
   }
 
   ngOnInit() {
@@ -52,7 +81,38 @@ export class ExpertsreviewPage implements OnInit {
   }
 
   initPage() {
+    this.draftRequestId = this.route.snapshot.paramMap.get("requestId")=='null'?null: this.route.snapshot.paramMap.get("requestId");
+    if(this.draftRequestId) {
+      this.getDraftRequest();
+    }
     this.isLoggedIn = localStorage.getItem("isLoggedIn") == 'true'?true: false;
+  }
+
+  async getDraftRequest() {
+    const draftLoader = await this.loadingCtrl.create({
+      message: "Loading..."
+    });
+    await draftLoader.present();
+    this.apiService.getRequestById(this.draftRequestId)
+      .subscribe((data: any) => {
+        console.log(data);
+        if(data.data) {
+          this.strComment = data.data.comments;
+          this.strQuery = data.data.queries;
+          this.requestCategory = data.data.category;
+          this.selectedPaymentOpt = data.data.paymentStatus;
+          this.behalfofname = data.data.behalfofname;
+          this.behalfofrelation = data.data.behalfofrelation;
+          this.behalfofbod = data.data.behalfofbod;
+          this.behalfofgender = data.data.behalfofgender;
+          this.behalfofcountry = data.data.behalfofcountry;
+          this.isRequestBehalf = data.data.isbehalfof;
+        }
+        draftLoader.dismiss();
+      }, error => {
+        console.log(error);
+        draftLoader.dismiss();
+      });
   }
 
   /**
@@ -89,7 +149,8 @@ export class ExpertsreviewPage implements OnInit {
     });
     if(this.initVerifyStep >= 3) {
       this.initVerifyStep = 3;
-      this.postRequest();
+      // this.postRequest();
+      this.onClickSavePayment();
     } else {
       if(this.initVerifyStep == 1) {
         let files = this.fileField.getFiles();
@@ -101,12 +162,15 @@ export class ExpertsreviewPage implements OnInit {
 
         try {
           let uploadResult = await this.apiService.uploadFiles(formData);
-          console.log(uploadResult);
           Object.keys(uploadResult).map(key => {
             this.uploadedFiles.push(uploadResult[key]._id);
           });
-          this.initVerifyStep++;
-          await userTypeAlt.present();
+          if(!this.isLoggedIn) {
+            this.initVerifyStep++;
+            await userTypeAlt.present();
+          } else {
+            this.initVerifyStep = 3;
+          }
         } catch(err) {
           console.log(err);
           this.toastService.showToast("Uploading file failed!");
@@ -123,15 +187,22 @@ export class ExpertsreviewPage implements OnInit {
       message: "Please wait..."
     });
 
-    const postData = {
+    let postData: any = {
+      category: this.requestCategory,
       user: localStorage.getItem("uid"),
-      expert: "",
       comments: this.strComment,
       queries: this.strQuery,
-      status: 0,
+      status: 1,
       files: this.uploadedFiles,
-      paymentStatus: 0
+      paymentStatus: 0,
+      isbehalfof: this.isRequestBehalf,
+      behalfofname: this.behalfofname,
+      behalfofrelation: this.behalfofrelation,
+      behalfofbod: this.behalfofbod,
+      behalfofgender: this.behalfofgender,
+      behalfofcountry: this.behalfofcountry,
     };
+
     await postLoader.present();
     this.apiService.postRequest(postData)
       .subscribe(data => {
@@ -150,8 +221,59 @@ export class ExpertsreviewPage implements OnInit {
     if(this.initVerifyStep <= 1) {
       this.initVerifyStep = 1;
     } else {
-      this.initVerifyStep--;
+      if(this.initVerifyStep == 3) {
+        if(!this.isLoggedIn) {
+          this.initVerifyStep--;    
+        } else {
+          this.initVerifyStep = 1;
+        }
+      } else {
+        this.initVerifyStep--;
+      }
     }    
+  }
+
+  /**
+   * Highlight selected paymentoption
+   * @param index payment option index
+   */
+  onChangePaymentOption(index) {
+    this.selectedPaymentOpt = index;
+  }
+
+  async onClickSavePayment() {
+    this.paymentOptFormSubmit = true;
+    if(this.paymentOptForm.valid) {
+      const savePaymentOptLoader = await this.loadingCtrl.create({
+        message: "Please wait..."
+      });
+
+      await savePaymentOptLoader.present();
+
+      const paymentRequestData = {
+        method: this.selectedPaymentOpt,
+        accountholdername: this.paymentOptForm.controls.accountholdername.value,
+        accountnumber: this.paymentOptForm.controls.accountnumber.value,
+        ifsccode: this.paymentOptForm.controls.ifsccode.value,
+        bankname: this.paymentOptForm.controls.bankname.value,
+        bankaddress: this.paymentOptForm.controls.bankaddress.value,
+        userid: localStorage.getItem("uid")
+      }
+  
+      this.apiService.savePaymentOption(paymentRequestData)
+        .subscribe((data: any) => {
+          console.log(data);
+          savePaymentOptLoader.dismiss();
+          this.postRequest();
+          // this.toastService.showToast("Payment option is saved now.");
+        }, error => {
+          console.log("Save Paymentoption failed!");
+          savePaymentOptLoader.dismiss();
+          this.toastService.showToast("Save Paymentoption failed!");
+        })
+    } else {
+      this.toastService.showToast("Please input necessary fields!");
+    }
   }
 
   onClickNavBack() {

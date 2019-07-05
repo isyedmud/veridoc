@@ -79,7 +79,7 @@ export class ApiService {
    * 1: expert
    * 2: admin
    */
-  getUsers(role="") {
+  getUsers(role="0") {
     let headers = new HttpHeaders();
     headers = headers.set("Content-type", "application/json");
     return this.http.post(this.apiUrl + "/user/getUsers", {role: role}, {headers: headers});
@@ -129,10 +129,20 @@ export class ApiService {
     return this.http.post(this.apiUrl + "/post/getAllRequests", {expertId: expertId}, {headers: headers});
   }
 
+  /**
+   * Assign request to expert
+   * @param reqdata request data
+   */
   requestSetExpert(reqdata) {
     let headers = new HttpHeaders();
     headers = headers.set("Content-type", "application/json");
     return this.http.post(this.apiUrl + "/post/setExpert", reqdata, {headers: headers});
+  }
+
+  getRequestById(reqId) {
+    let headers = new HttpHeaders();
+    headers = headers.set("Content-type", "application/json");
+    return this.http.post(this.apiUrl + "/post/getRequestById", {reqId: reqId}, {headers: headers});
   }
 
   uploadFiles(formData) {
@@ -166,5 +176,57 @@ export class ApiService {
     let headers = new HttpHeaders();
     headers = headers.set("Content-type", "application/json");
     return this.http.post(this.apiUrl + "/post/closeRequest", {id: id}, {headers: headers});
+  }
+
+  /**
+   * Update Request Status
+   * @param id request id
+   * @param status request status
+   */
+  updateRequestStatus(id, status) {
+    let headers = new HttpHeaders();
+    headers = headers.set("Content-type", "application/json");
+    return this.http.post(this.apiUrl + "/post/updateStatus", {id: id, status: status}, {headers: headers});
+  }
+
+  provideInput(id, extra) {
+    let headers = new HttpHeaders();
+    headers = headers.set("Content-type", "application/json");
+    return this.http.post(this.apiUrl + "/post/provideInput", {id: id, extra: extra}, {headers: headers});
+  }
+
+  /**
+   * Provide user's feedback to expert
+   * @param feedback User Feedback: Object
+   */
+  provideFeedback(feedback) {
+    let headers = new HttpHeaders();
+    headers = headers.set("Content-type", "application/json");
+    return this.http.post(this.apiUrl + "/review/provideReview", {feedback: feedback}, {headers: headers});    
+  }
+
+  /**
+   * Provide expert's review for Request
+   * @param expertComment Expert's Comment: Object
+   */
+  provideExpertComment(expertComment) {
+    let headers = new HttpHeaders();
+    headers = headers.set("Content-type", "application/json");
+    return this.http.post(this.apiUrl + "/expert/provideExpertComment", {comment: expertComment}, {headers: headers});        
+  }
+
+  /**
+   * Get Reviews of specific expert
+   */
+  getReviewByExpertId(expertId) {
+    let headers = new HttpHeaders();
+    headers = headers.set("Content-type", "application/json");
+    return this.http.post(this.apiUrl + "/review/getReviewByExpertId", {expertId: expertId}, {headers: headers});  
+  }
+
+  savePaymentOption(data) {
+    let headers = new HttpHeaders();
+    headers = headers.set("Content-type", "application/json");
+    return this.http.post(this.apiUrl + "/payment/saveOption", data, {headers: headers});  
   }
 }

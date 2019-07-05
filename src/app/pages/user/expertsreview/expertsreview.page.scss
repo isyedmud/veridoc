@@ -5,6 +5,18 @@ ion-toolbar {
     }
 }
 
+ion-content {
+    --background: #f7f7f7;
+}
+
+ion-list, ion-item-divider {
+    background: transparent !important;
+}
+
+ion-item {
+    --background: transparent;
+}
+
 .verify-progress-indicator-container {
     background: #F3F6F9;
     padding: 8vh 16px;
@@ -104,4 +116,41 @@ ion-toolbar {
 
 #verify-progress-main-content {
     padding: 16px;
+}
+
+#verify-progress-paymentopt-container {
+    display: flex;
+    div {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+.paymentopt-img-container {
+    display: inline-block;
+    padding: 12px;
+}
+
+.active-payment {
+    background-color: #dedede;
+}
+
+.inactive-payment {
+    background-color: #f7f7f7;
+}
+
+@media only screen and (max-width: 420px) {
+    .paymentopt-img-container {
+        img {
+            max-width: 64px;
+        }
+    }
+}
+
+@media only screen and (min-width: 421px) {
+    .paymentopt-img-container {
+        img {
+            max-width: 100px;
+        }
+    }   
 }

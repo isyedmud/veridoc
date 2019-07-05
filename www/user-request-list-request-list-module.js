@@ -1,87 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["user-request-list-request-list-module"],{
 
-/***/ "./src/app/pages/constants.ts":
-/*!************************************!*\
-  !*** ./src/app/pages/constants.ts ***!
-  \************************************/
-/*! exports provided: CATEGORIES, PAYMENTOPTIONS, CONTACTINFO, BACKENDURL, SERVERASSETS, STATUS, TERMSANDCONDITIONSTXT */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CATEGORIES", function() { return CATEGORIES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PAYMENTOPTIONS", function() { return PAYMENTOPTIONS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONTACTINFO", function() { return CONTACTINFO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BACKENDURL", function() { return BACKENDURL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SERVERASSETS", function() { return SERVERASSETS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STATUS", function() { return STATUS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TERMSANDCONDITIONSTXT", function() { return TERMSANDCONDITIONSTXT; });
-var CATEGORIES = [
-    "Cardiology",
-    "Endocrinology",
-    "Infectious Diseases",
-    "Nephrology",
-    "Oncology & Hematology",
-    "Pediatrics",
-    "Psychiatry",
-    "Radiology",
-    "Dermatology",
-    "Gastroenterology",
-    "Internal Medicine",
-    "Neurology",
-    "Precision Oncology",
-    "Physical Med/Rehab",
-    "Pulmonary Medicine and Critical Care",
-    "Rheumatology"
-];
-/**
- * Payment option List
- */
-var PAYMENTOPTIONS = [
-    "Debit Card",
-    "Credit Card",
-    "Paypal",
-    "Paytm",
-    "Internet Banking"
-];
-/**
- * Contact info for Veridoc
- */
-var CONTACTINFO = {
-    email: "test@testemail.com",
-    number: "+123456789"
-};
-/**
- * backend server url
- */
-var BACKENDURL = 'http://192.168.0.104:4200/api/v1';
-/**
- * uploaded file path on backend server
- */
-var SERVERASSETS = 'http://192.168.0.104:4200/attachments/';
-/**
- * Request status
- */
-var STATUS = [
-    "Pending",
-    "In Progress",
-    "Closed"
-];
-/**
- * Terms and conditions text
- */
-var TERMSANDCONDITIONSTXT = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-/**
- * 0: open
- * 1: in progress
- * 2: aborted
- * 3: closed
- * 4: withdrawn
- */ 
-
-
-/***/ }),
-
 /***/ "./src/app/pages/user/request-list/request-list.module.ts":
 /*!****************************************************************!*\
   !*** ./src/app/pages/user/request-list/request-list.module.ts ***!
@@ -99,6 +17,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _request_list_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./request-list.page */ "./src/app/pages/user/request-list/request-list.page.ts");
+/* harmony import */ var _modal_modal_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../modal/modal.module */ "./src/app/pages/modal/modal.module.ts");
+
 
 
 
@@ -121,9 +41,12 @@ var RequestListPageModule = /** @class */ (function () {
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
+                _modal_modal_module__WEBPACK_IMPORTED_MODULE_7__["ModalModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(routes)
             ],
-            declarations: [_request_list_page__WEBPACK_IMPORTED_MODULE_6__["RequestListPage"]]
+            declarations: [
+                _request_list_page__WEBPACK_IMPORTED_MODULE_6__["RequestListPage"],
+            ]
         })
     ], RequestListPageModule);
     return RequestListPageModule;
@@ -140,7 +63,7 @@ var RequestListPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button fill=\"clear\" (click)=\"onClickNavBack()\">\n        <ion-icon name=\"arrow-back\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <ion-title>My Requests</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div id=\"request-list-newrequest\">\n    <ion-button (click)=\"onClickNewRequest()\">Get Experts Review</ion-button>\n  </div>\n\n  <ion-list no-padding>\n    <div *ngFor=\"let request of arrMyRequests; let i = index;\" class=\"request-item\">\n      <div class=\"request-item-header\">\n        <div>\n          <p>\n            {{arrStatus[request.status]}}\n          </p>\n        </div>\n        <div>\n          <ion-buttons>\n            <ion-button fill=\"clear\" color=\"white\" *ngIf=\"request.status==1 || request.status==0\">\n              <ion-icon name=\"create\"></ion-icon>\n            </ion-button>\n            <ion-button fill=\"clear\" color=\"white\" (click)=\"onClickCloseRequest(i)\">\n              <ion-icon name=\"trash\"></ion-icon>\n            </ion-button>\n          </ion-buttons>\n        </div>\n      </div>\n      <div class=\"request-item-inner\">\n        <div>\n          <p class=\"request-item-subheader\">\n            Query\n          </p>\n          <p class=\"request-item-txtcontent\">\n            {{request.queries}}\n          </p>\n        </div>\n        <div>\n          <p class=\"request-item-subheader\">\n            Comment\n          </p>\n          <p class=\"request-item-txtcontent\">\n            {{request.comments}}\n          </p>\n        </div>\n        <div>\n\n        </div>\n      </div>\n    </div>\n  </ion-list>\n</ion-content>\n<ion-footer>\n  <ion-toolbar (click)=\"onClickMyDocuments()\">\n    <ion-title>My Documents</ion-title>\n  </ion-toolbar>\n</ion-footer>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button fill=\"clear\" (click)=\"onClickNavBack()\">\n        <ion-icon name=\"arrow-back\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <ion-title>My Requests</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"onClickFilterBtn()\">\n        <ion-icon src=\"assets/icons/icon-custom-filter.svg\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div id=\"request-list-header\">\n    <div id=\"request-list-viewtype\">\n      <div id=\"request-btn-listview\" [class]=\"selectedView==0?'active-viewtype': 'inactive-viewtype'\" (click)=\"onClickViewType(0)\">\n        <img [src]=\"selectedView==0?'assets/icons/icon-list-active.svg':'assets/icons/icon-list-inactive.svg'\" />\n        <p>\n          List\n        </p>\n      </div>\n      <div id=\"request-btn-gridview\" [class]=\"selectedView==1?'active-viewtype': 'inactive-viewtype'\" (click)=\"onClickViewType(1)\">\n        <img [src]=\"selectedView==1?'assets/icons/icon-grid-active.svg':'assets/icons/icon-grid-inactive.svg'\" />\n        <p>\n          Grid\n        </p>\n      </div>      \n    </div>\n    <div id=\"request-list-newrequest\">\n      <ion-button (click)=\"onClickNewRequest()\">Get Experts Review</ion-button>\n    </div>\n  </div>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col [size]=\"gridcount\" *ngFor=\"let request of arrMyRequests; let i = index;\">\n        <div class=\"request-item\">\n          <div class=\"request-item-header\">\n            <div>\n              <p>\n                {{arrStatus[request.status]}}\n              </p>\n            </div>\n            <div>\n              <ion-buttons>\n                <ion-button fill=\"clear\" color=\"white\" *ngIf=\"request.status==1 || request.status==0\">\n                  <ion-icon name=\"create\"></ion-icon>\n                </ion-button>\n                <ion-button fill=\"clear\" color=\"white\" (click)=\"onClickCloseRequest(i)\">\n                  <ion-icon name=\"trash\"></ion-icon>\n                </ion-button>\n              </ion-buttons>\n            </div>\n          </div>\n          <div class=\"request-item-inner\">\n            <div>\n              <ion-item lines=\"none\">\n                <ion-label>Category</ion-label>\n                <ion-select [(ngModel)]=\"request.category\" disabled=true>\n                  <ion-select-option *ngFor=\"let category of arrCategories; let j = index;\" [value]=\"j\">\n                    {{category}}\n                  </ion-select-option>\n                </ion-select>\n              </ion-item>\n              <p class=\"request-item-subheader\">\n                Query:\n              </p>\n              <ion-textarea disabled=true [(ngModel)]=\"request.queries\"></ion-textarea>\n            </div>\n            <div>\n              <p class=\"request-item-subheader\">\n                Comment: {{request.comments}}\n              </p>\n              <ion-textarea disabled=true [(ngModel)]=\"request.comments\"></ion-textarea>\n            </div>\n          </div>\n          <div class=\"request-item-footer\">\n            <ng-container [ngSwitch]=\"request.status\">\n              <div *ngSwitchCase=\"0\" class=\"request-item-footer-controls\">\n                <div>\n                  <ion-button expand=\"full\" (click)=\"onClickRequestAction(0, i)\">Complete your request</ion-button>\n                </div>\n              </div>\n              <div *ngSwitchCase=\"1\" class=\"request-item-footer-controls\">\n                <div>\n                  <ion-button expand=\"full\" (click)=\"onClickRequestAction(1, i)\">View Details</ion-button>\n                </div>\n              </div>\n              <div *ngSwitchCase=\"2\" class=\"request-item-footer-controls\">\n                <div>\n                  <ion-button expand=\"full\" (click)=\"onClickRequestAction(2, i)\">Take action</ion-button>\n                </div>\n              </div>\n              <div *ngSwitchCase=\"3\" class=\"request-item-footer-controls\">\n                <div>\n                  <ion-button expand=\"full\" (click)=\"onClickRequestAction(3, i)\">Need Clarification</ion-button>\n                </div>\n                <div>\n                  <ion-button expand=\"full\" (click)=\"onClickRequestAction(4, i)\">Close Request</ion-button>\n                </div>\n                <div>\n                  <ion-button expand=\"full\" (click)=\"onClickRequestAction(5, i)\">Not Satisfied</ion-button>\n                </div>\n              </div>\n              <div *ngSwitchCase=\"4\">\n                <div>\n                  <ion-button expand=\"full\" (click)=\"onClickRequestAction(6, i)\">Re open</ion-button>\n                </div>\n              </div>\n            </ng-container>\n          </div>\n        </div>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>\n<ion-footer>\n  <ion-toolbar (click)=\"onClickMyDocuments()\">\n    <ion-title>My Documents</ion-title>\n  </ion-toolbar>\n</ion-footer>\n"
 
 /***/ }),
 
@@ -151,7 +74,7 @@ module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-footer ion-title {\n  text-align: center; }\n\n#request-list-newrequest {\n  width: 100%;\n  padding: 16px 16px 0 16px;\n  text-align: right; }\n\n.request-item {\n  margin: 16px;\n  box-shadow: 0 2px 4px #b3b3b3; }\n\n.request-item-header {\n  background-color: #3780ff;\n  display: flex; }\n\n.request-item-header div {\n    flex: 1; }\n\n.request-item-header div p {\n      margin: 0;\n      padding: 16px;\n      color: white; }\n\n.request-item-header > div:nth-child(2) {\n  display: flex;\n  align-items: center;\n  justify-content: flex-end; }\n\n.request-item-inner {\n  padding: 16px; }\n\n.request-item-subheader {\n  color: #656565; }\n\n.request-item-txtcontent {\n  margin-left: 16px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0RhdGExL1dvcmtzcGFjZS9pb25pYy92ZXJpZG9jL3NyYy9hcHAvcGFnZXMvdXNlci9yZXF1ZXN0LWxpc3QvcmVxdWVzdC1saXN0LnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUVRLGtCQUFrQixFQUFBOztBQUkxQjtFQUNJLFdBQVc7RUFFWCx5QkFBeUI7RUFDekIsaUJBQWlCLEVBQUE7O0FBR3JCO0VBQ0ksWUFBWTtFQUNaLDZCQUE2QixFQUFBOztBQUdqQztFQUNJLHlCQUF5QjtFQUN6QixhQUFhLEVBQUE7O0FBRmpCO0lBSVEsT0FBTyxFQUFBOztBQUpmO01BTVksU0FBUztNQUNULGFBQWE7TUFDYixZQUFZLEVBQUE7O0FBS3hCO0VBQ0ksYUFBYTtFQUNiLG1CQUFtQjtFQUNuQix5QkFBeUIsRUFBQTs7QUFHN0I7RUFDSSxhQUFhLEVBQUE7O0FBR2pCO0VBQ0ksY0FBYyxFQUFBOztBQUdsQjtFQUNJLGlCQUFpQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvdXNlci9yZXF1ZXN0LWxpc3QvcmVxdWVzdC1saXN0LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1mb290ZXIge1xuICAgIGlvbi10aXRsZSB7XG4gICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICB9XG59XG5cbiNyZXF1ZXN0LWxpc3QtbmV3cmVxdWVzdCB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgLy8gbWFyZ2luLXRvcDogMnZoO1xuICAgIHBhZGRpbmc6IDE2cHggMTZweCAwIDE2cHg7XG4gICAgdGV4dC1hbGlnbjogcmlnaHQ7XG59XG5cbi5yZXF1ZXN0LWl0ZW0ge1xuICAgIG1hcmdpbjogMTZweDtcbiAgICBib3gtc2hhZG93OiAwIDJweCA0cHggI2IzYjNiMztcbn1cblxuLnJlcXVlc3QtaXRlbS1oZWFkZXIge1xuICAgIGJhY2tncm91bmQtY29sb3I6ICMzNzgwZmY7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBkaXYge1xuICAgICAgICBmbGV4OiAxO1xuICAgICAgICBwIHtcbiAgICAgICAgICAgIG1hcmdpbjogMDtcbiAgICAgICAgICAgIHBhZGRpbmc6IDE2cHg7XG4gICAgICAgICAgICBjb2xvcjogd2hpdGU7XG4gICAgICAgIH1cbiAgICB9XG59XG5cbi5yZXF1ZXN0LWl0ZW0taGVhZGVyID4gZGl2Om50aC1jaGlsZCgyKSB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGp1c3RpZnktY29udGVudDogZmxleC1lbmQ7XG59XG5cbi5yZXF1ZXN0LWl0ZW0taW5uZXIge1xuICAgIHBhZGRpbmc6IDE2cHg7XG59XG5cbi5yZXF1ZXN0LWl0ZW0tc3ViaGVhZGVyIHtcbiAgICBjb2xvcjogIzY1NjU2NTtcbn1cblxuLnJlcXVlc3QtaXRlbS10eHRjb250ZW50IHtcbiAgICBtYXJnaW4tbGVmdDogMTZweDtcbn1cblxuIl19 */"
+module.exports = "ion-footer ion-title {\n  text-align: center; }\n\n#request-list-newrequest {\n  flex: 1;\n  width: 100%;\n  padding: 16px 16px 0 16px;\n  text-align: right; }\n\n.request-item {\n  margin: 8px;\n  box-shadow: 0 2px 4px #b3b3b3; }\n\n.request-item-header {\n  background-color: #3780ff;\n  display: flex; }\n\n.request-item-header div {\n    flex: 1; }\n\n.request-item-header div p {\n      margin: 0;\n      padding: 16px;\n      color: white; }\n\n.request-item-header > div:nth-child(2) {\n  display: flex;\n  align-items: center;\n  justify-content: flex-end; }\n\n.request-item-inner {\n  padding: 16px; }\n\n.request-item-subheader {\n  color: #656565; }\n\n.request-item-txtcontent {\n  margin-left: 16px; }\n\n#request-list-header {\n  display: flex; }\n\n#request-list-viewtype {\n  flex: 1;\n  display: flex;\n  align-items: center;\n  padding: 16px 16px 0 16px; }\n\n#request-btn-listview, #request-btn-gridview {\n  padding: 10px 12px;\n  display: flex;\n  justify-content: center;\n  margin-left: 1px;\n  cursor: pointer; }\n\n#request-btn-listview img, #request-btn-gridview img {\n    width: 20px; }\n\n#request-btn-listview p, #request-btn-gridview p {\n    margin: 0 0 0 4px; }\n\n.active-viewtype {\n  background-color: #666; }\n\n.active-viewtype p {\n    color: white; }\n\n.inactive-viewtype {\n  background-color: #f1f1f1; }\n\n.inactive-viewtype p {\n    color: #252525; }\n\n.request-item-footer {\n  padding-bottom: 3vh; }\n\n.request-item-footer-controls {\n  display: flex; }\n\n.request-item-footer-controls div {\n    flex: 1;\n    padding: 0 8px; }\n\n@media only screen and (min-width: 641px) {\n  .request-item-footer-controls div ion-button {\n    font-size: .8em; } }\n\n@media only screen and (max-width: 640px) {\n  .request-item-footer-controls div ion-button {\n    font-size: .6em; } }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0RhdGExL1dvcmtzcGFjZS9pb25pYy92ZXJpZG9jL3NyYy9hcHAvcGFnZXMvdXNlci9yZXF1ZXN0LWxpc3QvcmVxdWVzdC1saXN0LnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUVRLGtCQUFrQixFQUFBOztBQUkxQjtFQUNJLE9BQU87RUFDUCxXQUFXO0VBQ1gseUJBQXlCO0VBQ3pCLGlCQUFpQixFQUFBOztBQUdyQjtFQUNJLFdBQVc7RUFDWCw2QkFBNkIsRUFBQTs7QUFHakM7RUFDSSx5QkFBeUI7RUFDekIsYUFBYSxFQUFBOztBQUZqQjtJQUlRLE9BQU8sRUFBQTs7QUFKZjtNQU1ZLFNBQVM7TUFDVCxhQUFhO01BQ2IsWUFBWSxFQUFBOztBQUt4QjtFQUNJLGFBQWE7RUFDYixtQkFBbUI7RUFDbkIseUJBQXlCLEVBQUE7O0FBRzdCO0VBQ0ksYUFBYSxFQUFBOztBQUdqQjtFQUNJLGNBQWMsRUFBQTs7QUFHbEI7RUFDSSxpQkFBaUIsRUFBQTs7QUFHckI7RUFDSSxhQUFhLEVBQUE7O0FBR2pCO0VBQ0ksT0FBTztFQUNQLGFBQWE7RUFDYixtQkFBbUI7RUFDbkIseUJBQXlCLEVBQUE7O0FBRzdCO0VBQ0ksa0JBQWtCO0VBQ2xCLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsZ0JBQWdCO0VBQ2hCLGVBQWUsRUFBQTs7QUFMbkI7SUFPUSxXQUFXLEVBQUE7O0FBUG5CO0lBV1EsaUJBQWlCLEVBQUE7O0FBSXpCO0VBQ0ksc0JBQXNCLEVBQUE7O0FBRDFCO0lBR1EsWUFBWSxFQUFBOztBQUlwQjtFQUNJLHlCQUF5QixFQUFBOztBQUQ3QjtJQUdRLGNBQWMsRUFBQTs7QUFJdEI7RUFDSSxtQkFBbUIsRUFBQTs7QUFHdkI7RUFDSSxhQUFhLEVBQUE7O0FBRGpCO0lBR1EsT0FBTztJQUNQLGNBQWMsRUFBQTs7QUFJdEI7RUFDSTtJQUdZLGVBQWUsRUFBQSxFQUNsQjs7QUFLYjtFQUNJO0lBR1ksZUFBZSxFQUFBLEVBQ2xCIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvdXNlci9yZXF1ZXN0LWxpc3QvcmVxdWVzdC1saXN0LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1mb290ZXIge1xuICAgIGlvbi10aXRsZSB7XG4gICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICB9XG59XG5cbiNyZXF1ZXN0LWxpc3QtbmV3cmVxdWVzdCB7XG4gICAgZmxleDogMTtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBwYWRkaW5nOiAxNnB4IDE2cHggMCAxNnB4O1xuICAgIHRleHQtYWxpZ246IHJpZ2h0O1xufVxuXG4ucmVxdWVzdC1pdGVtIHtcbiAgICBtYXJnaW46IDhweDtcbiAgICBib3gtc2hhZG93OiAwIDJweCA0cHggI2IzYjNiMztcbn1cblxuLnJlcXVlc3QtaXRlbS1oZWFkZXIge1xuICAgIGJhY2tncm91bmQtY29sb3I6ICMzNzgwZmY7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBkaXYge1xuICAgICAgICBmbGV4OiAxO1xuICAgICAgICBwIHtcbiAgICAgICAgICAgIG1hcmdpbjogMDtcbiAgICAgICAgICAgIHBhZGRpbmc6IDE2cHg7XG4gICAgICAgICAgICBjb2xvcjogd2hpdGU7XG4gICAgICAgIH1cbiAgICB9XG59XG5cbi5yZXF1ZXN0LWl0ZW0taGVhZGVyID4gZGl2Om50aC1jaGlsZCgyKSB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGp1c3RpZnktY29udGVudDogZmxleC1lbmQ7XG59XG5cbi5yZXF1ZXN0LWl0ZW0taW5uZXIge1xuICAgIHBhZGRpbmc6IDE2cHg7XG59XG5cbi5yZXF1ZXN0LWl0ZW0tc3ViaGVhZGVyIHtcbiAgICBjb2xvcjogIzY1NjU2NTtcbn1cblxuLnJlcXVlc3QtaXRlbS10eHRjb250ZW50IHtcbiAgICBtYXJnaW4tbGVmdDogMTZweDtcbn1cblxuI3JlcXVlc3QtbGlzdC1oZWFkZXIge1xuICAgIGRpc3BsYXk6IGZsZXg7XG59XG5cbiNyZXF1ZXN0LWxpc3Qtdmlld3R5cGUge1xuICAgIGZsZXg6IDE7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIHBhZGRpbmc6IDE2cHggMTZweCAwIDE2cHg7XG59XG5cbiNyZXF1ZXN0LWJ0bi1saXN0dmlldywgI3JlcXVlc3QtYnRuLWdyaWR2aWV3IHtcbiAgICBwYWRkaW5nOiAxMHB4IDEycHg7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBtYXJnaW4tbGVmdDogMXB4O1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBpbWcge1xuICAgICAgICB3aWR0aDogMjBweDtcbiAgICB9XG5cbiAgICBwIHtcbiAgICAgICAgbWFyZ2luOiAwIDAgMCA0cHg7XG4gICAgfVxufVxuXG4uYWN0aXZlLXZpZXd0eXBlIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjNjY2O1xuICAgIHAge1xuICAgICAgICBjb2xvcjogd2hpdGU7XG4gICAgfVxufVxuXG4uaW5hY3RpdmUtdmlld3R5cGUge1xuICAgIGJhY2tncm91bmQtY29sb3I6ICNmMWYxZjE7XG4gICAgcCB7XG4gICAgICAgIGNvbG9yOiAjMjUyNTI1O1xuICAgIH1cbn1cblxuLnJlcXVlc3QtaXRlbS1mb290ZXIge1xuICAgIHBhZGRpbmctYm90dG9tOiAzdmg7XG59XG5cbi5yZXF1ZXN0LWl0ZW0tZm9vdGVyLWNvbnRyb2xzIHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGRpdiB7XG4gICAgICAgIGZsZXg6IDE7XG4gICAgICAgIHBhZGRpbmc6IDAgOHB4O1xuICAgIH1cbn1cblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOiA2NDFweCkge1xuICAgIC5yZXF1ZXN0LWl0ZW0tZm9vdGVyLWNvbnRyb2xzIHtcbiAgICAgICAgZGl2IHtcbiAgICAgICAgICAgIGlvbi1idXR0b24ge1xuICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogLjhlbTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgIH1cbn1cblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiA2NDBweCkge1xuICAgIC5yZXF1ZXN0LWl0ZW0tZm9vdGVyLWNvbnRyb2xzIHtcbiAgICAgICAgZGl2IHtcbiAgICAgICAgICAgIGlvbi1idXR0b24ge1xuICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogLjZlbTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgIH0gICBcbn0iXX0= */"
 
 /***/ }),
 
@@ -171,6 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../constants */ "./src/app/pages/constants.ts");
 /* harmony import */ var src_app_services_toast_toast_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/toast/toast.service */ "./src/app/services/toast/toast.service.ts");
+/* harmony import */ var _popover_filter_filter_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../popover/filter/filter.page */ "./src/app/pages/popover/filter/filter.page.ts");
+/* harmony import */ var _modal_feedback_feedback_page__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../modal/feedback/feedback.page */ "./src/app/pages/modal/feedback/feedback.page.ts");
+
+
 
 
 
@@ -178,14 +105,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var RequestListPage = /** @class */ (function () {
-    function RequestListPage(apiService, loadingCtrl, altCtrl, toastService, navCtrl) {
+    function RequestListPage(apiService, loadingCtrl, altCtrl, toastService, navCtrl, popOver, modalCtrl) {
         this.apiService = apiService;
         this.loadingCtrl = loadingCtrl;
         this.altCtrl = altCtrl;
         this.toastService = toastService;
         this.navCtrl = navCtrl;
+        this.popOver = popOver;
+        this.modalCtrl = modalCtrl;
+        this.arrAllRequests = [];
         this.arrMyRequests = [];
         this.arrStatus = _constants__WEBPACK_IMPORTED_MODULE_4__["STATUS"];
+        this.arrCategories = _constants__WEBPACK_IMPORTED_MODULE_4__["CATEGORIES"];
+        this.selectedView = 0;
+        this.gridcount = 12;
+        this.arrFilterOpts = [
+            "Category",
+            "Date",
+            "Status",
+            "Including Draft",
+        ];
+        this.filter = null;
     }
     RequestListPage.prototype.ngOnInit = function () {
     };
@@ -209,6 +149,8 @@ var RequestListPage = /** @class */ (function () {
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        this.arrMyRequests = [];
+                        this.arrAllRequests = [];
                         uid = localStorage.getItem("uid");
                         return [4 /*yield*/, this.loadingCtrl.create({
                                 message: "Loading..."
@@ -222,8 +164,10 @@ var RequestListPage = /** @class */ (function () {
                             .subscribe(function (res) {
                             _this.arrMyRequests = [];
                             if (res.data) {
+                                console.log(res.data);
+                                _this.arrAllRequests = res.data;
                                 for (var i = 0; i < res.data.length; i++) {
-                                    if (res.data[i].status !== 2) {
+                                    if (res.data[i].status !== 0) {
                                         _this.arrMyRequests.push(res.data[i]);
                                     }
                                 }
@@ -240,10 +184,83 @@ var RequestListPage = /** @class */ (function () {
         });
     };
     /**
+     * Change viewtype
+     * @param viewtype number
+     * 0: listview
+     * 1: gridview
+     */
+    RequestListPage.prototype.onClickViewType = function (viewtype) {
+        this.selectedView = viewtype;
+        if (this.selectedView == 0) {
+            this.gridcount = 12;
+        }
+        else {
+            this.gridcount = 6;
+        }
+    };
+    RequestListPage.prototype.onClickFilterBtn = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var filterPopover;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.popOver.create({
+                            component: _popover_filter_filter_page__WEBPACK_IMPORTED_MODULE_6__["FilterPage"],
+                            event: event,
+                            componentProps: { 'filterOpts': this.arrFilterOpts }
+                        })];
+                    case 1:
+                        filterPopover = _a.sent();
+                        return [4 /*yield*/, filterPopover.present()];
+                    case 2:
+                        _a.sent();
+                        filterPopover.onDidDismiss()
+                            .then(function (data) {
+                            _this.filter = data.data;
+                            if (_this.filter) {
+                                _this.filterRequests();
+                            }
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    RequestListPage.prototype.showHideDrafts = function (option) {
+        if (option) {
+            this.arrMyRequests = this.arrAllRequests;
+        }
+        else {
+            for (var i = 0; i < this.arrAllRequests.length; i++) {
+                if (this.arrAllRequests[i].status !== 0) {
+                    this.arrMyRequests.push(this.arrAllRequests[i]);
+                }
+            }
+        }
+    };
+    RequestListPage.prototype.filterRequests = function () {
+        this.arrMyRequests = [];
+        if (this.filter == 0) {
+            this.showHideDrafts(false);
+            this.arrMyRequests.sort(function (a, b) { return a.category - b.category; });
+        }
+        else if (this.filter == 1) {
+            this.showHideDrafts(false);
+            this.arrMyRequests.sort(function (a, b) { return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); });
+        }
+        else if (this.filter == 2) {
+            this.showHideDrafts(false);
+            this.arrMyRequests.sort(function (a, b) { return a.status - b.status; });
+        }
+        else {
+            this.showHideDrafts(true);
+        }
+    };
+    /**
      * navigate to new request page
      */
     RequestListPage.prototype.onClickNewRequest = function () {
-        this.navCtrl.navigateForward('/menu/expertsreview');
+        this.navCtrl.navigateForward('/menu/expertsreview/null');
     };
     /**
      * Ask user whether close the request or not
@@ -319,6 +336,82 @@ var RequestListPage = /** @class */ (function () {
         });
     };
     /**
+     *
+     * @param actionId
+     * 0: complete the request: go to new request page and complete the step
+     * 1: viewdetails: view request details
+     * 2: take action: provide input
+     * 3: need clarification
+     * 4: close request: close request completely
+     * 5: not satisfied: close the request and provide the bad review
+     */
+    RequestListPage.prototype.onClickRequestAction = function (actionId, arrRequestIndex) {
+        var _this = this;
+        switch (actionId) {
+            case 0:
+                this.navCtrl.navigateForward('/menu/expertsreview/' + this.arrMyRequests[arrRequestIndex]._id);
+                break;
+            case 4:
+                this.showFeedbackModal(arrRequestIndex);
+                break;
+            case 5:
+                this.showFeedbackModal(arrRequestIndex);
+                break;
+            case 6:
+                this.apiService.updateRequestStatus(this.arrMyRequests[arrRequestIndex]._id, 1)
+                    .subscribe(function () {
+                    _this.toastService.showToast("The Request is re-opened");
+                }, function (error) {
+                    console.log(error);
+                    _this.toastService.showToast("Operation failed!");
+                });
+                break;
+            default:
+                break;
+        }
+    };
+    /**
+     * Show Feedbackmodal
+     * @param arrIndex arrMyRequests array index
+     */
+    RequestListPage.prototype.showFeedbackModal = function (arrIndex) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var feedbackModal;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log(this.arrMyRequests[arrIndex]);
+                        return [4 /*yield*/, this.modalCtrl.create({
+                                component: _modal_feedback_feedback_page__WEBPACK_IMPORTED_MODULE_7__["FeedbackPage"],
+                                cssClass: "info-modal",
+                                componentProps: {
+                                    expertId: this.arrMyRequests[arrIndex].expert,
+                                    requestId: this.arrMyRequests[arrIndex]._id
+                                },
+                                backdropDismiss: false
+                            })];
+                    case 1:
+                        feedbackModal = _a.sent();
+                        return [4 /*yield*/, feedbackModal.present()];
+                    case 2:
+                        _a.sent();
+                        feedbackModal.onDidDismiss()
+                            .then(function (data) {
+                            if (data.data == 0) {
+                                _this.toastService.showToast("Successfully placed your feedback!");
+                                _this.getRequests();
+                            }
+                            else {
+                                _this.toastService.showToast("Operation failed!");
+                            }
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
      * View All uploaded doc by user
      */
     RequestListPage.prototype.onClickMyDocuments = function () {
@@ -340,233 +433,11 @@ var RequestListPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"],
             src_app_services_toast_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["PopoverController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"]])
     ], RequestListPage);
     return RequestListPage;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/api/api.service.ts":
-/*!*********************************************!*\
-  !*** ./src/app/services/api/api.service.ts ***!
-  \*********************************************/
-/*! exports provided: ApiService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiService", function() { return ApiService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var src_app_pages_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/pages/constants */ "./src/app/pages/constants.ts");
-
-
-
-
-var ApiService = /** @class */ (function () {
-    function ApiService(http) {
-        this.http = http;
-        /**
-         * API url from constants
-         * @see src/app/pages/constants
-         */
-        this.apiUrl = src_app_pages_constants__WEBPACK_IMPORTED_MODULE_3__["BACKENDURL"];
-    }
-    /**
-     *
-     * @param req
-     * @returns observable
-     */
-    ApiService.prototype.signUp = function (req) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/register", req, { headers: headers });
-    };
-    /**
-     *
-     * @param credential(email: String, password: String)
-     * @returns observable
-     */
-    ApiService.prototype.login = function (credential) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/login", credential, { headers: headers });
-    };
-    /**
-     * Reset Password
-     * @param email: String
-     * @returns observable
-     */
-    ApiService.prototype.resetPassword = function (email) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/restPassword", { email: email }, { headers: headers });
-    };
-    /**
-     * Get Profile Info
-     * @param uid
-     * @returns observable
-     */
-    ApiService.prototype.getUser = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/getUser", { uid: uid }, { headers: headers });
-    };
-    /**
-     * Update User Profile
-     * @param user: Object
-     * @returns observable
-     */
-    ApiService.prototype.updateUser = function (user) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/updateUser", { user: user }, { headers: headers });
-    };
-    ApiService.prototype.getAllUsers = function () {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/getAllUser", { headers: headers });
-    };
-    ApiService.prototype.acceptUser = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/acceptUser", { uid: uid }, { headers: headers });
-    };
-    ApiService.prototype.deleteAccount = function (uid, role) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/deleteUser", { uid: uid, role: role }, { headers: headers });
-    };
-    /**
-     * Post Request
-     * @param post: Object
-     * @returns observable
-     */
-    ApiService.prototype.postRequest = function (post) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/postRequest", { post: post }, { headers: headers });
-    };
-    /**
-     * Get My Requests (User side)
-     * @param uid userid
-     * @returns observable
-     */
-    ApiService.prototype.getRequest = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/getRequest", { uid: uid }, { headers: headers });
-    };
-    /**
-     * Get All requests by expertid
-     * @param expertId expert id
-     */
-    ApiService.prototype.getAllRequests = function (expertId) {
-        if (expertId === void 0) { expertId = ""; }
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/getAllRequests", { expertId: expertId }, { headers: headers });
-    };
-    ApiService.prototype.requestSetExpert = function (reqdata) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/setExpert", reqdata, { headers: headers });
-    };
-    ApiService.prototype.uploadFiles = function (formData) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("enctype", "multipart/form-data");
-        return this.http.post(this.apiUrl + "/post/uploadAttachment", formData, { headers: headers }).toPromise();
-    };
-    /**
-     * Download File from server
-     * @param filename filename to download
-     */
-    ApiService.prototype.downloadFile = function (filename) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/downloadAttachment", { filename: filename }, { responseType: 'blob', headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().append('Content-Type', 'application/json') });
-    };
-    ApiService.prototype.processPayment = function (requestId) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/processPayment", { requestId: requestId }, { headers: headers });
-    };
-    /**
-     * Close Request
-     * @param id request id
-     * @returns observable
-     */
-    ApiService.prototype.closeRequest = function (id) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/closeRequest", { id: id }, { headers: headers });
-    };
-    ApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
-    ], ApiService);
-    return ApiService;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/toast/toast.service.ts":
-/*!*************************************************!*\
-  !*** ./src/app/services/toast/toast.service.ts ***!
-  \*************************************************/
-/*! exports provided: ToastService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastService", function() { return ToastService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-
-
-
-var ToastService = /** @class */ (function () {
-    function ToastService(toastCtrl) {
-        this.toastCtrl = toastCtrl;
-    }
-    /**
-     *
-     * @param message String
-     * @returns null
-     */
-    ToastService.prototype.showToast = function (message) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var toast;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.toastCtrl.create({
-                            message: message,
-                            duration: 3000
-                        })];
-                    case 1:
-                        toast = _a.sent();
-                        toast.present();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    ToastService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
-    ], ToastService);
-    return ToastService;
 }());
 
 

@@ -14,6 +14,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
   ],
   providers: [
     AndroidPermissions,
+    Camera,
     File,
     FileTransfer,
     StatusBar,

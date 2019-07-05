@@ -55,7 +55,7 @@ export class MydocumentsPage implements OnInit {
   }
 
   onClickNavBack() {
-    this.navCtrl.navigateBack('/menu/request-list');
+    this.navCtrl.navigateBack('/menu/myrequests');
   }
 
 }

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { MenuPage } from './menu.page';
 import { AuthGuard } from 'src/app/services/auth/auth.guard';
+import { FilterPage } from '../popover/filter/filter.page';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { AuthGuard } from 'src/app/services/auth/auth.guard';
         component: MenuPage,
         children: [
           {path: 'landing', loadChildren: '../landing/landing.module#LandingPageModule'},
-          {path: 'expertsreview', loadChildren: '../user/expertsreview/expertsreview.module#ExpertsreviewPageModule', canActivate: [ AuthGuard ]},
+          {path: 'expertsreview/:requestId', loadChildren: '../user/expertsreview/expertsreview.module#ExpertsreviewPageModule', canActivate: [ AuthGuard ]},
           {path: 'myrequests', loadChildren: '../user/request-list/request-list.module#RequestListPageModule', canActivate: [ AuthGuard ] },
           {path: 'expert-requests', loadChildren: '../expert/request/request.module#RequestPageModule', canActivate: [ AuthGuard ]},
           { path: 'admin-requests', loadChildren: '../admin/admin-requests/admin-requests.module#AdminRequestsPageModule', canActivate: [AuthGuard] },
@@ -29,6 +30,12 @@ import { AuthGuard } from 'src/app/services/auth/auth.guard';
       }
     ])
   ],
-  declarations: [MenuPage]
+  declarations: [
+    MenuPage,
+    FilterPage
+  ],
+  entryComponents: [
+    FilterPage
+  ]
 })
 export class MenuPageModule {}

@@ -1,0 +1,53 @@
+ion-content {
+    --background: var(--ion-color-light);
+}
+
+ion-grid {
+    ion-row {
+        ion-col {
+            margin-bottom: 2vh;
+        }
+    }
+}
+
+.expert-item {
+    text-align: center;
+    padding: 8px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 12px #cacaca;
+    p {
+        margin: 4px 0;
+    }
+}
+
+.expert-avatar-container {
+    display: flex;
+    justify-content: center;
+}
+
+.expert-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    img {
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.expert-name {
+    font-size: .9em;
+}
+
+.expert-title, .expert-headline {
+    font-size: .8em;
+}

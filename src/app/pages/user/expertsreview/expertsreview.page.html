@@ -33,6 +33,15 @@
   <div id="verify-progress-main-content">
     <div [ngSwitch]="initVerifyStep">
       <div *ngSwitchCase="1">
+        <ion-item>
+          <ion-label>Category</ion-label>
+          <ion-select [(ngModel)]="requestCategory">
+            <ion-select-option *ngFor="let category of arrCategories; let i = index;" [value]="i">
+              {{category}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
         <app-multi-file-upload></app-multi-file-upload>
         <ion-item>
           <ion-label position="stacked">Comments</ion-label>
@@ -42,6 +51,48 @@
           <ion-label position="stacked">Queries</ion-label>
           <ion-textarea [(ngModel)]="strQuery"></ion-textarea>
         </ion-item>
+
+        <ion-item lines="none">
+          <ion-checkbox slot="start" [(ngModel)]="isRequestBehalf"></ion-checkbox>
+          <ion-label>Request on behalf of</ion-label>
+        </ion-item>
+
+        <!-- Behalf request fields -->
+        <ion-item-group *ngIf="isRequestBehalf">
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="behalfofname" placeholder="Name" required=true></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="behalfofrelation" placeholder="Relation" required=true></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Birthday</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="behalfofbod" pickerFormat="DD MMMM YYYY"></ion-datetime>
+          </ion-item>
+
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>Gender</ion-label>
+            </ion-item-divider>
+            <ion-radio-group [(ngModel)]="behalfofgender">
+              <ion-item>
+                <ion-label>Male</ion-label>
+                <ion-radio value="m"></ion-radio>
+              </ion-item>
+          
+              <ion-item>
+                <ion-label>Female</ion-label>
+                <ion-radio value="f"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-item-group>
+
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="behalfofcountry" placeholder="Country and State" required=true></ion-input>
+          </ion-item>
+        </ion-item-group>
       </div>
       <div *ngSwitchCase="2" class="verify-progress-new-user">
         <ion-item>
@@ -75,14 +126,42 @@
         </ion-item>
       </div>
       <div *ngSwitchCase="3" class="verify-progress-payment">
-        <ion-item>
-          <ion-label>Payment</ion-label>
-          <ion-select [(ngModel)]="selectedPaymentOpt">
-            <ion-select-option *ngFor="let opt of arrPaymentopts; let i = index;" [value]="i">
-              {{opt}}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
+        <div id="verify-progress-paymentopt-container">
+          <div *ngFor="let payment of arrPaymentopts; let i = index;">
+            <div [class]="selectedPaymentOpt==i?'paymentopt-img-container active-payment': 'paymentopt-img-container inactive-payment'">
+              <img [src]="payment.image" (click)="onChangePaymentOption(i)"/>
+            </div>
+          </div>
+        </div>
+
+        <div id="verify-progress-paymentopt-fields">
+          <form [formGroup]="paymentOptForm">
+            <ion-item>
+              <ion-label floating>Account HolderName</ion-label>
+              <ion-input formControlName="accountholdername" type="text"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label floating>Account Number</ion-label>
+              <ion-input formControlName="accountnumber" type="text"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label floating>IFSC code</ion-label>
+              <ion-input  formControlName="ifsccode" type="text"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label floating>Bank Name</ion-label>
+              <ion-input formControlName="bankname" type="text"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label floating>Bank Address</ion-label>
+              <ion-input formControlName="bankaddress" type="text"></ion-input>
+            </ion-item>
+          </form>
+        </div>
       </div>
     </div>
   
@@ -95,6 +174,11 @@
           {{initVerifyStep==3?'Finish': 'Next'}}
         </ion-button>
       </div>
+      <!-- <div *ngIf="initVerifyStep==3">
+        <ion-button color="danger" (click)="onClickSavePayment()">
+          Save
+        </ion-button>
+      </div> -->
     </div>
   </div>
 </ion-content>

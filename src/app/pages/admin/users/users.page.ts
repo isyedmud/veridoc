@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, LoadingController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { CATEGORIES } from '../../constants';
 
 @Component({
   selector: 'app-users',
@@ -11,6 +12,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 export class UsersPage implements OnInit {
 
   private arrUsers = [];
+  private arrCategories = CATEGORIES;
 
   constructor(
     private navCtrl: NavController,

@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="onClickNavBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Our Experts</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let expert of arrExperts; let i = index;" size="4">
+        <div class="expert-item" (click)="onClickExpert(i)">
+          <div class="expert-avatar-container">
+            <div class="expert-avatar">
+              <img [src]="expert.avatar" />
+            </div>
+          </div>
+          <p class="expert-name">
+            {{expert.username}}
+          </p>
+          <p class="expert-title">
+            {{expert.title}}
+          </p>
+          <p class="expert-headline">
+            {{expert.headline}}
+          </p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

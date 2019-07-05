@@ -124,7 +124,6 @@ export class MenuPage implements OnInit {
       }
       this.pages = this.pages.concat(commonMenu);
       this.pages.sort((a, b) => a.id - b.id);
-      console.log(this.pages);
     }
   }
 
@@ -142,7 +141,7 @@ export class MenuPage implements OnInit {
         break;
       case 5: 
         if(this.userRole == '0') {
-          this.navCtrl.navigateForward('/menu/expertsreview');
+          this.navCtrl.navigateForward('/menu/expertsreview/null');
         } else {
           this.navCtrl.navigateForward('/menu/admin-users');
         }

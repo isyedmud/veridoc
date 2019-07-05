@@ -1,0 +1,30 @@
+ion-content {
+    --background: var(--ion-color-light);
+}
+
+ion-list {
+    background-color: transparent;
+}
+
+.expert-list-item {
+    margin: 16px 16px 3vh 16px;
+    box-shadow: 0 0 8px #dedede;
+}
+
+.padding-card {
+    padding: 16px;
+}
+
+.expert-card-header {
+    background-color: #139bff;
+    p {
+        margin: 0;
+        color: white;
+    }
+}
+
+.expert-card-footer {
+    div {
+        text-align: right;
+    }
+}

@@ -1093,88 +1093,6 @@ var MultiFileUploadComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/pages/constants.ts":
-/*!************************************!*\
-  !*** ./src/app/pages/constants.ts ***!
-  \************************************/
-/*! exports provided: CATEGORIES, PAYMENTOPTIONS, CONTACTINFO, BACKENDURL, SERVERASSETS, STATUS, TERMSANDCONDITIONSTXT */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CATEGORIES", function() { return CATEGORIES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PAYMENTOPTIONS", function() { return PAYMENTOPTIONS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONTACTINFO", function() { return CONTACTINFO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BACKENDURL", function() { return BACKENDURL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SERVERASSETS", function() { return SERVERASSETS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STATUS", function() { return STATUS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TERMSANDCONDITIONSTXT", function() { return TERMSANDCONDITIONSTXT; });
-var CATEGORIES = [
-    "Cardiology",
-    "Endocrinology",
-    "Infectious Diseases",
-    "Nephrology",
-    "Oncology & Hematology",
-    "Pediatrics",
-    "Psychiatry",
-    "Radiology",
-    "Dermatology",
-    "Gastroenterology",
-    "Internal Medicine",
-    "Neurology",
-    "Precision Oncology",
-    "Physical Med/Rehab",
-    "Pulmonary Medicine and Critical Care",
-    "Rheumatology"
-];
-/**
- * Payment option List
- */
-var PAYMENTOPTIONS = [
-    "Debit Card",
-    "Credit Card",
-    "Paypal",
-    "Paytm",
-    "Internet Banking"
-];
-/**
- * Contact info for Veridoc
- */
-var CONTACTINFO = {
-    email: "test@testemail.com",
-    number: "+123456789"
-};
-/**
- * backend server url
- */
-var BACKENDURL = 'http://192.168.0.104:4200/api/v1';
-/**
- * uploaded file path on backend server
- */
-var SERVERASSETS = 'http://192.168.0.104:4200/attachments/';
-/**
- * Request status
- */
-var STATUS = [
-    "Pending",
-    "In Progress",
-    "Closed"
-];
-/**
- * Terms and conditions text
- */
-var TERMSANDCONDITIONSTXT = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-/**
- * 0: open
- * 1: in progress
- * 2: aborted
- * 3: closed
- * 4: withdrawn
- */ 
-
-
-/***/ }),
-
 /***/ "./src/app/pages/user/expertsreview/expertsreview.module.ts":
 /*!******************************************************************!*\
   !*** ./src/app/pages/user/expertsreview/expertsreview.module.ts ***!
@@ -1242,7 +1160,7 @@ var ExpertsreviewPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"onClickNavBack()\">\n        <ion-icon name=\"arrow-back\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <img src=\"assets/imgs/logo-veridoc.svg\" />\n    <ion-buttons slot=\"end\">\n      <ion-button *ngIf=\"!isLoggedIn\" fill=\"solid\" color=\"success\" (click)=\"onClickGetStarted()\">Get Started</ion-button>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"verify-progress-indicator-container\">\n    <div class=\"verify-progress-header\">\n      <p>\n        Verify your documents in Just 3 steps\n      </p>\n    </div>\n  \n    <div class=\"verify-progress-indicator\">\n      <div [class]=\"initVerifyStep>=1?'verify-progress-active-step': 'verify-progress-inactive-step'\">1</div>\n      <div class=\"verify-progress-connector\"></div>\n      <div [class]=\"initVerifyStep>=2?'verify-progress-active-step': 'verify-progress-inactive-step'\">2</div>\n      <div class=\"verify-progress-connector\"></div>\n      <div [class]=\"initVerifyStep>=3?'verify-progress-active-step': 'verify-progress-inactive-step'\">3</div>\n    </div>\n  </div>\n\n  <div id=\"verify-progress-main-content\">\n    <div [ngSwitch]=\"initVerifyStep\">\n      <div *ngSwitchCase=\"1\">\n        <app-multi-file-upload></app-multi-file-upload>\n        <ion-item>\n          <ion-label position=\"stacked\">Comments</ion-label>\n          <ion-textarea [(ngModel)]=\"strComment\"></ion-textarea>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"stacked\">Queries</ion-label>\n          <ion-textarea [(ngModel)]=\"strQuery\"></ion-textarea>\n        </ion-item>\n      </div>\n      <div *ngSwitchCase=\"2\" class=\"verify-progress-new-user\">\n        <ion-item>\n          <ion-label position=\"stacked\">First name</ion-label>\n          <ion-input type=\"text\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Last name</ion-label>\n          <ion-input type=\"text\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Email</ion-label>\n          <ion-input type=\"email\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Aadhar</ion-label>\n          <ion-input type=\"number\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Username</ion-label>\n          <ion-input type=\"text\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Password</ion-label>\n          <ion-input type=\"password\"></ion-input>\n        </ion-item>\n      </div>\n      <div *ngSwitchCase=\"3\" class=\"verify-progress-payment\">\n        <ion-item>\n          <ion-label>Payment</ion-label>\n          <ion-select [(ngModel)]=\"selectedPaymentOpt\">\n            <ion-select-option *ngFor=\"let opt of arrPaymentopts; let i = index;\" [value]=\"i\">\n              {{opt}}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n      </div>\n    </div>\n  \n    <div id=\"verify-progress-controllers\">\n      <div>\n        <ion-button color=\"hardmedium\" (click)=\"onClickBack()\">Back</ion-button>\n      </div>\n      <div>\n        <ion-button color=\"success\" (click)=\"onClickNext()\">\n          {{initVerifyStep==3?'Finish': 'Next'}}\n        </ion-button>\n      </div>\n    </div>\n  </div>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"onClickNavBack()\">\n        <ion-icon name=\"arrow-back\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <img src=\"assets/imgs/logo-veridoc.svg\" />\n    <ion-buttons slot=\"end\">\n      <ion-button *ngIf=\"!isLoggedIn\" fill=\"solid\" color=\"success\" (click)=\"onClickGetStarted()\">Get Started</ion-button>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"verify-progress-indicator-container\">\n    <div class=\"verify-progress-header\">\n      <p>\n        Verify your documents in Just 3 steps\n      </p>\n    </div>\n  \n    <div class=\"verify-progress-indicator\">\n      <div [class]=\"initVerifyStep>=1?'verify-progress-active-step': 'verify-progress-inactive-step'\">1</div>\n      <div class=\"verify-progress-connector\"></div>\n      <div [class]=\"initVerifyStep>=2?'verify-progress-active-step': 'verify-progress-inactive-step'\">2</div>\n      <div class=\"verify-progress-connector\"></div>\n      <div [class]=\"initVerifyStep>=3?'verify-progress-active-step': 'verify-progress-inactive-step'\">3</div>\n    </div>\n  </div>\n\n  <div id=\"verify-progress-main-content\">\n    <div [ngSwitch]=\"initVerifyStep\">\n      <div *ngSwitchCase=\"1\">\n        <ion-item>\n          <ion-label>Category</ion-label>\n          <ion-select [(ngModel)]=\"requestCategory\">\n            <ion-select-option *ngFor=\"let category of arrCategories; let i = index;\" [value]=\"i\">\n              {{category}}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n\n        <app-multi-file-upload></app-multi-file-upload>\n        <ion-item>\n          <ion-label position=\"stacked\">Comments</ion-label>\n          <ion-textarea [(ngModel)]=\"strComment\"></ion-textarea>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"stacked\">Queries</ion-label>\n          <ion-textarea [(ngModel)]=\"strQuery\"></ion-textarea>\n        </ion-item>\n\n        <ion-item lines=\"none\">\n          <ion-checkbox slot=\"start\" [(ngModel)]=\"isRequestBehalf\"></ion-checkbox>\n          <ion-label>Request on behalf of</ion-label>\n        </ion-item>\n\n        <!-- Behalf request fields -->\n        <ion-item-group *ngIf=\"isRequestBehalf\">\n          <ion-item>\n            <ion-input type=\"text\" [(ngModel)]=\"behalfofname\" placeholder=\"Name\" required=true></ion-input>\n          </ion-item>\n\n          <ion-item>\n            <ion-input type=\"text\" [(ngModel)]=\"behalfofrelation\" placeholder=\"Relation\" required=true></ion-input>\n          </ion-item>\n\n          <ion-item>\n            <ion-label>Birthday</ion-label>\n            <ion-datetime displayFormat=\"DD/MM/YYYY\" [(ngModel)]=\"behalfofbod\" pickerFormat=\"DD MMMM YYYY\"></ion-datetime>\n          </ion-item>\n\n          <ion-item-group>\n            <ion-item-divider>\n              <ion-label>Gender</ion-label>\n            </ion-item-divider>\n            <ion-radio-group [(ngModel)]=\"behalfofgender\">\n              <ion-item>\n                <ion-label>Male</ion-label>\n                <ion-radio value=\"m\"></ion-radio>\n              </ion-item>\n          \n              <ion-item>\n                <ion-label>Female</ion-label>\n                <ion-radio value=\"f\"></ion-radio>\n              </ion-item>\n            </ion-radio-group>\n          </ion-item-group>\n\n          <ion-item>\n            <ion-input type=\"text\" [(ngModel)]=\"behalfofcountry\" placeholder=\"Country and State\" required=true></ion-input>\n          </ion-item>\n        </ion-item-group>\n      </div>\n      <div *ngSwitchCase=\"2\" class=\"verify-progress-new-user\">\n        <ion-item>\n          <ion-label position=\"stacked\">First name</ion-label>\n          <ion-input type=\"text\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Last name</ion-label>\n          <ion-input type=\"text\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Email</ion-label>\n          <ion-input type=\"email\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Aadhar</ion-label>\n          <ion-input type=\"number\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Username</ion-label>\n          <ion-input type=\"text\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Password</ion-label>\n          <ion-input type=\"password\"></ion-input>\n        </ion-item>\n      </div>\n      <div *ngSwitchCase=\"3\" class=\"verify-progress-payment\">\n        <ion-item>\n          <ion-label>Payment</ion-label>\n          <ion-select [(ngModel)]=\"selectedPaymentOpt\">\n            <ion-select-option *ngFor=\"let opt of arrPaymentopts; let i = index;\" [value]=\"i\">\n              {{opt}}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n      </div>\n    </div>\n  \n    <div id=\"verify-progress-controllers\">\n      <div>\n        <ion-button color=\"hardmedium\" (click)=\"onClickBack()\">Back</ion-button>\n      </div>\n      <div>\n        <ion-button color=\"success\" (click)=\"onClickNext()\">\n          {{initVerifyStep==3?'Finish': 'Next'}}\n        </ion-button>\n      </div>\n    </div>\n  </div>\n</ion-content>\n"
 
 /***/ }),
 
@@ -1274,6 +1192,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_components_multi_file_upload_multi_file_upload_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/components/multi-file-upload/multi-file-upload.component */ "./src/app/components/multi-file-upload/multi-file-upload.component.ts");
 /* harmony import */ var src_app_services_api_api_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/api/api.service */ "./src/app/services/api/api.service.ts");
 /* harmony import */ var src_app_services_toast_toast_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/toast/toast.service */ "./src/app/services/toast/toast.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
 
 
 
@@ -1282,7 +1202,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ExpertsreviewPage = /** @class */ (function () {
-    function ExpertsreviewPage(altCtrl, event, navCtrl, loadingCtrl, apiService, toastService) {
+    function ExpertsreviewPage(altCtrl, event, navCtrl, loadingCtrl, apiService, toastService, route) {
         var _this = this;
         this.altCtrl = altCtrl;
         this.event = event;
@@ -1290,9 +1210,14 @@ var ExpertsreviewPage = /** @class */ (function () {
         this.loadingCtrl = loadingCtrl;
         this.apiService = apiService;
         this.toastService = toastService;
+        this.route = route;
+        this.arrCategories = _constants__WEBPACK_IMPORTED_MODULE_2__["CATEGORIES"];
+        this.draftRequestId = "";
+        this.objDraftRequest = null;
+        this.requestCategory = 0;
+        this.isRequestBehalf = false;
         this.initVerifyStep = 1;
         this.isFinishCurrentStep = false;
-        this.arrCategories = _constants__WEBPACK_IMPORTED_MODULE_2__["CATEGORIES"];
         this.arrPaymentopts = _constants__WEBPACK_IMPORTED_MODULE_2__["PAYMENTOPTIONS"];
         this.selectedPaymentOpt = 0;
         this.uploadedFiles = [];
@@ -1304,6 +1229,14 @@ var ExpertsreviewPage = /** @class */ (function () {
          * comment string
          */
         this.strComment = "";
+        /**
+         * Behalf request fields
+         */
+        this.behalfofname = "";
+        this.behalfofrelation = "";
+        this.behalfofbod = "1/1/1970";
+        this.behalfofgender = "m";
+        this.behalfofcountry = "";
         this.event.subscribe("onLoginStatusChange", function (data) {
             _this.initPage();
         });
@@ -1314,7 +1247,50 @@ var ExpertsreviewPage = /** @class */ (function () {
         this.initPage();
     };
     ExpertsreviewPage.prototype.initPage = function () {
+        this.draftRequestId = this.route.snapshot.paramMap.get("requestId") == 'null' ? null : this.route.snapshot.paramMap.get("requestId");
+        if (this.draftRequestId) {
+            this.getDraftRequest();
+        }
         this.isLoggedIn = localStorage.getItem("isLoggedIn") == 'true' ? true : false;
+    };
+    ExpertsreviewPage.prototype.getDraftRequest = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var draftLoader;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.loadingCtrl.create({
+                            message: "Loading..."
+                        })];
+                    case 1:
+                        draftLoader = _a.sent();
+                        return [4 /*yield*/, draftLoader.present()];
+                    case 2:
+                        _a.sent();
+                        this.apiService.getRequestById(this.draftRequestId)
+                            .subscribe(function (data) {
+                            console.log(data);
+                            if (data.data) {
+                                _this.strComment = data.data.comments;
+                                _this.strQuery = data.data.queries;
+                                _this.requestCategory = data.data.category;
+                                _this.selectedPaymentOpt = data.data.paymentStatus;
+                                _this.behalfofname = data.data.behalfofname;
+                                _this.behalfofrelation = data.data.behalfofrelation;
+                                _this.behalfofbod = data.data.behalfofbod;
+                                _this.behalfofgender = data.data.behalfofgender;
+                                _this.behalfofcountry = data.data.behalfofcountry;
+                                _this.isRequestBehalf = data.data.isbehalfof;
+                            }
+                            draftLoader.dismiss();
+                        }, function (error) {
+                            console.log(error);
+                            draftLoader.dismiss();
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * Show Next step
@@ -1358,9 +1334,9 @@ var ExpertsreviewPage = /** @class */ (function () {
                         if (!(this.initVerifyStep >= 3)) return [3 /*break*/, 2];
                         this.initVerifyStep = 3;
                         this.postRequest();
-                        return [3 /*break*/, 7];
+                        return [3 /*break*/, 9];
                     case 2:
-                        if (!(this.initVerifyStep == 1)) return [3 /*break*/, 7];
+                        if (!(this.initVerifyStep == 1)) return [3 /*break*/, 9];
                         files = this.fileField.getFiles();
                         formData_1 = new FormData();
                         files.forEach(function (file) {
@@ -1368,25 +1344,29 @@ var ExpertsreviewPage = /** @class */ (function () {
                         });
                         _a.label = 3;
                     case 3:
-                        _a.trys.push([3, 6, , 7]);
+                        _a.trys.push([3, 8, , 9]);
                         return [4 /*yield*/, this.apiService.uploadFiles(formData_1)];
                     case 4:
                         uploadResult_1 = _a.sent();
-                        console.log(uploadResult_1);
                         Object.keys(uploadResult_1).map(function (key) {
                             _this.uploadedFiles.push(uploadResult_1[key]._id);
                         });
+                        if (!!this.isLoggedIn) return [3 /*break*/, 6];
                         this.initVerifyStep++;
                         return [4 /*yield*/, userTypeAlt.present()];
                     case 5:
                         _a.sent();
                         return [3 /*break*/, 7];
                     case 6:
+                        this.initVerifyStep = 3;
+                        _a.label = 7;
+                    case 7: return [3 /*break*/, 9];
+                    case 8:
                         err_1 = _a.sent();
                         console.log(err_1);
                         this.toastService.showToast("Uploading file failed!");
-                        return [3 /*break*/, 7];
-                    case 7: return [2 /*return*/];
+                        return [3 /*break*/, 9];
+                    case 9: return [2 /*return*/];
                 }
             });
         });
@@ -1406,13 +1386,20 @@ var ExpertsreviewPage = /** @class */ (function () {
                     case 1:
                         postLoader = _a.sent();
                         postData = {
+                            category: this.requestCategory,
                             user: localStorage.getItem("uid"),
                             expert: "",
                             comments: this.strComment,
                             queries: this.strQuery,
-                            status: 0,
+                            status: 1,
                             files: this.uploadedFiles,
-                            paymentStatus: 0
+                            paymentStatus: 0,
+                            isbehalfof: this.isRequestBehalf,
+                            behalfofname: this.behalfofname,
+                            behalfofrelation: this.behalfofrelation,
+                            behalfofbod: this.behalfofbod,
+                            behalfofgender: this.behalfofgender,
+                            behalfofcountry: this.behalfofcountry,
                         };
                         return [4 /*yield*/, postLoader.present()];
                     case 2:
@@ -1438,7 +1425,17 @@ var ExpertsreviewPage = /** @class */ (function () {
             this.initVerifyStep = 1;
         }
         else {
-            this.initVerifyStep--;
+            if (this.initVerifyStep == 3) {
+                if (!this.isLoggedIn) {
+                    this.initVerifyStep--;
+                }
+                else {
+                    this.initVerifyStep = 1;
+                }
+            }
+            else {
+                this.initVerifyStep--;
+            }
         }
     };
     ExpertsreviewPage.prototype.onClickNavBack = function () {
@@ -1459,233 +1456,10 @@ var ExpertsreviewPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"],
             src_app_services_api_api_service__WEBPACK_IMPORTED_MODULE_5__["ApiService"],
-            src_app_services_toast_toast_service__WEBPACK_IMPORTED_MODULE_6__["ToastService"]])
+            src_app_services_toast_toast_service__WEBPACK_IMPORTED_MODULE_6__["ToastService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_7__["ActivatedRoute"]])
     ], ExpertsreviewPage);
     return ExpertsreviewPage;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/api/api.service.ts":
-/*!*********************************************!*\
-  !*** ./src/app/services/api/api.service.ts ***!
-  \*********************************************/
-/*! exports provided: ApiService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiService", function() { return ApiService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var src_app_pages_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/pages/constants */ "./src/app/pages/constants.ts");
-
-
-
-
-var ApiService = /** @class */ (function () {
-    function ApiService(http) {
-        this.http = http;
-        /**
-         * API url from constants
-         * @see src/app/pages/constants
-         */
-        this.apiUrl = src_app_pages_constants__WEBPACK_IMPORTED_MODULE_3__["BACKENDURL"];
-    }
-    /**
-     *
-     * @param req
-     * @returns observable
-     */
-    ApiService.prototype.signUp = function (req) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/register", req, { headers: headers });
-    };
-    /**
-     *
-     * @param credential(email: String, password: String)
-     * @returns observable
-     */
-    ApiService.prototype.login = function (credential) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/login", credential, { headers: headers });
-    };
-    /**
-     * Reset Password
-     * @param email: String
-     * @returns observable
-     */
-    ApiService.prototype.resetPassword = function (email) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/restPassword", { email: email }, { headers: headers });
-    };
-    /**
-     * Get Profile Info
-     * @param uid
-     * @returns observable
-     */
-    ApiService.prototype.getUser = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/getUser", { uid: uid }, { headers: headers });
-    };
-    /**
-     * Update User Profile
-     * @param user: Object
-     * @returns observable
-     */
-    ApiService.prototype.updateUser = function (user) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/updateUser", { user: user }, { headers: headers });
-    };
-    ApiService.prototype.getAllUsers = function () {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/getAllUser", { headers: headers });
-    };
-    ApiService.prototype.acceptUser = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/acceptUser", { uid: uid }, { headers: headers });
-    };
-    ApiService.prototype.deleteAccount = function (uid, role) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/deleteUser", { uid: uid, role: role }, { headers: headers });
-    };
-    /**
-     * Post Request
-     * @param post: Object
-     * @returns observable
-     */
-    ApiService.prototype.postRequest = function (post) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/postRequest", { post: post }, { headers: headers });
-    };
-    /**
-     * Get My Requests (User side)
-     * @param uid userid
-     * @returns observable
-     */
-    ApiService.prototype.getRequest = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/getRequest", { uid: uid }, { headers: headers });
-    };
-    /**
-     * Get All requests by expertid
-     * @param expertId expert id
-     */
-    ApiService.prototype.getAllRequests = function (expertId) {
-        if (expertId === void 0) { expertId = ""; }
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/getAllRequests", { expertId: expertId }, { headers: headers });
-    };
-    ApiService.prototype.requestSetExpert = function (reqdata) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/setExpert", reqdata, { headers: headers });
-    };
-    ApiService.prototype.uploadFiles = function (formData) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("enctype", "multipart/form-data");
-        return this.http.post(this.apiUrl + "/post/uploadAttachment", formData, { headers: headers }).toPromise();
-    };
-    /**
-     * Download File from server
-     * @param filename filename to download
-     */
-    ApiService.prototype.downloadFile = function (filename) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/downloadAttachment", { filename: filename }, { responseType: 'blob', headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().append('Content-Type', 'application/json') });
-    };
-    ApiService.prototype.processPayment = function (requestId) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/processPayment", { requestId: requestId }, { headers: headers });
-    };
-    /**
-     * Close Request
-     * @param id request id
-     * @returns observable
-     */
-    ApiService.prototype.closeRequest = function (id) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/closeRequest", { id: id }, { headers: headers });
-    };
-    ApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
-    ], ApiService);
-    return ApiService;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/toast/toast.service.ts":
-/*!*************************************************!*\
-  !*** ./src/app/services/toast/toast.service.ts ***!
-  \*************************************************/
-/*! exports provided: ToastService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastService", function() { return ToastService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-
-
-
-var ToastService = /** @class */ (function () {
-    function ToastService(toastCtrl) {
-        this.toastCtrl = toastCtrl;
-    }
-    /**
-     *
-     * @param message String
-     * @returns null
-     */
-    ToastService.prototype.showToast = function (message) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var toast;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.toastCtrl.create({
-                            message: message,
-                            duration: 3000
-                        })];
-                    case 1:
-                        toast = _a.sent();
-                        toast.present();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    ToastService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
-    ], ToastService);
-    return ToastService;
 }());
 
 

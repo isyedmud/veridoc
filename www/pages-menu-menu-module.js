@@ -1,87 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["pages-menu-menu-module"],{
 
-/***/ "./src/app/pages/constants.ts":
-/*!************************************!*\
-  !*** ./src/app/pages/constants.ts ***!
-  \************************************/
-/*! exports provided: CATEGORIES, PAYMENTOPTIONS, CONTACTINFO, BACKENDURL, SERVERASSETS, STATUS, TERMSANDCONDITIONSTXT */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CATEGORIES", function() { return CATEGORIES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PAYMENTOPTIONS", function() { return PAYMENTOPTIONS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONTACTINFO", function() { return CONTACTINFO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BACKENDURL", function() { return BACKENDURL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SERVERASSETS", function() { return SERVERASSETS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STATUS", function() { return STATUS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TERMSANDCONDITIONSTXT", function() { return TERMSANDCONDITIONSTXT; });
-var CATEGORIES = [
-    "Cardiology",
-    "Endocrinology",
-    "Infectious Diseases",
-    "Nephrology",
-    "Oncology & Hematology",
-    "Pediatrics",
-    "Psychiatry",
-    "Radiology",
-    "Dermatology",
-    "Gastroenterology",
-    "Internal Medicine",
-    "Neurology",
-    "Precision Oncology",
-    "Physical Med/Rehab",
-    "Pulmonary Medicine and Critical Care",
-    "Rheumatology"
-];
-/**
- * Payment option List
- */
-var PAYMENTOPTIONS = [
-    "Debit Card",
-    "Credit Card",
-    "Paypal",
-    "Paytm",
-    "Internet Banking"
-];
-/**
- * Contact info for Veridoc
- */
-var CONTACTINFO = {
-    email: "test@testemail.com",
-    number: "+123456789"
-};
-/**
- * backend server url
- */
-var BACKENDURL = 'http://192.168.0.104:4200/api/v1';
-/**
- * uploaded file path on backend server
- */
-var SERVERASSETS = 'http://192.168.0.104:4200/attachments/';
-/**
- * Request status
- */
-var STATUS = [
-    "Pending",
-    "In Progress",
-    "Closed"
-];
-/**
- * Terms and conditions text
- */
-var TERMSANDCONDITIONSTXT = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-/**
- * 0: open
- * 1: in progress
- * 2: aborted
- * 3: closed
- * 4: withdrawn
- */ 
-
-
-/***/ }),
-
 /***/ "./src/app/pages/menu/menu.module.ts":
 /*!*******************************************!*\
   !*** ./src/app/pages/menu/menu.module.ts ***!
@@ -100,6 +18,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _menu_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./menu.page */ "./src/app/pages/menu/menu.page.ts");
 /* harmony import */ var src_app_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/auth/auth.guard */ "./src/app/services/auth/auth.guard.ts");
+/* harmony import */ var _popover_filter_filter_page__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../popover/filter/filter.page */ "./src/app/pages/popover/filter/filter.page.ts");
+
 
 
 
@@ -123,7 +43,7 @@ var MenuPageModule = /** @class */ (function () {
                         component: _menu_page__WEBPACK_IMPORTED_MODULE_6__["MenuPage"],
                         children: [
                             { path: 'landing', loadChildren: '../landing/landing.module#LandingPageModule' },
-                            { path: 'expertsreview', loadChildren: '../user/expertsreview/expertsreview.module#ExpertsreviewPageModule', canActivate: [src_app_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_7__["AuthGuard"]] },
+                            { path: 'expertsreview/:requestId', loadChildren: '../user/expertsreview/expertsreview.module#ExpertsreviewPageModule', canActivate: [src_app_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_7__["AuthGuard"]] },
                             { path: 'myrequests', loadChildren: '../user/request-list/request-list.module#RequestListPageModule', canActivate: [src_app_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_7__["AuthGuard"]] },
                             { path: 'expert-requests', loadChildren: '../expert/request/request.module#RequestPageModule', canActivate: [src_app_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_7__["AuthGuard"]] },
                             { path: 'admin-requests', loadChildren: '../admin/admin-requests/admin-requests.module#AdminRequestsPageModule', canActivate: [src_app_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_7__["AuthGuard"]] },
@@ -133,7 +53,13 @@ var MenuPageModule = /** @class */ (function () {
                     }
                 ])
             ],
-            declarations: [_menu_page__WEBPACK_IMPORTED_MODULE_6__["MenuPage"]]
+            declarations: [
+                _menu_page__WEBPACK_IMPORTED_MODULE_6__["MenuPage"],
+                _popover_filter_filter_page__WEBPACK_IMPORTED_MODULE_8__["FilterPage"]
+            ],
+            entryComponents: [
+                _popover_filter_filter_page__WEBPACK_IMPORTED_MODULE_8__["FilterPage"]
+            ]
         })
     ], MenuPageModule);
     return MenuPageModule;
@@ -307,7 +233,7 @@ var MenuPage = /** @class */ (function () {
                 break;
             case 5:
                 if (this.userRole == '0') {
-                    this.navCtrl.navigateForward('/menu/expertsreview');
+                    this.navCtrl.navigateForward('/menu/expertsreview/null');
                 }
                 else {
                     this.navCtrl.navigateForward('/menu/admin-users');
@@ -528,230 +454,6 @@ var MenuPage = /** @class */ (function () {
             src_app_services_api_api_service__WEBPACK_IMPORTED_MODULE_4__["ApiService"]])
     ], MenuPage);
     return MenuPage;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/api/api.service.ts":
-/*!*********************************************!*\
-  !*** ./src/app/services/api/api.service.ts ***!
-  \*********************************************/
-/*! exports provided: ApiService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiService", function() { return ApiService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var src_app_pages_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/pages/constants */ "./src/app/pages/constants.ts");
-
-
-
-
-var ApiService = /** @class */ (function () {
-    function ApiService(http) {
-        this.http = http;
-        /**
-         * API url from constants
-         * @see src/app/pages/constants
-         */
-        this.apiUrl = src_app_pages_constants__WEBPACK_IMPORTED_MODULE_3__["BACKENDURL"];
-    }
-    /**
-     *
-     * @param req
-     * @returns observable
-     */
-    ApiService.prototype.signUp = function (req) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/register", req, { headers: headers });
-    };
-    /**
-     *
-     * @param credential(email: String, password: String)
-     * @returns observable
-     */
-    ApiService.prototype.login = function (credential) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/login", credential, { headers: headers });
-    };
-    /**
-     * Reset Password
-     * @param email: String
-     * @returns observable
-     */
-    ApiService.prototype.resetPassword = function (email) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/restPassword", { email: email }, { headers: headers });
-    };
-    /**
-     * Get Profile Info
-     * @param uid
-     * @returns observable
-     */
-    ApiService.prototype.getUser = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/getUser", { uid: uid }, { headers: headers });
-    };
-    /**
-     * Update User Profile
-     * @param user: Object
-     * @returns observable
-     */
-    ApiService.prototype.updateUser = function (user) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/updateUser", { user: user }, { headers: headers });
-    };
-    ApiService.prototype.getAllUsers = function () {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/getAllUser", { headers: headers });
-    };
-    ApiService.prototype.acceptUser = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/acceptUser", { uid: uid }, { headers: headers });
-    };
-    ApiService.prototype.deleteAccount = function (uid, role) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/deleteUser", { uid: uid, role: role }, { headers: headers });
-    };
-    /**
-     * Post Request
-     * @param post: Object
-     * @returns observable
-     */
-    ApiService.prototype.postRequest = function (post) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/postRequest", { post: post }, { headers: headers });
-    };
-    /**
-     * Get My Requests (User side)
-     * @param uid userid
-     * @returns observable
-     */
-    ApiService.prototype.getRequest = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/getRequest", { uid: uid }, { headers: headers });
-    };
-    /**
-     * Get All requests by expertid
-     * @param expertId expert id
-     */
-    ApiService.prototype.getAllRequests = function (expertId) {
-        if (expertId === void 0) { expertId = ""; }
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/getAllRequests", { expertId: expertId }, { headers: headers });
-    };
-    ApiService.prototype.requestSetExpert = function (reqdata) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/setExpert", reqdata, { headers: headers });
-    };
-    ApiService.prototype.uploadFiles = function (formData) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("enctype", "multipart/form-data");
-        return this.http.post(this.apiUrl + "/post/uploadAttachment", formData, { headers: headers }).toPromise();
-    };
-    /**
-     * Download File from server
-     * @param filename filename to download
-     */
-    ApiService.prototype.downloadFile = function (filename) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/downloadAttachment", { filename: filename }, { responseType: 'blob', headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().append('Content-Type', 'application/json') });
-    };
-    ApiService.prototype.processPayment = function (requestId) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/processPayment", { requestId: requestId }, { headers: headers });
-    };
-    /**
-     * Close Request
-     * @param id request id
-     * @returns observable
-     */
-    ApiService.prototype.closeRequest = function (id) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/closeRequest", { id: id }, { headers: headers });
-    };
-    ApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
-    ], ApiService);
-    return ApiService;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/toast/toast.service.ts":
-/*!*************************************************!*\
-  !*** ./src/app/services/toast/toast.service.ts ***!
-  \*************************************************/
-/*! exports provided: ToastService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastService", function() { return ToastService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-
-
-
-var ToastService = /** @class */ (function () {
-    function ToastService(toastCtrl) {
-        this.toastCtrl = toastCtrl;
-    }
-    /**
-     *
-     * @param message String
-     * @returns null
-     */
-    ToastService.prototype.showToast = function (message) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var toast;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.toastCtrl.create({
-                            message: message,
-                            duration: 3000
-                        })];
-                    case 1:
-                        toast = _a.sent();
-                        toast.present();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    ToastService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
-    ], ToastService);
-    return ToastService;
 }());
 
 

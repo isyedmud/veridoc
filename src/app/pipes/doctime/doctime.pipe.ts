@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DoctimePipe implements PipeTransform {
 
-  transform(value: any): any {
+  transform(value: any, args: boolean): any {
     let result = "";
     let d = new Date(value);
     let minVal: any = d.getMinutes();
@@ -20,7 +20,11 @@ export class DoctimePipe implements PipeTransform {
     let monVal = d.getMonth() + 1;
     let yearVal = d.getFullYear();
 
-    result = monVal + "/" + dayVal + "/" + yearVal+ " " + hourVal + ":" + minVal + " " + ampm;
+    if(args == true) {
+      result = monVal + "/" + dayVal + "/" + yearVal + " " + hourVal + ":" + minVal + " " + ampm;
+    } else {
+      result = monVal + "/" + dayVal + "/" + yearVal;
+    }
     return result;
   }
 

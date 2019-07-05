@@ -835,7 +835,6 @@ module.exports = webpackAsyncContext;
 var map = {
 	"../admin/admin-requests/admin-requests.module": [
 		"./src/app/pages/admin/admin-requests/admin-requests.module.ts",
-		"default~admin-admin-requests-admin-requests-module~expert-request-request-module~pages-expert-review~8f8240fe",
 		"common",
 		"admin-admin-requests-admin-requests-module"
 	],
@@ -845,27 +844,33 @@ var map = {
 	],
 	"../admin/users/users.module": [
 		"./src/app/pages/admin/users/users.module.ts",
+		"default~admin-users-users-module~expert-request-request-module~pages-expert-reviewed-cases-reviewed-~a4135c60",
 		"common",
 		"admin-users-users-module"
 	],
 	"../expert/request/request.module": [
 		"./src/app/pages/expert/request/request.module.ts",
-		"default~admin-admin-requests-admin-requests-module~expert-request-request-module~pages-expert-review~8f8240fe",
+		"default~admin-users-users-module~expert-request-request-module~pages-expert-reviewed-cases-reviewed-~a4135c60",
+		"default~expert-request-request-module~landing-landing-module~user-request-list-request-list-module",
 		"common",
 		"expert-request-request-module"
 	],
 	"../landing/landing.module": [
 		"./src/app/pages/landing/landing.module.ts",
+		"default~expert-request-request-module~landing-landing-module~user-request-list-request-list-module",
 		"common",
 		"landing-landing-module"
 	],
 	"../user/expertsreview/expertsreview.module": [
 		"./src/app/pages/user/expertsreview/expertsreview.module.ts",
+		"default~admin-users-users-module~expert-request-request-module~pages-expert-reviewed-cases-reviewed-~a4135c60",
 		"common",
 		"user-expertsreview-expertsreview-module"
 	],
 	"../user/request-list/request-list.module": [
 		"./src/app/pages/user/request-list/request-list.module.ts",
+		"default~admin-users-users-module~expert-request-request-module~pages-expert-reviewed-cases-reviewed-~a4135c60",
+		"default~expert-request-request-module~landing-landing-module~user-request-list-request-list-module",
 		"common",
 		"user-request-list-request-list-module"
 	],
@@ -875,7 +880,7 @@ var map = {
 	],
 	"./pages/expert/reviewed-cases/reviewed-cases.module": [
 		"./src/app/pages/expert/reviewed-cases/reviewed-cases.module.ts",
-		"default~admin-admin-requests-admin-requests-module~expert-request-request-module~pages-expert-review~8f8240fe",
+		"default~admin-users-users-module~expert-request-request-module~pages-expert-reviewed-cases-reviewed-~a4135c60",
 		"common",
 		"pages-expert-reviewed-cases-reviewed-cases-module"
 	],
@@ -889,14 +894,21 @@ var map = {
 	],
 	"./pages/login/login.module": [
 		"./src/app/pages/login/login.module.ts",
+		"default~admin-users-users-module~expert-request-request-module~pages-expert-reviewed-cases-reviewed-~a4135c60",
 		"default~pages-login-login-module~pages-register-register-module",
 		"common",
 		"pages-login-login-module"
 	],
 	"./pages/menu/menu.module": [
 		"./src/app/pages/menu/menu.module.ts",
+		"default~admin-users-users-module~expert-request-request-module~pages-expert-reviewed-cases-reviewed-~a4135c60",
 		"common",
 		"pages-menu-menu-module"
+	],
+	"./pages/our-experts/our-experts.module": [
+		"./src/app/pages/our-experts/our-experts.module.ts",
+		"common",
+		"pages-our-experts-our-experts-module"
 	],
 	"./pages/pay-opt/pay-opt.module": [
 		"./src/app/pages/pay-opt/pay-opt.module.ts",
@@ -909,6 +921,7 @@ var map = {
 	],
 	"./pages/register/register.module": [
 		"./src/app/pages/register/register.module.ts",
+		"default~admin-users-users-module~expert-request-request-module~pages-expert-reviewed-cases-reviewed-~a4135c60",
 		"default~pages-login-login-module~pages-register-register-module",
 		"common",
 		"pages-register-register-module"
@@ -971,6 +984,7 @@ var routes = [
     { path: 'mydocuments', loadChildren: './pages/user/mydocuments/mydocuments.module#MydocumentsPageModule', canActivate: [_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
     { path: 'view-attachment', loadChildren: './pages/expert/view-attachment/view-attachment.module#ViewAttachmentPageModule', canActivate: [_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
     { path: 'reviewed-cases', loadChildren: './pages/expert/reviewed-cases/reviewed-cases.module#ReviewedCasesPageModule', canActivate: [_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_3__["AuthGuard"]] },
+    { path: 'our-experts', loadChildren: './pages/our-experts/our-experts.module#OurExpertsPageModule' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -1104,6 +1118,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
 /* harmony import */ var _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/file/ngx */ "./node_modules/@ionic-native/file/ngx/index.js");
 /* harmony import */ var _ionic_native_android_permissions_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/android-permissions/ngx */ "./node_modules/@ionic-native/android-permissions/ngx/index.js");
+/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
+
 
 
 
@@ -1134,6 +1150,7 @@ var AppModule = /** @class */ (function () {
             ],
             providers: [
                 _ionic_native_android_permissions_ngx__WEBPACK_IMPORTED_MODULE_14__["AndroidPermissions"],
+                _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_15__["Camera"],
                 _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_13__["File"],
                 _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_12__["FileTransfer"],
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],

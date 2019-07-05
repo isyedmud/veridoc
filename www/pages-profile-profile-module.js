@@ -32,7 +32,8 @@ var CATEGORIES = [
     "Precision Oncology",
     "Physical Med/Rehab",
     "Pulmonary Medicine and Critical Care",
-    "Rheumatology"
+    "Rheumatology",
+    "I don't know"
 ];
 /**
  * Payment option List
@@ -54,18 +55,23 @@ var CONTACTINFO = {
 /**
  * backend server url
  */
-var BACKENDURL = 'http://192.168.0.104:4200/api/v1';
+var BACKENDURL = 'http://192.168.0.108:4200/api/v1';
 /**
  * uploaded file path on backend server
  */
-var SERVERASSETS = 'http://192.168.0.104:4200/attachments/';
+var SERVERASSETS = 'http://192.168.0.108:4200/attachments/';
 /**
  * Request status
  */
 var STATUS = [
-    "Pending",
+    "Draft",
     "In Progress",
+    "Provide Input",
+    "Completed",
     "Closed"
+    // "Pending",
+    // "In Progress",
+    // "Closed"
 ];
 /**
  * Terms and conditions text
@@ -356,10 +362,18 @@ var ApiService = /** @class */ (function () {
         headers = headers.set("Content-type", "application/json");
         return this.http.post(this.apiUrl + "/user/updateUser", { user: user }, { headers: headers });
     };
-    ApiService.prototype.getAllUsers = function () {
+    /**
+     * Get users by their role
+     * @param role user role
+     * 0: normal user
+     * 1: expert
+     * 2: admin
+     */
+    ApiService.prototype.getUsers = function (role) {
+        if (role === void 0) { role = ""; }
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/getAllUser", { headers: headers });
+        return this.http.post(this.apiUrl + "/user/getUsers", { role: role }, { headers: headers });
     };
     ApiService.prototype.acceptUser = function (uid) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
@@ -401,10 +415,19 @@ var ApiService = /** @class */ (function () {
         headers = headers.set("Content-type", "application/json");
         return this.http.post(this.apiUrl + "/post/getAllRequests", { expertId: expertId }, { headers: headers });
     };
+    /**
+     * Assign request to expert
+     * @param reqdata request data
+     */
     ApiService.prototype.requestSetExpert = function (reqdata) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers = headers.set("Content-type", "application/json");
         return this.http.post(this.apiUrl + "/post/setExpert", reqdata, { headers: headers });
+    };
+    ApiService.prototype.getRequestById = function (reqId) {
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
+        headers = headers.set("Content-type", "application/json");
+        return this.http.post(this.apiUrl + "/post/getRequestById", { reqId: reqId }, { headers: headers });
     };
     ApiService.prototype.uploadFiles = function (formData) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
@@ -434,6 +457,34 @@ var ApiService = /** @class */ (function () {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers = headers.set("Content-type", "application/json");
         return this.http.post(this.apiUrl + "/post/closeRequest", { id: id }, { headers: headers });
+    };
+    /**
+     * Update Request Status
+     * @param id request id
+     * @param status request status
+     */
+    ApiService.prototype.updateRequestStatus = function (id, status) {
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
+        headers = headers.set("Content-type", "application/json");
+        return this.http.post(this.apiUrl + "/post/updateStatus", { id: id, status: status }, { headers: headers });
+    };
+    /**
+     * Provide user's feedback to expert
+     * @param feedback User Feedback: Object
+     */
+    ApiService.prototype.provideFeedback = function (feedback) {
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
+        headers = headers.set("Content-type", "application/json");
+        return this.http.post(this.apiUrl + "/review/provideReview", { feedback: feedback }, { headers: headers });
+    };
+    /**
+     * Provide expert's review for Request
+     * @param expertComment Expert's Comment: Object
+     */
+    ApiService.prototype.provideExpertComment = function (expertComment) {
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
+        headers = headers.set("Content-type", "application/json");
+        return this.http.post(this.apiUrl + "/expert/provideExpertComment", { comment: expertComment }, { headers: headers });
     };
     ApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({

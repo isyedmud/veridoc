@@ -11,17 +11,58 @@
 <ion-content padding>
   <div id="register-page-container">
     <p id="register-page-header">Register</p>
-    <div id="register-page-avatar">
-      <img src="assets/imgs/img-default-profile.svg" (click)="onClickAvatar()"/>
+    <div id="register-page-avatar-form">
+      <div id="register-page-avatar">
+        <img [src]="avatarImg" (click)="onClickAvatar()"/>
+      </div>
     </div>
-    <input type="file" id="avatarSelector" #avatarSelector />
+    <input type="file" id="avatarSelector" accept="image/*" #avatarSelector (change)="onSelectAvatarImage()"/>
     <div id="register-page-main-content">
       <form [formGroup]="registerForm">
-        <ion-item>
+
+        <!-- UserType -->
+        <ion-item (click)="onSelectUserRole()">
           <ion-label>Type</ion-label>
-          <ion-select formControlName="role">
-            <ion-select-option value="0">I'm Requestor</ion-select-option>
-            <ion-select-option value="1">I'm Expert</ion-select-option>
+          <ion-label id="label-usertype">{{userRole==0?"I'm Requestor":"I'm Expert"}}</ion-label>
+          <ion-icon slot="end" name="arrow-dropdown"></ion-icon>
+        </ion-item>
+
+        <!-- Expert title -->
+        <ion-item *ngIf="userRole == '1'">
+          <ion-input type="text" formControlName="title" placeholder="Title"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!registerForm.controls.title.valid && registerForm.controls.role=='1' && submitAttempt">
+          <p [class.invalid]="!registerForm.controls.title.valid && registerForm.controls.role=='1' && submitAttempt">Please enter a Title.</p>
+        </ion-item>
+
+        <!-- Expert Headline -->
+        <ion-item *ngIf="userRole == '1'">
+          <ion-input type="text" formControlName="headline" placeholder="Headline"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!registerForm.controls.headline.valid && registerForm.controls.role=='1' && submitAttempt">
+          <p [class.invalid]="!registerForm.controls.headline.valid && registerForm.controls.role=='1' && submitAttempt">Please enter a Headline.</p>
+        </ion-item>
+
+        <!-- Expert Category -->
+        <ion-item *ngIf="userRole == '1'">
+          <ion-label>Category</ion-label>
+          <ion-select formControlName="category">
+            <ion-select-option value="0">Cardiology</ion-select-option>
+            <ion-select-option value="1">Endocrinology</ion-select-option>
+            <ion-select-option value="2">Infectious Diseases</ion-select-option>
+            <ion-select-option value="3">Nephrology</ion-select-option>
+            <ion-select-option value="4">Oncology & Hematology</ion-select-option>
+            <ion-select-option value="5">Pediatrics</ion-select-option>
+            <ion-select-option value="6">Psychiatry</ion-select-option>
+            <ion-select-option value="7">Radiology</ion-select-option>
+            <ion-select-option value="8">Dermatology</ion-select-option>
+            <ion-select-option value="9">Gastroenterology</ion-select-option>
+            <ion-select-option value="10">Internal Medicine</ion-select-option>
+            <ion-select-option value="11">Neurology</ion-select-option>
+            <ion-select-option value="12">Precision Oncology</ion-select-option>
+            <ion-select-option value="13">Physical Med/Rehab</ion-select-option>
+            <ion-select-option value="14">Pulmonary Medicine and Critical Care</ion-select-option>
+            <ion-select-option value="15">Rheumatology</ion-select-option>
           </ion-select>
         </ion-item>
       
@@ -53,6 +94,11 @@
         <ion-item>
           <ion-label>BOD</ion-label>
           <ion-datetime displayFormat="DD/MM/YYYY" formControlName="dob" pickerFormat="DD MMMM YYYY"></ion-datetime>
+        </ion-item>
+
+        <!-- Experienced Year for expert -->
+        <ion-item *ngIf="userRole == '1'">
+          <ion-input type="number" formControlName="experiencedyear" placeholder="Experienced Years"></ion-input>
         </ion-item>
       
         <!-- User Name -->

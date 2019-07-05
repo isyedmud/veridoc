@@ -1,0 +1,24 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-textarea [(ngModel)]="strExpertComment" [placeholder]="placeholder" rows="8"></ion-textarea>
+  </ion-item>
+
+  <div class="comment-modal-footer">
+    <div>
+      <ion-button expand="full" (click)="onClickSendExpertComment()">
+        Send
+      </ion-button>
+    </div>
+    <div>
+      <ion-button expand="full" (click)="onClickCancelExpertComment()">
+        Cancel
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

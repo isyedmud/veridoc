@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { RequestPage } from './request.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { ModalModule } from '../../modal/modal.module';
 
 const routes: Routes = [
   {
@@ -21,8 +22,11 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     PipesModule,
+    ModalModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [RequestPage]
+  declarations: [
+    RequestPage,
+  ]
 })
 export class RequestPageModule {}

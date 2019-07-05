@@ -1,0 +1,24 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>Feedback</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div>
+    <rating [(ngModel)]="rate" readonly="false" size="default" (ngModelChange)="onModelChange($event)">
+    </rating>
+  </div>
+  <ion-item>
+    <ion-textarea [(ngModel)]="strReview" placeholder="Please input your feedback" rows="6"></ion-textarea>
+  </ion-item>
+
+  <div class="feedback-control">
+    <div>
+      <ion-button expand="full" (click)="onClickProvideFeedback()">Send</ion-button>
+    </div>
+    <div>
+      <ion-button expand="full" color="danger" (click)="onClickCancelBtn()">cancel</ion-button>
+    </div>
+  </div>
+</ion-content>

@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { RegisterPage } from './register.page';
+import { UsertypePage } from '../popover/usertype/usertype.page';
 
 const routes: Routes = [
   {
@@ -21,6 +22,12 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [RegisterPage]
+  declarations: [
+    RegisterPage, 
+    UsertypePage
+  ],
+  entryComponents: [
+    UsertypePage
+  ]
 })
 export class RegisterPageModule {}

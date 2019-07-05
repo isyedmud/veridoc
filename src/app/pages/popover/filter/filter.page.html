@@ -1,0 +1,25 @@
+<ion-list>
+  <ion-list>
+    <ion-radio-group>
+      <ion-list-header>
+        Filters
+      </ion-list-header>
+      <ion-item *ngFor="let filter of filterOpts; let i = index" lines="none">
+        <ion-label>{{filter}}</ion-label>
+        <ion-radio [value]="i" (ionSelect)="onChangeFilteropt(i)"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+  <div class="filter-control">
+    <div>
+      <ion-button color="danger" expand="full" (click)="onClickCancelFilter()"> 
+        Cancel
+      </ion-button>
+    </div>
+    <div>
+      <ion-button expand="full" (click)="onClickApplyFilter()">
+        Apply
+      </ion-button>
+    </div>
+  </div>
+</ion-list>

@@ -48,7 +48,8 @@ var CATEGORIES = [
     "Precision Oncology",
     "Physical Med/Rehab",
     "Pulmonary Medicine and Critical Care",
-    "Rheumatology"
+    "Rheumatology",
+    "I don't know"
 ];
 /**
  * Payment option List
@@ -70,18 +71,23 @@ var CONTACTINFO = {
 /**
  * backend server url
  */
-var BACKENDURL = 'http://192.168.0.104:4200/api/v1';
+var BACKENDURL = 'http://192.168.0.110:4200/api/v1';
 /**
  * uploaded file path on backend server
  */
-var SERVERASSETS = 'http://192.168.0.104:4200/attachments/';
+var SERVERASSETS = 'http://192.168.0.110:4200/attachments/';
 /**
  * Request status
  */
 var STATUS = [
-    "Pending",
+    "Draft",
     "In Progress",
+    "Provide Input",
+    "Completed",
     "Closed"
+    // "Pending",
+    // "In Progress",
+    // "Closed"
 ];
 /**
  * Terms and conditions text
@@ -260,10 +266,18 @@ var ApiService = /** @class */ (function () {
         headers = headers.set("Content-type", "application/json");
         return this.http.post(this.apiUrl + "/user/updateUser", { user: user }, { headers: headers });
     };
-    ApiService.prototype.getAllUsers = function () {
+    /**
+     * Get users by their role
+     * @param role user role
+     * 0: normal user
+     * 1: expert
+     * 2: admin
+     */
+    ApiService.prototype.getUsers = function (role) {
+        if (role === void 0) { role = ""; }
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/getAllUser", { headers: headers });
+        return this.http.post(this.apiUrl + "/user/getUsers", { role: role }, { headers: headers });
     };
     ApiService.prototype.acceptUser = function (uid) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();

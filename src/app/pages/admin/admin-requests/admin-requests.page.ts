@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/services/api/api.service';
 import { saveAs } from 'file-saver';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
-import { SERVERASSETS, STATUS } from '../../constants';
+import { SERVERASSETS, STATUS, CATEGORIES } from '../../constants';
 
 @Component({
   selector: 'app-admin-requests',
@@ -13,8 +13,20 @@ import { SERVERASSETS, STATUS } from '../../constants';
 })
 export class AdminRequestsPage implements OnInit {
 
+  /**
+   * Requests array
+   */
   private arrRequests = [];
+
+  /**
+   * Status array
+   */
   private arrStatus = STATUS;
+
+  /**
+   * Category array
+   */
+  private arrCategories = CATEGORIES;
 
   constructor(
     private navCtrl: NavController,
@@ -44,9 +56,10 @@ export class AdminRequestsPage implements OnInit {
         if(res.data) {
           for(let i = 0; i < res.data.length; i++) {
             if(res.data[i].status == 0) {
-              this.arrRequests.push({...res.data[i], expanded: false});
+              this.arrRequests.push({...res.data[i], expanded: false, expandattachment: false});
             }
           }
+          this.arrRequests = res.data;
         }
         requestLoader.dismiss();
         console.log(this.arrRequests);
@@ -56,12 +69,35 @@ export class AdminRequestsPage implements OnInit {
       })
   }
 
-  onToggleViewAttachment(i) {
-    this.arrRequests[i].expanded = !this.arrRequests[i].expanded;
+  /**
+   * View Details of request
+   * @param index arrRequests index
+   */
+  onClickRequest(index) {
+    this.arrRequests[index].expanded = !this.arrRequests[index].expanded;
   }
 
-  async onClickAttachments(filename) {
+  /**
+   * Toggle attachments
+   * @param evt Click Event
+   * @param i arrRequests index
+   */
+  onToggleViewAttachment(evt, i) {
+    evt.stopPropagation();
+    this.arrRequests[i].expandattachment = !this.arrRequests[i].expandattachment;
+  }
+
+  /**
+   * Check platform
+   *  if mobile: use file transfer plugin
+   *  else directly download
+   * @param evt Click Event
+   * @param filename Filename to download
+   */
+  async onClickAttachments(evt, filename) {
+    evt.stopPropagation();
     let isMobile = this.platform.is("mobile");
+    console.log(isMobile);
     if(isMobile) {
       const fileTransfer: FileTransferObject = this.transfer.create();
       try {
@@ -81,45 +117,17 @@ export class AdminRequestsPage implements OnInit {
   }
 
   /**
-   * Assign to expert
-   * @param request Request Object
+   * If the category of request is "I don't know", admin can select request.
+   * @param objRequest Assign request to expert
    */
-  onClickSentToRequestor(request) {
-    if(request.status == 2) {
-      alert("This Request is already closed!");
-      return;
-    }
-    console.log(request);
+  onClickAssignRequest(evt, objRequest) {
+    evt.stopPropagation();
+    this.navCtrl.navigateForward('/admin-assign-expert/' + objRequest._id);
   }
 
   /**
-   * Request is ignored
-   * @param request Request Object
+   * Navigate to landing page
    */
-  onClickBackToReviewer(request) {
-    if(request.status == 2) {
-      alert("This Request is already closed!");
-      return;
-    }
-    console.log(request);
-  }
-
-  /**
-   * Abort Request
-   * @param request 
-   */
-  onClickAbort(request) {
-    if(request.status == 2) {
-      alert("This Request is already closed!");
-      return;
-    }
-    console.log(request);
-  }
-
-  onClickAllCases() {
-    this.navCtrl.navigateForward('/menu/adminallcases');
-  }
-
   onClickNavBack() {
     this.navCtrl.navigateBack('/menu/landing');
   }

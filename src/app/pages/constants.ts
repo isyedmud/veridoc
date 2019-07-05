@@ -14,18 +14,36 @@ export const CATEGORIES = [
     "Precision Oncology",
     "Physical Med/Rehab",
     "Pulmonary Medicine and Critical Care",
-    "Rheumatology"
+    "Rheumatology",
+    "I don't know"
 ];
 
 /**
  * Payment option List
  */
+// export const PAYMENTOPTIONS = [
+//     "Debit Card",
+//     "Credit Card",
+//     "Paypal",
+//     "Paytm"
+// ];
 export const PAYMENTOPTIONS = [
-    "Debit Card",
-    "Credit Card",
-    "Paypal",
-    "Paytm",
-    "Internet Banking"
+    {
+        title: "Debit Card",
+        image: "assets/imgs/img-master.png"
+    },
+    {
+        title: "Credit Card",
+        image: "assets/imgs/img-visa.png"
+    },
+    {
+        title: "Paypal Card",
+        image: "assets/imgs/img-pp.png"
+    },
+    {
+        title: "Paytm",
+        image: "assets/imgs/img-paytm.png"
+    }
 ];
 
 /**
@@ -39,20 +57,25 @@ export const CONTACTINFO = {
 /**
  * backend server url
  */
-export const BACKENDURL = 'http://192.168.0.107:4200/api/v1';
+export const BACKENDURL = 'http://192.168.0.106:4200/api/v1';
 
 /**
  * uploaded file path on backend server
  */
-export const SERVERASSETS = 'http://192.168.0.107:4200/attachments/';
+export const SERVERASSETS = 'http://192.168.0.106:4200/attachments/';
 
 /**
  * Request status
  */
 export const STATUS = [
-    "Pending",
-    "In Progress",
-    "Closed"
+    "Draft", // red
+    "In Progress", // green
+    "Provide Input", // blue
+    "Completed",    // yellow
+    "Closed"    // yellow
+    // "Pending",
+    // "In Progress",
+    // "Closed"
 ];
 
 /**

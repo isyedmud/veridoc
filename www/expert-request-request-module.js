@@ -18,6 +18,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _request_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./request.page */ "./src/app/pages/expert/request/request.page.ts");
 /* harmony import */ var src_app_pipes_pipes_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/pipes/pipes.module */ "./src/app/pipes/pipes.module.ts");
+/* harmony import */ var _modal_modal_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../modal/modal.module */ "./src/app/pages/modal/modal.module.ts");
+
 
 
 
@@ -42,9 +44,12 @@ var RequestPageModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
                 src_app_pipes_pipes_module__WEBPACK_IMPORTED_MODULE_7__["PipesModule"],
+                _modal_modal_module__WEBPACK_IMPORTED_MODULE_8__["ModalModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(routes)
             ],
-            declarations: [_request_page__WEBPACK_IMPORTED_MODULE_6__["RequestPage"]]
+            declarations: [
+                _request_page__WEBPACK_IMPORTED_MODULE_6__["RequestPage"],
+            ]
         })
     ], RequestPageModule);
     return RequestPageModule;
@@ -61,7 +66,7 @@ var RequestPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button fill=\"clear\" (click)=\"onClickNavBack()\">\n        <ion-icon name=\"arrow-back\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <ion-title>Requests</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div id=\"request-list\">\n    <div *ngFor=\"let request of arrRequests; let i = index;\" class=\"request-item\">\n      <div class=\"request-item-header\">\n        <p>\n          {{request._id}}\n        </p>\n        <div>\n          <ion-button fill=\"clear\" color=\"white\" (click)=\"onClickReview(i)\">\n            <ion-icon name=\"checkmark\"></ion-icon>\n          </ion-button>\n        </div>\n      </div>\n      <div class=\"request-item-content\">\n        <p>\n          Comments: {{request.comments}}\n        </p>\n        <p>\n          Queries: {{request.queries}}\n        </p>\n        <ion-item lines=\"none\" (click)=\"onToggleViewAttachment(i)\">\n          <ion-icon *ngIf=\"!request.expanded\" name=\"arrow-dropright\"></ion-icon>\n          <ion-icon *ngIf=\"request.expanded\" name=\"arrow-dropdown\"></ion-icon>\n          <ion-label>View Attachments</ion-label>\n        </ion-item>\n        <ion-list *ngIf=\"request.expanded\" no-padding>\n          <div *ngFor=\"let file of request.files\">\n            <p (click)=\"onClickAttachments(file.filename)\">\n              {{file.filename}}\n            </p>\n          </div>\n        </ion-list>\n      </div>\n      <div class=\"request-item-footer\">\n        <p>\n          Created At: {{request.createdAt | doctime}}\n        </p>\n      </div>\n    </div>\n  </div>\n</ion-content>\n<ion-footer>\n  <ion-toolbar (click)=\"onClickReviewedCases()\">\n    <ion-title>Reviewd Cases</ion-title>\n  </ion-toolbar>\n</ion-footer>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button fill=\"clear\" (click)=\"onClickNavBack()\">\n        <ion-icon name=\"arrow-back\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <ion-title>Requests</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"onClickFilter()\">\n        <ion-icon src=\"assets/icons/icon-custom-filter.svg\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div id=\"request-list\">\n    <div *ngFor=\"let request of arrRequests; let i = index;\" class=\"request-item\">\n      <div class=\"request-item-header\">\n        <p>\n          {{request.user.fname + \" \" + request.user.lname}}\n        </p>\n        <div *ngIf=\"!request.expert\">\n          <ion-button fill=\"clear\" color=\"white\" (click)=\"onClickAssignRequest(i)\">\n            <ion-icon name=\"checkmark\"></ion-icon>\n          </ion-button>\n        </div>\n      </div>\n      <div class=\"request-item-content\">\n        <p>\n          Comments: {{request.comments}}\n        </p>\n        <p>\n          Queries: {{request.queries}}\n        </p>\n        <ion-item lines=\"none\" (click)=\"onToggleViewAttachment(i)\">\n          <ion-icon *ngIf=\"!request.expanded\" name=\"arrow-dropright\"></ion-icon>\n          <ion-icon *ngIf=\"request.expanded\" name=\"arrow-dropdown\"></ion-icon>\n          <ion-label>View Attachments</ion-label>\n        </ion-item>\n        <ion-list *ngIf=\"request.expanded\" no-padding>\n          <div *ngFor=\"let file of request.files\">\n            <p (click)=\"onClickAttachments(file.filename)\">\n              {{file.filename}}\n            </p>\n          </div>\n        </ion-list>\n      </div>\n      <div class=\"request-item-footer\">\n        <div class=\"request-item-controls\">\n          <div>\n            <ion-button [disabled]=\"!request.expert\" expand=\"full\" (click)=\"onClickProvideInput(i)\">Provide Input</ion-button>\n          </div>\n          <div>\n            <ion-button [disabled]=\"!request.expert\" expand=\"full\" (click)=\"onClickFinalOpinion(i)\">Final Opinion</ion-button>\n          </div>\n        </div>\n        <p>\n          Created At: {{request.createdAt | doctime}}\n        </p>\n      </div>\n    </div>\n  </div>\n</ion-content>\n<ion-footer>\n  <ion-toolbar (click)=\"onClickReviewedCases()\">\n    <ion-title>Reviewd Cases</ion-title>\n  </ion-toolbar>\n</ion-footer>\n"
 
 /***/ }),
 
@@ -72,7 +77,7 @@ module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-footer ion-title {\n  text-align: center; }\n\n#request-list {\n  margin: 16px; }\n\n.request-item {\n  box-shadow: 0 2px 4px #b3b3b3;\n  margin-bottom: 2vh; }\n\n.request-item-header {\n  background-color: #3780ff;\n  display: flex; }\n\n.request-item-header p {\n    flex: 1;\n    margin: 0;\n    padding: 16px;\n    color: white;\n    text-align: left; }\n\n.request-item-header div {\n    flex: 1;\n    display: flex;\n    justify-content: flex-end;\n    align-items: center; }\n\n.request-item-content {\n  margin: 16px; }\n\n.request-item-footer {\n  padding: 0 16px 16px 16px; }\n\n.request-item-footer p {\n    margin: 0;\n    font-size: .8em;\n    text-align: right; }\n\nion-list {\n  margin-left: 32px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0RhdGExL1dvcmtzcGFjZS9pb25pYy92ZXJpZG9jL3NyYy9hcHAvcGFnZXMvZXhwZXJ0L3JlcXVlc3QvcmVxdWVzdC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFUSxrQkFBa0IsRUFBQTs7QUFJMUI7RUFDSSxZQUFZLEVBQUE7O0FBR2hCO0VBQ0ksNkJBQTZCO0VBQzdCLGtCQUFrQixFQUFBOztBQUd0QjtFQUNJLHlCQUF5QjtFQUN6QixhQUFhLEVBQUE7O0FBRmpCO0lBSVEsT0FBTztJQUNQLFNBQVM7SUFDVCxhQUFhO0lBQ2IsWUFBWTtJQUNaLGdCQUFnQixFQUFBOztBQVJ4QjtJQVdRLE9BQU87SUFDUCxhQUFhO0lBQ2IseUJBQXlCO0lBQ3pCLG1CQUFtQixFQUFBOztBQUkzQjtFQUNJLFlBQVksRUFBQTs7QUFHaEI7RUFDSSx5QkFBeUIsRUFBQTs7QUFEN0I7SUFHUSxTQUFTO0lBQ1QsZUFBZTtJQUNmLGlCQUFpQixFQUFBOztBQUl6QjtFQUNJLGlCQUFpQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvZXhwZXJ0L3JlcXVlc3QvcmVxdWVzdC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tZm9vdGVyIHtcbiAgICBpb24tdGl0bGUge1xuICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgfVxufVxuXG4jcmVxdWVzdC1saXN0IHtcbiAgICBtYXJnaW46IDE2cHg7XG59XG5cbi5yZXF1ZXN0LWl0ZW0ge1xuICAgIGJveC1zaGFkb3c6IDAgMnB4IDRweCAjYjNiM2IzO1xuICAgIG1hcmdpbi1ib3R0b206IDJ2aDtcbn1cblxuLnJlcXVlc3QtaXRlbS1oZWFkZXIge1xuICAgIGJhY2tncm91bmQtY29sb3I6ICMzNzgwZmY7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBwIHtcbiAgICAgICAgZmxleDogMTtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBwYWRkaW5nOiAxNnB4O1xuICAgICAgICBjb2xvcjogd2hpdGU7XG4gICAgICAgIHRleHQtYWxpZ246IGxlZnQ7XG4gICAgfVxuICAgIGRpdiB7XG4gICAgICAgIGZsZXg6IDE7XG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICAgIGp1c3RpZnktY29udGVudDogZmxleC1lbmQ7XG4gICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgfVxufVxuXG4ucmVxdWVzdC1pdGVtLWNvbnRlbnQge1xuICAgIG1hcmdpbjogMTZweDtcbn1cblxuLnJlcXVlc3QtaXRlbS1mb290ZXIge1xuICAgIHBhZGRpbmc6IDAgMTZweCAxNnB4IDE2cHg7XG4gICAgcCB7XG4gICAgICAgIG1hcmdpbjogMDtcbiAgICAgICAgZm9udC1zaXplOiAuOGVtO1xuICAgICAgICB0ZXh0LWFsaWduOiByaWdodDtcbiAgICB9XG59XG5cbmlvbi1saXN0IHtcbiAgICBtYXJnaW4tbGVmdDogMzJweDtcbn0iXX0= */"
+module.exports = "ion-footer ion-title {\n  text-align: center; }\n\n#request-list {\n  margin: 16px; }\n\n.request-item {\n  box-shadow: 0 2px 4px #b3b3b3;\n  margin-bottom: 2vh; }\n\n.request-item-header {\n  background-color: #3780ff;\n  display: flex; }\n\n.request-item-header p {\n    flex: 1;\n    margin: 0;\n    padding: 16px;\n    color: white;\n    text-align: left; }\n\n.request-item-header div {\n    flex: 1;\n    display: flex;\n    justify-content: flex-end;\n    align-items: center; }\n\n.request-item-content {\n  margin: 16px; }\n\n.request-item-footer {\n  padding: 0 16px 16px 16px; }\n\n.request-item-footer p {\n    margin: 0;\n    font-size: .8em;\n    text-align: right; }\n\n.request-item-controls {\n  display: flex;\n  margin-bottom: 3vh; }\n\n.request-item-controls div {\n    flex: 1;\n    padding: 0 16px; }\n\nion-list {\n  margin-left: 32px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0RhdGExL1dvcmtzcGFjZS9pb25pYy92ZXJpZG9jL3NyYy9hcHAvcGFnZXMvZXhwZXJ0L3JlcXVlc3QvcmVxdWVzdC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFUSxrQkFBa0IsRUFBQTs7QUFJMUI7RUFDSSxZQUFZLEVBQUE7O0FBR2hCO0VBQ0ksNkJBQTZCO0VBQzdCLGtCQUFrQixFQUFBOztBQUd0QjtFQUNJLHlCQUF5QjtFQUN6QixhQUFhLEVBQUE7O0FBRmpCO0lBSVEsT0FBTztJQUNQLFNBQVM7SUFDVCxhQUFhO0lBQ2IsWUFBWTtJQUNaLGdCQUFnQixFQUFBOztBQVJ4QjtJQVdRLE9BQU87SUFDUCxhQUFhO0lBQ2IseUJBQXlCO0lBQ3pCLG1CQUFtQixFQUFBOztBQUkzQjtFQUNJLFlBQVksRUFBQTs7QUFHaEI7RUFDSSx5QkFBeUIsRUFBQTs7QUFEN0I7SUFHUSxTQUFTO0lBQ1QsZUFBZTtJQUNmLGlCQUFpQixFQUFBOztBQUl6QjtFQUNJLGFBQWE7RUFDYixrQkFBa0IsRUFBQTs7QUFGdEI7SUFJUSxPQUFPO0lBQ1AsZUFBZSxFQUFBOztBQUl2QjtFQUNJLGlCQUFpQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvZXhwZXJ0L3JlcXVlc3QvcmVxdWVzdC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tZm9vdGVyIHtcbiAgICBpb24tdGl0bGUge1xuICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgfVxufVxuXG4jcmVxdWVzdC1saXN0IHtcbiAgICBtYXJnaW46IDE2cHg7XG59XG5cbi5yZXF1ZXN0LWl0ZW0ge1xuICAgIGJveC1zaGFkb3c6IDAgMnB4IDRweCAjYjNiM2IzO1xuICAgIG1hcmdpbi1ib3R0b206IDJ2aDtcbn1cblxuLnJlcXVlc3QtaXRlbS1oZWFkZXIge1xuICAgIGJhY2tncm91bmQtY29sb3I6ICMzNzgwZmY7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBwIHtcbiAgICAgICAgZmxleDogMTtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBwYWRkaW5nOiAxNnB4O1xuICAgICAgICBjb2xvcjogd2hpdGU7XG4gICAgICAgIHRleHQtYWxpZ246IGxlZnQ7XG4gICAgfVxuICAgIGRpdiB7XG4gICAgICAgIGZsZXg6IDE7XG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICAgIGp1c3RpZnktY29udGVudDogZmxleC1lbmQ7XG4gICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgfVxufVxuXG4ucmVxdWVzdC1pdGVtLWNvbnRlbnQge1xuICAgIG1hcmdpbjogMTZweDtcbn1cblxuLnJlcXVlc3QtaXRlbS1mb290ZXIge1xuICAgIHBhZGRpbmc6IDAgMTZweCAxNnB4IDE2cHg7XG4gICAgcCB7XG4gICAgICAgIG1hcmdpbjogMDtcbiAgICAgICAgZm9udC1zaXplOiAuOGVtO1xuICAgICAgICB0ZXh0LWFsaWduOiByaWdodDtcbiAgICB9XG59XG5cbi5yZXF1ZXN0LWl0ZW0tY29udHJvbHMge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgbWFyZ2luLWJvdHRvbTogM3ZoO1xuICAgIGRpdiB7XG4gICAgICAgIGZsZXg6IDE7XG4gICAgICAgIHBhZGRpbmc6IDAgMTZweDtcbiAgICB9XG59XG5cbmlvbi1saXN0IHtcbiAgICBtYXJnaW4tbGVmdDogMzJweDtcbn0iXX0= */"
 
 /***/ }),
 
@@ -95,6 +100,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
 /* harmony import */ var _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/file/ngx */ "./node_modules/@ionic-native/file/ngx/index.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../constants */ "./src/app/pages/constants.ts");
+/* harmony import */ var _popover_filter_filter_page__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../popover/filter/filter.page */ "./src/app/pages/popover/filter/filter.page.ts");
+/* harmony import */ var src_app_services_toast_toast_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/toast/toast.service */ "./src/app/services/toast/toast.service.ts");
+/* harmony import */ var _modal_expert_comment_expert_comment_page__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../modal/expert-comment/expert-comment.page */ "./src/app/pages/modal/expert-comment/expert-comment.page.ts");
+
+
+
 
 
 
@@ -104,14 +115,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var RequestPage = /** @class */ (function () {
-    function RequestPage(navCtrl, apiService, loadingCtrl, platform, file, transfer) {
+    function RequestPage(navCtrl, apiService, loadingCtrl, platform, file, transfer, popOver, toastService, modalCtrl) {
         this.navCtrl = navCtrl;
         this.apiService = apiService;
         this.loadingCtrl = loadingCtrl;
         this.platform = platform;
         this.file = file;
         this.transfer = transfer;
+        this.popOver = popOver;
+        this.toastService = toastService;
+        this.modalCtrl = modalCtrl;
+        this.uid = "";
         this.arrRequests = [];
+        this.arrFilterOpts = [
+            "Category",
+            "Date",
+            "Requestor First Name",
+            "Requestor Last Name"
+        ];
     }
     RequestPage.prototype.ngOnInit = function () {
     };
@@ -135,17 +156,20 @@ var RequestPage = /** @class */ (function () {
                         return [4 /*yield*/, requestLoader.present()];
                     case 2:
                         _a.sent();
+                        this.uid = localStorage.getItem("uid");
                         try {
                             this.apiService.getAllRequests()
                                 .subscribe(function (res) {
                                 _this.arrRequests = [];
                                 if (res.data) {
+                                    console.log(res.data);
                                     for (var i = 0; i < res.data.length; i++) {
-                                        if (res.data[i].status == 0) {
+                                        if (res.data[i].status == 1 && (res.data[i].expert == _this.uid || !res.data[i].expert)) {
                                             _this.arrRequests.push(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, res.data[i], { expanded: false }));
                                         }
                                     }
                                 }
+                                console.log(_this.arrRequests);
                                 requestLoader.dismiss();
                             });
                         }
@@ -157,6 +181,92 @@ var RequestPage = /** @class */ (function () {
                 }
             });
         });
+    };
+    /**
+     * Show Filter Popover
+     */
+    RequestPage.prototype.onClickFilter = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var filterPopover;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.popOver.create({
+                            component: _popover_filter_filter_page__WEBPACK_IMPORTED_MODULE_8__["FilterPage"],
+                            componentProps: {
+                                "filterOpts": this.arrFilterOpts
+                            },
+                            event: event
+                        })];
+                    case 1:
+                        filterPopover = _a.sent();
+                        return [4 /*yield*/, filterPopover.present()];
+                    case 2:
+                        _a.sent();
+                        filterPopover.onDidDismiss()
+                            .then(function (data) {
+                            // console.log(data);
+                            _this.filterRequests(data.data);
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * Assign Request to currrent Expert
+     * @param index array arrRequests index
+     */
+    RequestPage.prototype.onClickAssignRequest = function (index) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var assignLoader, objAssign;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.loadingCtrl.create({
+                            message: "Please wait..."
+                        })];
+                    case 1:
+                        assignLoader = _a.sent();
+                        return [4 /*yield*/, assignLoader.present()];
+                    case 2:
+                        _a.sent();
+                        objAssign = {
+                            requestId: this.arrRequests[index]._id,
+                            expertId: localStorage.getItem("uid")
+                        };
+                        this.apiService.requestSetExpert(objAssign)
+                            .subscribe(function () {
+                            _this.arrRequests[index].expert = _this.uid;
+                            assignLoader.dismiss();
+                            _this.toastService.showToast("Request is accepted!");
+                        }, function (error) {
+                            console.log(error);
+                            assignLoader.dismiss();
+                            _this.toastService.showToast("Operation failed!");
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * Filter Requests by selected option
+     * @param filterOpt Filter option as array Index
+     */
+    RequestPage.prototype.filterRequests = function (filterOpt) {
+        if (filterOpt == 0) {
+            this.arrRequests.sort(function (a, b) { return a.category - b.category; });
+        }
+        else if (filterOpt == 1) {
+            this.arrRequests.sort(function (a, b) { return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); });
+        }
+        else if (filterOpt == 2) {
+            this.arrRequests.sort(function (a, b) { return a.user.fname - b.user.fname; });
+        }
+        else {
+            this.arrRequests.sort(function (a, b) { return a.user.lname - b.user.lname; });
+        }
     };
     /**
      * Toggle to view attachments
@@ -207,49 +317,113 @@ var RequestPage = /** @class */ (function () {
         });
     };
     /**
-     * Assign request to expert
-     * @param index the index of arrRequests array
+     * Set request's status as "Provide Input"
+     * @param index arrRequestIndex: Number
      */
-    RequestPage.prototype.onClickReview = function (index) {
+    RequestPage.prototype.onClickProvideInput = function (index) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var data, setLoader;
+            var updateStatusLoader;
             var _this = this;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        data = {
-                            expertId: localStorage.getItem("uid"),
-                            requestId: this.arrRequests[index]._id
-                        };
-                        return [4 /*yield*/, this.loadingCtrl.create({
-                                message: "Please wait..."
-                            })];
+                    case 0: return [4 /*yield*/, this.loadingCtrl.create({
+                            message: "Please wait..."
+                        })];
                     case 1:
-                        setLoader = _a.sent();
-                        return [4 /*yield*/, setLoader.present()];
+                        updateStatusLoader = _a.sent();
+                        return [4 /*yield*/, updateStatusLoader.present()];
                     case 2:
                         _a.sent();
-                        try {
-                            this.apiService.requestSetExpert(data)
-                                .subscribe(function (data) {
-                                setLoader.dismiss();
-                                _this.initPage();
-                            });
-                        }
-                        catch (err) {
-                            console.log(err);
-                            setLoader.dismiss();
-                        }
+                        this.apiService.updateRequestStatus(this.arrRequests[index]._id, 2)
+                            .subscribe(function () {
+                            updateStatusLoader.dismiss();
+                            _this.toastService.showToast("Success!");
+                        }, function (error) {
+                            console.log(error);
+                            updateStatusLoader.dismiss();
+                            _this.toastService.showToast("Operation Failed!");
+                        });
                         return [2 /*return*/];
                 }
             });
         });
     };
     /**
-     * navigate to view document page
-     * @param index request array index
+     * Show Modal to input expert comments
+     * @param index arrRequestIndex: Number
      */
-    RequestPage.prototype.onClickViewDocs = function (index) {
+    RequestPage.prototype.onClickFinalOpinion = function (index) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var commentModal, expertReview, err_2;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.modalCtrl.create({
+                            component: _modal_expert_comment_expert_comment_page__WEBPACK_IMPORTED_MODULE_10__["ExpertCommentPage"],
+                            cssClass: "info-modal",
+                            backdropDismiss: false
+                        })];
+                    case 1:
+                        commentModal = _a.sent();
+                        return [4 /*yield*/, commentModal.present()];
+                    case 2:
+                        _a.sent();
+                        _a.label = 3;
+                    case 3:
+                        _a.trys.push([3, 5, , 6]);
+                        return [4 /*yield*/, commentModal.onDidDismiss()];
+                    case 4:
+                        expertReview = _a.sent();
+                        if (expertReview.data !== null) {
+                            this.provideExpertComment(index, expertReview.data);
+                        }
+                        return [3 /*break*/, 6];
+                    case 5:
+                        err_2 = _a.sent();
+                        console.log(err_2);
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * Provide expert's comment to request and set request's status as "Completed"
+     * @param index arrRequestIndex: Number
+     * @param str expert's comment: String
+     */
+    RequestPage.prototype.provideExpertComment = function (index, str) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var commentLoader, objComment;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.loadingCtrl.create({
+                            message: "Please wait..."
+                        })];
+                    case 1:
+                        commentLoader = _a.sent();
+                        return [4 /*yield*/, commentLoader.present()];
+                    case 2:
+                        _a.sent();
+                        objComment = {
+                            expertsId: this.arrRequests[index].expert,
+                            userId: this.arrRequests[index].user._id,
+                            requestId: this.arrRequests[index]._id,
+                            comment: str
+                        };
+                        this.apiService.provideExpertComment(objComment)
+                            .subscribe(function () {
+                            commentLoader.dismiss();
+                            _this.toastService.showToast("Successful!");
+                        }, function (error) {
+                            console.log(error);
+                            commentLoader.dismiss();
+                            _this.toastService.showToast("Operation Failed!");
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * Navigate to Revied Case page
@@ -274,7 +448,10 @@ var RequestPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
             _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__["File"],
-            _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_5__["FileTransfer"]])
+            _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_5__["FileTransfer"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"],
+            src_app_services_toast_toast_service__WEBPACK_IMPORTED_MODULE_9__["ToastService"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]])
     ], RequestPage);
     return RequestPage;
 }());

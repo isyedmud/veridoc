@@ -1,9 +1,54 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>pay-opt</ion-title>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="onClickNavBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Payment Option</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3" *ngFor="let payment of arrPaymentOpts">
+        <div>
+          <img [src]="payment.image" />
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
+  <ng-container *ngIf="objPaymentOpt; else noPaymentOpt">
+    <ion-item>
+      <ion-label>Account HolderName</ion-label>
+      <ion-input type="text" disabled=true [(ngModel)]="objPaymentOpt.accountholdername"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Account Number</ion-label>
+      <ion-input type="text" disabled=true [(ngModel)]="objPaymentOpt.accountnumber"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Bank Address</ion-label>
+      <ion-input type="text" disabled=true [(ngModel)]="objPaymentOpt.bankaddress"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Bank Name</ion-label>
+      <ion-input type="text" disabled=true [(ngModel)]="objPaymentOpt.bankname"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>IFSC code</ion-label>
+      <ion-input type="text" disabled=true [(ngModel)]="objPaymentOpt.ifsccode"></ion-input>
+    </ion-item>
+  </ng-container>
+  <ng-template #noPaymentOpt>
+    <p>
+      No payment option selected
+    </p>
+  </ng-template>
 </ion-content>

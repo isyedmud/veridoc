@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button fill="clear" (click)="onClickNavBack()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Expert Detail</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content padding>
+  <div id="expert-detail-header">
+    <div>
+      <div id="expert-detail-avatar">
+        <img [src]="expertInfo?.avatar" />
+      </div>
+    </div>
+    <div>
+      <p>
+        Title: {{expertInfo?.title}}
+      </p>
+      <p>
+        Headline: {{expertInfo?.headline}}
+      </p>
+      <p>
+        Name: {{expertInfo?.fname + " " + expertInfo?.lname}}
+      </p>
+    </div>
+  </div>
+
+  <div id="expert-detail-main" *ngIf="arrReviews.length > 0">
+    <div *ngFor="let review of arrReviews" class="expert-detail-review">
+      <div class="expert-detail-review-header">
+        <div>
+          <div class="expert-detail-review-header-userimg">
+            <img [src]="review?.userId.avatar" />
+          </div>
+        </div>
+        <div>
+          <p>
+            {{review?.userId.fname + " " + review?.userId.lname}}
+          </p>
+        </div>
+      </div>
+      <div class="expert-detail-review-main">
+        <div>
+          <rating [rate]="review?.mark"
+            readonly="true"
+            size="default">
+          </rating>
+        </div>
+        <div>
+          <p>
+            "{{review.review}}"
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

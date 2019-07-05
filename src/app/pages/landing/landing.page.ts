@@ -284,7 +284,7 @@ export class LandingPage implements OnInit {
    */
   onClickGetExpertsReviewBtn(evt) {
     evt.preventDefault();
-    this.navCtrl.navigateForward('/menu/expertsreview');
+    this.navCtrl.navigateForward('/menu/expertsreview/null');
   }
 
   /**

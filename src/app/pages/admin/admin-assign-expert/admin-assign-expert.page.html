@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="onClickNavBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Assign Request</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list no-padding>
+    <div *ngFor="let expert of arrExperts; let i = index;" class="expert-list-item">
+      <div class="expert-card-header padding-card">
+        <p>
+          Expert Name: {{expert.fname + " " + expert.lname}}
+        </p>
+      </div>
+      <div class="expert-card-body padding-card">
+        <p>
+          Title: {{expert.title}}
+        </p>
+        <p>
+          Headline: {{expert.headline}}
+        </p>
+        <p>
+          Experienced Year: {{expert.experiencedyear}}
+        </p>
+      </div>
+      <div class="expert-card-footer padding-card">
+        <div>
+          <ion-button [disabled]="isAssigned" (click)="onClickAssignRequest(i)">
+            Assign Request
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </ion-list>
+</ion-content>

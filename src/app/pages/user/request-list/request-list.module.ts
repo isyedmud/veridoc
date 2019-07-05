@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { RequestListPage } from './request-list.page';
+import { ModalModule } from '../../modal/modal.module';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 const routes: Routes = [
   {
@@ -19,8 +21,12 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    ModalModule,
+    PipesModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [RequestListPage]
+  declarations: [
+    RequestListPage, 
+  ]
 })
 export class RequestListPageModule {}

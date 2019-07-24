@@ -5,6 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DoctimePipe implements PipeTransform {
 
+  private arrMonths = ['Jan', "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+
   transform(value: any, args: boolean): any {
     let result = "";
     let d = new Date(value);
@@ -17,13 +19,13 @@ export class DoctimePipe implements PipeTransform {
     hourVal = hourVal ? hourVal : 12;
 
     let dayVal = d.getDate();
-    let monVal = d.getMonth() + 1;
+    let monVal = this.arrMonths[d.getMonth()];
     let yearVal = d.getFullYear();
 
     if(args == true) {
-      result = monVal + "/" + dayVal + "/" + yearVal + " " + hourVal + ":" + minVal + " " + ampm;
+      result = monVal + " " + dayVal + " " + yearVal + " " + hourVal + ":" + minVal + " " + ampm;
     } else {
-      result = monVal + "/" + dayVal + "/" + yearVal;
+      result = monVal + " " + dayVal + " " + yearVal;
     }
     return result;
   }

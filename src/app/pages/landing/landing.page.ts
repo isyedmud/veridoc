@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { NavController, ModalController, AlertController, Events, Platform } from '@ionic/angular';
+import { NavController, ModalController, AlertController, Events, Platform, LoadingController } from '@ionic/angular';
 import { CATEGORIES, CONTACTINFO } from '../constants';
 import { ContactusPage } from '../modal/contactus/contactus.page';
+import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
   selector: 'app-landing',
@@ -137,29 +138,7 @@ export class LandingPage implements OnInit {
     },
     {
       title: "Team Behind VeriDoc",
-      childs: [
-        {
-          id: 1,
-          header: "John Smith",
-          subheader: "CEO",
-          img: "assets/imgs/img-profile1.jpg",
-          content: "It takes only two minutes to create a user at VeriDoc. It's completely free and you can easily via Facebook, Google or your Email"
-        },
-        {
-          id: 2,
-          header: "John Smith",
-          subheader: "CEO",
-          img: "assets/imgs/img-profile2.jpg",
-          content: "It takes only two minutes to create a user at VeriDoc. It's completely free and you can easily via Facebook, Google or your Email"
-        },
-        {
-          id: 3,
-          header: "John Smith",
-          subheader: "CEO",
-          img: "assets/imgs/img-profile3.jpg",
-          content: "It takes only two minutes to create a user at VeriDoc. It's completely free and you can easily via Facebook, Google or your Email"
-        },
-      ]
+      childs: []
     }
   ];
 
@@ -213,7 +192,9 @@ export class LandingPage implements OnInit {
     private modalCtrl: ModalController,
     private altCtrl: AlertController,
     private event: Events,
-    private platform: Platform
+    private platform: Platform,
+    private loadingCtrl: LoadingController,
+    private apiService: ApiService
   ) { 
     this.event.subscribe("onLoginStatusChange", data => {
       this.initPage();
@@ -234,6 +215,35 @@ export class LandingPage implements OnInit {
     this.userRole = localStorage.getItem("role");
     if(!this.platform.is("mobile")) {
       this.slideOpts.slidesPerView = 3;
+    }
+    this.getHighlightExperts();
+  }
+
+  async getHighlightExperts() {
+    const expertsLoader = await this.loadingCtrl.create({
+      message: "Loading..."
+    });
+
+    await expertsLoader.present();
+
+    try {
+      const expertsResult: any = await this.apiService.getHighlightedExperts().toPromise();
+      console.log(expertsResult.data);
+      let tmpHighlightedExperts = [];
+      Object.keys(expertsResult.data).map((key) => {
+        tmpHighlightedExperts.push({
+          id: key,
+          header: expertsResult.data[key].fname + " " + expertsResult.data[key].lname,
+          subheader: expertsResult.data[key].headline,
+          img: expertsResult.data[key].avatar,
+          content: expertsResult.data[key].expertbio
+        })
+      });
+      this.landingPageContents[2].childs = tmpHighlightedExperts;
+      expertsLoader.dismiss();
+    } catch(error) {
+      console.log(error);
+      expertsLoader.dismiss();
     }
   }
 

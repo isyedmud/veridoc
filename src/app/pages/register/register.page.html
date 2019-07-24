@@ -13,10 +13,10 @@
     <p id="register-page-header">Register</p>
     <div id="register-page-avatar-form">
       <div id="register-page-avatar">
-        <img [src]="avatarImg" (click)="onClickAvatar()"/>
+        <img [src]="avatarImg" (click)="onClickAvatar()" />
       </div>
     </div>
-    <input type="file" id="avatarSelector" accept="image/*" #avatarSelector (change)="onSelectAvatarImage()"/>
+    <input type="file" id="avatarSelector" accept="image/*" #avatarSelector (change)="onSelectAvatarImage()" />
     <div id="register-page-main-content">
       <form [formGroup]="registerForm">
 
@@ -32,7 +32,8 @@
           <ion-input type="text" formControlName="title" placeholder="Title"></ion-input>
         </ion-item>
         <ion-item *ngIf="!registerForm.controls.title.valid && registerForm.controls.role=='1' && submitAttempt">
-          <p [class.invalid]="!registerForm.controls.title.valid && registerForm.controls.role=='1' && submitAttempt">Please enter a Title.</p>
+          <p [class.invalid]="!registerForm.controls.title.valid && registerForm.controls.role=='1' && submitAttempt">
+            Please enter a Title.</p>
         </ion-item>
 
         <!-- Expert Headline -->
@@ -40,7 +41,9 @@
           <ion-input type="text" formControlName="headline" placeholder="Headline"></ion-input>
         </ion-item>
         <ion-item *ngIf="!registerForm.controls.headline.valid && registerForm.controls.role=='1' && submitAttempt">
-          <p [class.invalid]="!registerForm.controls.headline.valid && registerForm.controls.role=='1' && submitAttempt">Please enter a Headline.</p>
+          <p
+            [class.invalid]="!registerForm.controls.headline.valid && registerForm.controls.role=='1' && submitAttempt">
+            Please enter a Headline.</p>
         </ion-item>
 
         <!-- Expert Category -->
@@ -65,7 +68,46 @@
             <ion-select-option value="15">Rheumatology</ion-select-option>
           </ion-select>
         </ion-item>
-      
+
+        <!-- Expert Information -->
+        <!-- Bio -->
+        <ion-item *ngIf="userRole == '1'">
+          <ion-input type="text" formControlName="expertbio" placeholder="Bio"></ion-input>
+        </ion-item>
+
+        <!-- Education -->
+        <ng-container *ngIf="userRole=='1'">
+          <div class="margin-div"></div>
+          <ion-item-divider>
+            Education
+          </ion-item-divider>
+          <ion-item>
+            <ion-input type="text" formControlName="expertschool" placeholder="School"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="text" formControlName="expertresidency" placeholder="Residency"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="text" formControlName="expertinternship" placeholder="Internship"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="text" formControlName="expertdegree" placeholder="Medical Degree"></ion-input>
+          </ion-item>
+
+          <div class="margin-div"></div>
+          <ion-item-divider>
+            Awards
+          </ion-item-divider>
+          <ion-item>
+            <ion-input type="text" formControlName="expertaward" placeholder="Award"></ion-input>
+          </ion-item>
+        </ng-container>
+
+        <div class="margin-div"></div>
+
         <!-- First Name -->
         <ion-item>
           <ion-input type='text' formControlName="fname" placeholder="First Name"></ion-input>
@@ -73,7 +115,7 @@
         <ion-item *ngIf="!registerForm.controls.fname.valid && submitAttempt">
           <p [class.invalid]="!registerForm.controls.fname.valid && submitAttempt">Please enter a First Name.</p>
         </ion-item>
-      
+
         <!-- Last Name -->
         <ion-item>
           <ion-input type='text' formControlName="lname" placeholder="Last Name"></ion-input>
@@ -81,26 +123,58 @@
         <ion-item *ngIf="!registerForm.controls.lname.valid && submitAttempt">
           <p [class.invalid]="!registerForm.controls.lname.valid && submitAttempt">Please enter a Last Name.</p>
         </ion-item>
-      
+
         <!-- Email -->
         <ion-item>
           <ion-input type='email' formControlName="email" placeholder="Email"></ion-input>
         </ion-item>
         <ion-item *ngIf="!registerForm.controls.email.valid && submitAttempt">
-          <p [class.invalid]="!registerForm.controls.email.valid && submitAttempt">Please enter a valid Email Address.</p>
+          <p [class.invalid]="!registerForm.controls.email.valid && submitAttempt">Please enter a valid Email Address.
+          </p>
         </ion-item>
-      
+
         <!-- Birthdate -->
-        <ion-item>
-          <ion-label>BOD</ion-label>
-          <ion-datetime displayFormat="DD/MM/YYYY" formControlName="dob" pickerFormat="DD MMMM YYYY"></ion-datetime>
-        </ion-item>
+
+        <div id="register-birthday" (click)="onClickBirthDay()">
+          <p>
+            Birth Day
+          </p>
+          <p>
+            {{birthDay}}
+          </p>
+        </div>
+
+        <div *ngIf="isShowCalendar">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="4">
+                <div class="calendar-btn-back">
+                  <ion-icon name="arrow-back" (click)="onBackCalendar()"></ion-icon>
+                </div>
+              </ion-col>
+              <ion-col size="4">
+                <p class="register-calendar-selected-date">
+                  {{birthDay}}
+                </p>
+              </ion-col>
+              <ion-col size="4">
+                <div class="calendar-btn-next">
+                  <ion-icon name="arrow-forward" (click)="onNextCalendar()"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+  
+          <calendar [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+            (onCurrentDateChanged)="onCurrentDateChanged($event)" startingDayWeek="1" [showEventDetail]='false'>
+          </calendar>
+        </div>
 
         <!-- Experienced Year for expert -->
         <ion-item *ngIf="userRole == '1'">
           <ion-input type="number" formControlName="experiencedyear" placeholder="Experienced Years"></ion-input>
         </ion-item>
-      
+
         <!-- User Name -->
         <ion-item>
           <ion-input type="text" formControlName="username" placeholder="Username"></ion-input>
@@ -108,27 +182,27 @@
         <ion-item *ngIf="!registerForm.controls.username.valid && submitAttempt">
           <p [class.invalid]="!registerForm.controls.username.valid && submitAttempt">Please enter a Username.</p>
         </ion-item>
-      
+
         <ion-item>
           <ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
         </ion-item>
         <ion-item *ngIf="!registerForm.controls.password.valid && submitAttempt">
           <p [class.invalid]="!registerForm.controls.password.valid && submitAttempt">Please enter password.</p>
         </ion-item>
-      
+
         <ion-item *ngIf="isExpert">Bank Detail</ion-item>
         <ion-item *ngIf="isExpert">License Documents</ion-item>
       </form>
-    
+
       <p id="r-registered" (click)="onClickAlreadyRegisteredBtn()">
         Already Registered?
       </p>
-    
+
       <ion-item lines="none">
         <ion-checkbox slot="start" (ionChange)="onChangeTermsAndConditions($event)"></ion-checkbox>
         <ion-label>Accept terms and conditions</ion-label>
       </ion-item>
-    
+
       <div id="r-btn-register">
         <ion-button (click)="onClickSignupBtn()">Sign Up</ion-button>
       </div>

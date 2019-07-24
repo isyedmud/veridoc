@@ -7,6 +7,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { TERMSANDCONDITIONSTXT } from '../constants';
 import { UsertypePage } from '../popover/usertype/usertype.page';
+import { CalendarComponent } from 'ionic2-calendar/calendar';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,13 @@ import { UsertypePage } from '../popover/usertype/usertype.page';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  @ViewChild('avatarSelector') avatarSelector: ElementRef;
+  @ViewChild('avatarSelector') avatarSelector: ElementRef; 
+  @ViewChild(CalendarComponent) registerCalendar: CalendarComponent;
+
+  calendar = {
+    mode: 'month',
+    currentDate: new Date()
+  };
 
   /**
    * Form Group Validator
@@ -42,6 +49,9 @@ export class RegisterPage implements OnInit {
    * Avatar Image(base64)
    */
   private avatarImg: String = "assets/imgs/img-default-profile.svg";
+  private birthDay = "";
+
+  private isShowCalendar = false;
 
   constructor(
     private loadingCtrl: LoadingController,
@@ -62,19 +72,34 @@ export class RegisterPage implements OnInit {
       role: ['0'],
       fname: ['', Validators.compose([Validators.required])],
       lname: ['', Validators.compose([Validators.required])],
-      dob: ['1970-01-01', Validators.compose([Validators.required])],
       username: ['', Validators.compose([Validators.required])],
       acceptTerms: [false, Validators.compose([Validators.required])],
       experiencedyear: [0],
       category: ['0'],
       title: [''],
-      headline: ['']
+      headline: [''],
+      expertbio: [''],
+      expertschool: [''],
+      expertresidency: [''],
+      expertinternship: [''],
+      expertdegree: [''],
+      expertaward: ['']
     });
   }
 
   ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    this.birthDay = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
+  }
+
+  /**
+   * Show dropdown to select user role
+   * 0: normal user
+   * 1: expert
+   * 2: admin
+   */
   async onSelectUserRole() {
     const userTypePopover = await this.popOver.create({
       component: UsertypePage,
@@ -99,29 +124,33 @@ export class RegisterPage implements OnInit {
   async onClickSignupBtn() {
     this.submitAttempt = true;
 
-    if (this.isAcceptedTerms == false) {
+    if(this.isAcceptedTerms == false) {
       this.toastService.showToast("Please accept our Terms and Conditions!");
       return;
     }
-    if (this.registerForm.valid) {
+    if(this.registerForm.valid) {
       let reqData = {
         email: this.registerForm.controls.email.value,
-        role: Number(this.registerForm.controls.role.value),
+        role: this.userRole,
         fname: this.registerForm.controls.fname.value,
         lname: this.registerForm.controls.lname.value,
-        birthday: this.registerForm.controls.dob.value,
+        birthday: this.birthDay,
         username: this.registerForm.controls.username.value,
         password: md5(this.registerForm.controls.password.value),
-        experiencedyear: this.registerForm.controls.role.value == '1' ? this.registerForm.controls.experiencedyear.value : 0,
+        experiencedyear: this.userRole==1?this.registerForm.controls.experiencedyear.value : 0,
         isverified: false,
         highlight: false,
-        title: this.registerForm.controls.role.value=='1'?this.registerForm.controls.title.value: "",
-        headline: this.registerForm.controls.role.value=='1'?this.registerForm.controls.headline.value: "",
-        category: this.registerForm.controls.role.value == '1' ? this.registerForm.controls.category.value : 'null',
-        avatar: this.avatarImg
+        title: this.userRole==1?this.registerForm.controls.title.value: "",
+        headline: this.userRole==1?this.registerForm.controls.headline.value: "",
+        category: this.userRole==1? this.registerForm.controls.category.value : 'null',
+        avatar: this.avatarImg,
+        expertbio: this.userRole==1?this.registerForm.controls.expertbio.value: "",
+        expertschool: this.userRole==1?this.registerForm.controls.expertschool.value: "",
+        expertresidency: this.userRole==1?this.registerForm.controls.expertresidency.value: "",
+        expertinternship: this.userRole==1?this.registerForm.controls.expertinternship.value: "",
+        expertdegree: this.userRole==1?this.registerForm.controls.expertdegree.value: "",
+        expertaward: this.userRole==1?this.registerForm.controls.expertaward.value: ""
       };
-
-      console.log(reqData);
 
       const signupLoader = await this.loadingCtrl.create({
         message: "Please wait..."
@@ -139,10 +168,12 @@ export class RegisterPage implements OnInit {
         }, (error: any) => {
           console.log(error);
           signupLoader.dismiss();
-          if (error.error.message) {
+          if(error.error.message) {
             this.toastService.showToast(error.error.message);
-          } else {
+          } else if(error.error.err.errors.email.message) {
             this.toastService.showToast(error.error.err.errors.email.message);
+          } else if(error.message) {
+            this.toastService.showToast(error.message);
           }
         });
     }
@@ -240,6 +271,25 @@ export class RegisterPage implements OnInit {
       });
       await termsAlt.present();
     }
+  }
+
+  onClickBirthDay() {
+    this.isShowCalendar = !this.isShowCalendar;
+  }
+
+  onBackCalendar() {
+    var swiper = document.querySelector('.swiper-container')['swiper'];
+    swiper.slidePrev();
+  }
+
+  onNextCalendar() {
+    var swiper = document.querySelector('.swiper-container')['swiper'];
+    swiper.slideNext();
+  }
+
+  onCurrentDateChanged(evt) {
+    let d = new Date(evt);
+    this.birthDay = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
   }
 
   onClickNavBack() {

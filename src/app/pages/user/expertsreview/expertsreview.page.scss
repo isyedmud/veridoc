@@ -81,7 +81,7 @@ ion-item {
         flex: 1;
         text-align: center;
         ion-button {
-            width: 50%;
+            width: 90%;
         }
     }
 }
@@ -153,4 +153,23 @@ ion-item {
             max-width: 100px;
         }
     }   
+}
+
+.experts-review-gender {
+    display: flex;
+    margin-top: 2vh;
+    padding: 0 16px 16px;
+    border-bottom: 1px solid #d7d7d7;
+    div {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        span {
+            padding-left: 8px;
+        }
+    }
+}
+
+ion-item-group {
+    margin-top: 2vh;
 }

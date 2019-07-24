@@ -1,24 +1,28 @@
-<div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)" [uploader]="uploader" class="drop-zone">
+<div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)" [uploader]="uploader" class="drop-zone" (click)="onClickFileSelector()">
   <img src="assets/icons/icon-upload.svg" /> 
   <p class="multi-file-main-title">Drag and drop a file here or Click</p>
 </div>
 
 <div class="file-input-container">
   <label>
-    <input type="file" ng2FileSelect [uploader]="uploader" multiple />
+    <input type="file" ng2FileSelect #ng2FileSelect [uploader]="uploader" multiple />
     Add Files
   </label>
 </div>
 
-<h2>Files: {{ uploader?.queue?.length }}</h2>
+<h2>Files: {{ uploader?.queue?.length + draftFiles.length }}</h2>
 
 <ion-list>
-  <ion-reorder-group (ionItemReorder)="reorderFiles($event)" disabled="true">
-    <ion-item *ngFor="let item of uploader.queue">
-      <ion-label>
-        {{ item?.file?.name }}
-      </ion-label>
-      <ion-reorder></ion-reorder>
-    </ion-item>
-  </ion-reorder-group>
+  <ion-item *ngFor="let item of uploader.queue">
+    <ion-label>
+      {{ item?.file?.name }}
+    </ion-label>
+    <ion-icon color="danger" name="close-circle" (click)="item.remove()"></ion-icon>
+  </ion-item>
+  <ion-item *ngFor="let draftFile of arrDrafts; let i = index;">
+    <ion-label>
+      {{ draftFile.filename }}
+    </ion-label>
+    <ion-icon color="danger" name="close-circle" (click)="onClickRemoveDraftFile(i)"></ion-icon>
+  </ion-item>
 </ion-list>

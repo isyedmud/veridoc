@@ -1,1098 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["user-expertsreview-expertsreview-module"],{
 
-/***/ "./node_modules/ng2-file-upload/file-upload/file-drop.directive.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/ng2-file-upload/file-upload/file-drop.directive.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var file_uploader_class_1 = __webpack_require__(/*! ./file-uploader.class */ "./node_modules/ng2-file-upload/file-upload/file-uploader.class.js");
-var FileDropDirective = (function () {
-    function FileDropDirective(element) {
-        this.fileOver = new core_1.EventEmitter();
-        this.onFileDrop = new core_1.EventEmitter();
-        this.element = element;
-    }
-    FileDropDirective.prototype.getOptions = function () {
-        return this.uploader.options;
-    };
-    FileDropDirective.prototype.getFilters = function () {
-        return {};
-    };
-    FileDropDirective.prototype.onDrop = function (event) {
-        var transfer = this._getTransfer(event);
-        if (!transfer) {
-            return;
-        }
-        var options = this.getOptions();
-        var filters = this.getFilters();
-        this._preventAndStop(event);
-        this.uploader.addToQueue(transfer.files, options, filters);
-        this.fileOver.emit(false);
-        this.onFileDrop.emit(transfer.files);
-    };
-    FileDropDirective.prototype.onDragOver = function (event) {
-        var transfer = this._getTransfer(event);
-        if (!this._haveFiles(transfer.types)) {
-            return;
-        }
-        transfer.dropEffect = 'copy';
-        this._preventAndStop(event);
-        this.fileOver.emit(true);
-    };
-    FileDropDirective.prototype.onDragLeave = function (event) {
-        if (this.element) {
-            if (event.currentTarget === this.element[0]) {
-                return;
-            }
-        }
-        this._preventAndStop(event);
-        this.fileOver.emit(false);
-    };
-    FileDropDirective.prototype._getTransfer = function (event) {
-        return event.dataTransfer ? event.dataTransfer : event.originalEvent.dataTransfer; // jQuery fix;
-    };
-    FileDropDirective.prototype._preventAndStop = function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    };
-    FileDropDirective.prototype._haveFiles = function (types) {
-        if (!types) {
-            return false;
-        }
-        if (types.indexOf) {
-            return types.indexOf('Files') !== -1;
-        }
-        else if (types.contains) {
-            return types.contains('Files');
-        }
-        else {
-            return false;
-        }
-    };
-    return FileDropDirective;
-}());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", file_uploader_class_1.FileUploader)
-], FileDropDirective.prototype, "uploader", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
-], FileDropDirective.prototype, "fileOver", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
-], FileDropDirective.prototype, "onFileDrop", void 0);
-__decorate([
-    core_1.HostListener('drop', ['$event']),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], FileDropDirective.prototype, "onDrop", null);
-__decorate([
-    core_1.HostListener('dragover', ['$event']),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], FileDropDirective.prototype, "onDragOver", null);
-__decorate([
-    core_1.HostListener('dragleave', ['$event']),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Object)
-], FileDropDirective.prototype, "onDragLeave", null);
-FileDropDirective = __decorate([
-    core_1.Directive({ selector: '[ng2FileDrop]' }),
-    __metadata("design:paramtypes", [core_1.ElementRef])
-], FileDropDirective);
-exports.FileDropDirective = FileDropDirective;
-
-
-/***/ }),
-
-/***/ "./node_modules/ng2-file-upload/file-upload/file-item.class.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/ng2-file-upload/file-upload/file-item.class.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var file_like_object_class_1 = __webpack_require__(/*! ./file-like-object.class */ "./node_modules/ng2-file-upload/file-upload/file-like-object.class.js");
-var FileItem = (function () {
-    function FileItem(uploader, some, options) {
-        this.url = '/';
-        this.headers = [];
-        this.withCredentials = true;
-        this.formData = [];
-        this.isReady = false;
-        this.isUploading = false;
-        this.isUploaded = false;
-        this.isSuccess = false;
-        this.isCancel = false;
-        this.isError = false;
-        this.progress = 0;
-        this.index = void 0;
-        this.uploader = uploader;
-        this.some = some;
-        this.options = options;
-        this.file = new file_like_object_class_1.FileLikeObject(some);
-        this._file = some;
-        if (uploader.options) {
-            this.method = uploader.options.method || 'POST';
-            this.alias = uploader.options.itemAlias || 'file';
-        }
-        this.url = uploader.options.url;
-    }
-    FileItem.prototype.upload = function () {
-        try {
-            this.uploader.uploadItem(this);
-        }
-        catch (e) {
-            this.uploader._onCompleteItem(this, '', 0, {});
-            this.uploader._onErrorItem(this, '', 0, {});
-        }
-    };
-    FileItem.prototype.cancel = function () {
-        this.uploader.cancelItem(this);
-    };
-    FileItem.prototype.remove = function () {
-        this.uploader.removeFromQueue(this);
-    };
-    FileItem.prototype.onBeforeUpload = function () {
-        return void 0;
-    };
-    FileItem.prototype.onBuildForm = function (form) {
-        return { form: form };
-    };
-    FileItem.prototype.onProgress = function (progress) {
-        return { progress: progress };
-    };
-    FileItem.prototype.onSuccess = function (response, status, headers) {
-        return { response: response, status: status, headers: headers };
-    };
-    FileItem.prototype.onError = function (response, status, headers) {
-        return { response: response, status: status, headers: headers };
-    };
-    FileItem.prototype.onCancel = function (response, status, headers) {
-        return { response: response, status: status, headers: headers };
-    };
-    FileItem.prototype.onComplete = function (response, status, headers) {
-        return { response: response, status: status, headers: headers };
-    };
-    FileItem.prototype._onBeforeUpload = function () {
-        this.isReady = true;
-        this.isUploading = true;
-        this.isUploaded = false;
-        this.isSuccess = false;
-        this.isCancel = false;
-        this.isError = false;
-        this.progress = 0;
-        this.onBeforeUpload();
-    };
-    FileItem.prototype._onBuildForm = function (form) {
-        this.onBuildForm(form);
-    };
-    FileItem.prototype._onProgress = function (progress) {
-        this.progress = progress;
-        this.onProgress(progress);
-    };
-    FileItem.prototype._onSuccess = function (response, status, headers) {
-        this.isReady = false;
-        this.isUploading = false;
-        this.isUploaded = true;
-        this.isSuccess = true;
-        this.isCancel = false;
-        this.isError = false;
-        this.progress = 100;
-        this.index = void 0;
-        this.onSuccess(response, status, headers);
-    };
-    FileItem.prototype._onError = function (response, status, headers) {
-        this.isReady = false;
-        this.isUploading = false;
-        this.isUploaded = true;
-        this.isSuccess = false;
-        this.isCancel = false;
-        this.isError = true;
-        this.progress = 0;
-        this.index = void 0;
-        this.onError(response, status, headers);
-    };
-    FileItem.prototype._onCancel = function (response, status, headers) {
-        this.isReady = false;
-        this.isUploading = false;
-        this.isUploaded = false;
-        this.isSuccess = false;
-        this.isCancel = true;
-        this.isError = false;
-        this.progress = 0;
-        this.index = void 0;
-        this.onCancel(response, status, headers);
-    };
-    FileItem.prototype._onComplete = function (response, status, headers) {
-        this.onComplete(response, status, headers);
-        if (this.uploader.options.removeAfterUpload) {
-            this.remove();
-        }
-    };
-    FileItem.prototype._prepareToUploading = function () {
-        this.index = this.index || ++this.uploader._nextIndex;
-        this.isReady = true;
-    };
-    return FileItem;
-}());
-exports.FileItem = FileItem;
-
-
-/***/ }),
-
-/***/ "./node_modules/ng2-file-upload/file-upload/file-like-object.class.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/ng2-file-upload/file-upload/file-like-object.class.js ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function isElement(node) {
-    return !!(node && (node.nodeName || node.prop && node.attr && node.find));
-}
-var FileLikeObject = (function () {
-    function FileLikeObject(fileOrInput) {
-        this.rawFile = fileOrInput;
-        var isInput = isElement(fileOrInput);
-        var fakePathOrObject = isInput ? fileOrInput.value : fileOrInput;
-        var postfix = typeof fakePathOrObject === 'string' ? 'FakePath' : 'Object';
-        var method = '_createFrom' + postfix;
-        this[method](fakePathOrObject);
-    }
-    FileLikeObject.prototype._createFromFakePath = function (path) {
-        this.lastModifiedDate = void 0;
-        this.size = void 0;
-        this.type = 'like/' + path.slice(path.lastIndexOf('.') + 1).toLowerCase();
-        this.name = path.slice(path.lastIndexOf('/') + path.lastIndexOf('\\') + 2);
-    };
-    FileLikeObject.prototype._createFromObject = function (object) {
-        this.size = object.size;
-        this.type = object.type;
-        this.name = object.name;
-    };
-    return FileLikeObject;
-}());
-exports.FileLikeObject = FileLikeObject;
-
-
-/***/ }),
-
-/***/ "./node_modules/ng2-file-upload/file-upload/file-select.directive.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/ng2-file-upload/file-upload/file-select.directive.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var file_uploader_class_1 = __webpack_require__(/*! ./file-uploader.class */ "./node_modules/ng2-file-upload/file-upload/file-uploader.class.js");
-var FileSelectDirective = (function () {
-    function FileSelectDirective(element) {
-        this.onFileSelected = new core_1.EventEmitter();
-        this.element = element;
-    }
-    FileSelectDirective.prototype.getOptions = function () {
-        return this.uploader.options;
-    };
-    FileSelectDirective.prototype.getFilters = function () {
-        return {};
-    };
-    FileSelectDirective.prototype.isEmptyAfterSelection = function () {
-        return !!this.element.nativeElement.attributes.multiple;
-    };
-    FileSelectDirective.prototype.onChange = function () {
-        var files = this.element.nativeElement.files;
-        var options = this.getOptions();
-        var filters = this.getFilters();
-        this.uploader.addToQueue(files, options, filters);
-        this.onFileSelected.emit(files);
-        if (this.isEmptyAfterSelection()) {
-            this.element.nativeElement.value = '';
-        }
-    };
-    return FileSelectDirective;
-}());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", file_uploader_class_1.FileUploader)
-], FileSelectDirective.prototype, "uploader", void 0);
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
-], FileSelectDirective.prototype, "onFileSelected", void 0);
-__decorate([
-    core_1.HostListener('change'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Object)
-], FileSelectDirective.prototype, "onChange", null);
-FileSelectDirective = __decorate([
-    core_1.Directive({ selector: '[ng2FileSelect]' }),
-    __metadata("design:paramtypes", [core_1.ElementRef])
-], FileSelectDirective);
-exports.FileSelectDirective = FileSelectDirective;
-
-
-/***/ }),
-
-/***/ "./node_modules/ng2-file-upload/file-upload/file-type.class.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/ng2-file-upload/file-upload/file-type.class.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var FileType = (function () {
-    function FileType() {
-    }
-    FileType.getMimeClass = function (file) {
-        var mimeClass = 'application';
-        if (this.mime_psd.indexOf(file.type) !== -1) {
-            mimeClass = 'image';
-        }
-        else if (file.type.match('image.*')) {
-            mimeClass = 'image';
-        }
-        else if (file.type.match('video.*')) {
-            mimeClass = 'video';
-        }
-        else if (file.type.match('audio.*')) {
-            mimeClass = 'audio';
-        }
-        else if (file.type === 'application/pdf') {
-            mimeClass = 'pdf';
-        }
-        else if (this.mime_compress.indexOf(file.type) !== -1) {
-            mimeClass = 'compress';
-        }
-        else if (this.mime_doc.indexOf(file.type) !== -1) {
-            mimeClass = 'doc';
-        }
-        else if (this.mime_xsl.indexOf(file.type) !== -1) {
-            mimeClass = 'xls';
-        }
-        else if (this.mime_ppt.indexOf(file.type) !== -1) {
-            mimeClass = 'ppt';
-        }
-        if (mimeClass === 'application') {
-            mimeClass = this.fileTypeDetection(file.name);
-        }
-        return mimeClass;
-    };
-    FileType.fileTypeDetection = function (inputFilename) {
-        var types = {
-            'jpg': 'image',
-            'jpeg': 'image',
-            'tif': 'image',
-            'psd': 'image',
-            'bmp': 'image',
-            'png': 'image',
-            'nef': 'image',
-            'tiff': 'image',
-            'cr2': 'image',
-            'dwg': 'image',
-            'cdr': 'image',
-            'ai': 'image',
-            'indd': 'image',
-            'pin': 'image',
-            'cdp': 'image',
-            'skp': 'image',
-            'stp': 'image',
-            '3dm': 'image',
-            'mp3': 'audio',
-            'wav': 'audio',
-            'wma': 'audio',
-            'mod': 'audio',
-            'm4a': 'audio',
-            'compress': 'compress',
-            'zip': 'compress',
-            'rar': 'compress',
-            '7z': 'compress',
-            'lz': 'compress',
-            'z01': 'compress',
-            'pdf': 'pdf',
-            'xls': 'xls',
-            'xlsx': 'xls',
-            'ods': 'xls',
-            'mp4': 'video',
-            'avi': 'video',
-            'wmv': 'video',
-            'mpg': 'video',
-            'mts': 'video',
-            'flv': 'video',
-            '3gp': 'video',
-            'vob': 'video',
-            'm4v': 'video',
-            'mpeg': 'video',
-            'm2ts': 'video',
-            'mov': 'video',
-            'doc': 'doc',
-            'docx': 'doc',
-            'eps': 'doc',
-            'txt': 'doc',
-            'odt': 'doc',
-            'rtf': 'doc',
-            'ppt': 'ppt',
-            'pptx': 'ppt',
-            'pps': 'ppt',
-            'ppsx': 'ppt',
-            'odp': 'ppt'
-        };
-        var chunks = inputFilename.split('.');
-        if (chunks.length < 2) {
-            return 'application';
-        }
-        var extension = chunks[chunks.length - 1].toLowerCase();
-        if (types[extension] === undefined) {
-            return 'application';
-        }
-        else {
-            return types[extension];
-        }
-    };
-    return FileType;
-}());
-/*  MS office  */
-FileType.mime_doc = [
-    'application/msword',
-    'application/msword',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
-    'application/vnd.ms-word.document.macroEnabled.12',
-    'application/vnd.ms-word.template.macroEnabled.12'
-];
-FileType.mime_xsl = [
-    'application/vnd.ms-excel',
-    'application/vnd.ms-excel',
-    'application/vnd.ms-excel',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.template',
-    'application/vnd.ms-excel.sheet.macroEnabled.12',
-    'application/vnd.ms-excel.template.macroEnabled.12',
-    'application/vnd.ms-excel.addin.macroEnabled.12',
-    'application/vnd.ms-excel.sheet.binary.macroEnabled.12'
-];
-FileType.mime_ppt = [
-    'application/vnd.ms-powerpoint',
-    'application/vnd.ms-powerpoint',
-    'application/vnd.ms-powerpoint',
-    'application/vnd.ms-powerpoint',
-    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-    'application/vnd.openxmlformats-officedocument.presentationml.template',
-    'application/vnd.openxmlformats-officedocument.presentationml.slideshow',
-    'application/vnd.ms-powerpoint.addin.macroEnabled.12',
-    'application/vnd.ms-powerpoint.presentation.macroEnabled.12',
-    'application/vnd.ms-powerpoint.presentation.macroEnabled.12',
-    'application/vnd.ms-powerpoint.slideshow.macroEnabled.12'
-];
-/* PSD */
-FileType.mime_psd = [
-    'image/photoshop',
-    'image/x-photoshop',
-    'image/psd',
-    'application/photoshop',
-    'application/psd',
-    'zz-application/zz-winassoc-psd'
-];
-/* Compressed files */
-FileType.mime_compress = [
-    'application/x-gtar',
-    'application/x-gcompress',
-    'application/compress',
-    'application/x-tar',
-    'application/x-rar-compressed',
-    'application/octet-stream'
-];
-exports.FileType = FileType;
-
-
-/***/ }),
-
-/***/ "./node_modules/ng2-file-upload/file-upload/file-upload.module.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/ng2-file-upload/file-upload/file-upload.module.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var common_1 = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var file_drop_directive_1 = __webpack_require__(/*! ./file-drop.directive */ "./node_modules/ng2-file-upload/file-upload/file-drop.directive.js");
-var file_select_directive_1 = __webpack_require__(/*! ./file-select.directive */ "./node_modules/ng2-file-upload/file-upload/file-select.directive.js");
-var FileUploadModule = (function () {
-    function FileUploadModule() {
-    }
-    return FileUploadModule;
-}());
-FileUploadModule = __decorate([
-    core_1.NgModule({
-        imports: [common_1.CommonModule],
-        declarations: [file_drop_directive_1.FileDropDirective, file_select_directive_1.FileSelectDirective],
-        exports: [file_drop_directive_1.FileDropDirective, file_select_directive_1.FileSelectDirective]
-    })
-], FileUploadModule);
-exports.FileUploadModule = FileUploadModule;
-
-
-/***/ }),
-
-/***/ "./node_modules/ng2-file-upload/file-upload/file-uploader.class.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/ng2-file-upload/file-upload/file-uploader.class.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var file_like_object_class_1 = __webpack_require__(/*! ./file-like-object.class */ "./node_modules/ng2-file-upload/file-upload/file-like-object.class.js");
-var file_item_class_1 = __webpack_require__(/*! ./file-item.class */ "./node_modules/ng2-file-upload/file-upload/file-item.class.js");
-var file_type_class_1 = __webpack_require__(/*! ./file-type.class */ "./node_modules/ng2-file-upload/file-upload/file-type.class.js");
-function isFile(value) {
-    return (File && value instanceof File);
-}
-var FileUploader = (function () {
-    function FileUploader(options) {
-        this.isUploading = false;
-        this.queue = [];
-        this.progress = 0;
-        this._nextIndex = 0;
-        this.options = {
-            autoUpload: false,
-            isHTML5: true,
-            filters: [],
-            removeAfterUpload: false,
-            disableMultipart: false,
-            formatDataFunction: function (item) { return item._file; },
-            formatDataFunctionIsAsync: false
-        };
-        this.setOptions(options);
-        this.response = new core_1.EventEmitter();
-    }
-    FileUploader.prototype.setOptions = function (options) {
-        this.options = Object.assign(this.options, options);
-        this.authToken = this.options.authToken;
-        this.authTokenHeader = this.options.authTokenHeader || 'Authorization';
-        this.autoUpload = this.options.autoUpload;
-        this.options.filters.unshift({ name: 'queueLimit', fn: this._queueLimitFilter });
-        if (this.options.maxFileSize) {
-            this.options.filters.unshift({ name: 'fileSize', fn: this._fileSizeFilter });
-        }
-        if (this.options.allowedFileType) {
-            this.options.filters.unshift({ name: 'fileType', fn: this._fileTypeFilter });
-        }
-        if (this.options.allowedMimeType) {
-            this.options.filters.unshift({ name: 'mimeType', fn: this._mimeTypeFilter });
-        }
-        for (var i = 0; i < this.queue.length; i++) {
-            this.queue[i].url = this.options.url;
-        }
-    };
-    FileUploader.prototype.addToQueue = function (files, options, filters) {
-        var _this = this;
-        var list = [];
-        for (var _i = 0, files_1 = files; _i < files_1.length; _i++) {
-            var file = files_1[_i];
-            list.push(file);
-        }
-        var arrayOfFilters = this._getFilters(filters);
-        var count = this.queue.length;
-        var addedFileItems = [];
-        list.map(function (some) {
-            if (!options) {
-                options = _this.options;
-            }
-            var temp = new file_like_object_class_1.FileLikeObject(some);
-            if (_this._isValidFile(temp, arrayOfFilters, options)) {
-                var fileItem = new file_item_class_1.FileItem(_this, some, options);
-                addedFileItems.push(fileItem);
-                _this.queue.push(fileItem);
-                _this._onAfterAddingFile(fileItem);
-            }
-            else {
-                var filter = arrayOfFilters[_this._failFilterIndex];
-                _this._onWhenAddingFileFailed(temp, filter, options);
-            }
-        });
-        if (this.queue.length !== count) {
-            this._onAfterAddingAll(addedFileItems);
-            this.progress = this._getTotalProgress();
-        }
-        this._render();
-        if (this.options.autoUpload) {
-            this.uploadAll();
-        }
-    };
-    FileUploader.prototype.removeFromQueue = function (value) {
-        var index = this.getIndexOfItem(value);
-        var item = this.queue[index];
-        if (item.isUploading) {
-            item.cancel();
-        }
-        this.queue.splice(index, 1);
-        this.progress = this._getTotalProgress();
-    };
-    FileUploader.prototype.clearQueue = function () {
-        while (this.queue.length) {
-            this.queue[0].remove();
-        }
-        this.progress = 0;
-    };
-    FileUploader.prototype.uploadItem = function (value) {
-        var index = this.getIndexOfItem(value);
-        var item = this.queue[index];
-        var transport = this.options.isHTML5 ? '_xhrTransport' : '_iframeTransport';
-        item._prepareToUploading();
-        if (this.isUploading) {
-            return;
-        }
-        this.isUploading = true;
-        this[transport](item);
-    };
-    FileUploader.prototype.cancelItem = function (value) {
-        var index = this.getIndexOfItem(value);
-        var item = this.queue[index];
-        var prop = this.options.isHTML5 ? item._xhr : item._form;
-        if (item && item.isUploading) {
-            prop.abort();
-        }
-    };
-    FileUploader.prototype.uploadAll = function () {
-        var items = this.getNotUploadedItems().filter(function (item) { return !item.isUploading; });
-        if (!items.length) {
-            return;
-        }
-        items.map(function (item) { return item._prepareToUploading(); });
-        items[0].upload();
-    };
-    FileUploader.prototype.cancelAll = function () {
-        var items = this.getNotUploadedItems();
-        items.map(function (item) { return item.cancel(); });
-    };
-    FileUploader.prototype.isFile = function (value) {
-        return isFile(value);
-    };
-    FileUploader.prototype.isFileLikeObject = function (value) {
-        return value instanceof file_like_object_class_1.FileLikeObject;
-    };
-    FileUploader.prototype.getIndexOfItem = function (value) {
-        return typeof value === 'number' ? value : this.queue.indexOf(value);
-    };
-    FileUploader.prototype.getNotUploadedItems = function () {
-        return this.queue.filter(function (item) { return !item.isUploaded; });
-    };
-    FileUploader.prototype.getReadyItems = function () {
-        return this.queue
-            .filter(function (item) { return (item.isReady && !item.isUploading); })
-            .sort(function (item1, item2) { return item1.index - item2.index; });
-    };
-    FileUploader.prototype.destroy = function () {
-        return void 0;
-    };
-    FileUploader.prototype.onAfterAddingAll = function (fileItems) {
-        return { fileItems: fileItems };
-    };
-    FileUploader.prototype.onBuildItemForm = function (fileItem, form) {
-        return { fileItem: fileItem, form: form };
-    };
-    FileUploader.prototype.onAfterAddingFile = function (fileItem) {
-        return { fileItem: fileItem };
-    };
-    FileUploader.prototype.onWhenAddingFileFailed = function (item, filter, options) {
-        return { item: item, filter: filter, options: options };
-    };
-    FileUploader.prototype.onBeforeUploadItem = function (fileItem) {
-        return { fileItem: fileItem };
-    };
-    FileUploader.prototype.onProgressItem = function (fileItem, progress) {
-        return { fileItem: fileItem, progress: progress };
-    };
-    FileUploader.prototype.onProgressAll = function (progress) {
-        return { progress: progress };
-    };
-    FileUploader.prototype.onSuccessItem = function (item, response, status, headers) {
-        return { item: item, response: response, status: status, headers: headers };
-    };
-    FileUploader.prototype.onErrorItem = function (item, response, status, headers) {
-        return { item: item, response: response, status: status, headers: headers };
-    };
-    FileUploader.prototype.onCancelItem = function (item, response, status, headers) {
-        return { item: item, response: response, status: status, headers: headers };
-    };
-    FileUploader.prototype.onCompleteItem = function (item, response, status, headers) {
-        return { item: item, response: response, status: status, headers: headers };
-    };
-    FileUploader.prototype.onCompleteAll = function () {
-        return void 0;
-    };
-    FileUploader.prototype._mimeTypeFilter = function (item) {
-        return !(this.options.allowedMimeType && this.options.allowedMimeType.indexOf(item.type) === -1);
-    };
-    FileUploader.prototype._fileSizeFilter = function (item) {
-        return !(this.options.maxFileSize && item.size > this.options.maxFileSize);
-    };
-    FileUploader.prototype._fileTypeFilter = function (item) {
-        return !(this.options.allowedFileType &&
-            this.options.allowedFileType.indexOf(file_type_class_1.FileType.getMimeClass(item)) === -1);
-    };
-    FileUploader.prototype._onErrorItem = function (item, response, status, headers) {
-        item._onError(response, status, headers);
-        this.onErrorItem(item, response, status, headers);
-    };
-    FileUploader.prototype._onCompleteItem = function (item, response, status, headers) {
-        item._onComplete(response, status, headers);
-        this.onCompleteItem(item, response, status, headers);
-        var nextItem = this.getReadyItems()[0];
-        this.isUploading = false;
-        if (nextItem) {
-            nextItem.upload();
-            return;
-        }
-        this.onCompleteAll();
-        this.progress = this._getTotalProgress();
-        this._render();
-    };
-    FileUploader.prototype._headersGetter = function (parsedHeaders) {
-        return function (name) {
-            if (name) {
-                return parsedHeaders[name.toLowerCase()] || void 0;
-            }
-            return parsedHeaders;
-        };
-    };
-    FileUploader.prototype._xhrTransport = function (item) {
-        var _this = this;
-        var that = this;
-        var xhr = item._xhr = new XMLHttpRequest();
-        var sendable;
-        this._onBeforeUploadItem(item);
-        if (typeof item._file.size !== 'number') {
-            throw new TypeError('The file specified is no longer valid');
-        }
-        if (!this.options.disableMultipart) {
-            sendable = new FormData();
-            this._onBuildItemForm(item, sendable);
-            var appendFile = function () { return sendable.append(item.alias, item._file, item.file.name); };
-            if (!this.options.parametersBeforeFiles) {
-                appendFile();
-            }
-            // For AWS, Additional Parameters must come BEFORE Files
-            if (this.options.additionalParameter !== undefined) {
-                Object.keys(this.options.additionalParameter).forEach(function (key) {
-                    var paramVal = _this.options.additionalParameter[key];
-                    // Allow an additional parameter to include the filename
-                    if (typeof paramVal === 'string' && paramVal.indexOf('{{file_name}}') >= 0) {
-                        paramVal = paramVal.replace('{{file_name}}', item.file.name);
-                    }
-                    sendable.append(key, paramVal);
-                });
-            }
-            if (this.options.parametersBeforeFiles) {
-                appendFile();
-            }
-        }
-        else {
-            sendable = this.options.formatDataFunction(item);
-        }
-        xhr.upload.onprogress = function (event) {
-            var progress = Math.round(event.lengthComputable ? event.loaded * 100 / event.total : 0);
-            _this._onProgressItem(item, progress);
-        };
-        xhr.onload = function () {
-            var headers = _this._parseHeaders(xhr.getAllResponseHeaders());
-            var response = _this._transformResponse(xhr.response, headers);
-            var gist = _this._isSuccessCode(xhr.status) ? 'Success' : 'Error';
-            var method = '_on' + gist + 'Item';
-            _this[method](item, response, xhr.status, headers);
-            _this._onCompleteItem(item, response, xhr.status, headers);
-        };
-        xhr.onerror = function () {
-            var headers = _this._parseHeaders(xhr.getAllResponseHeaders());
-            var response = _this._transformResponse(xhr.response, headers);
-            _this._onErrorItem(item, response, xhr.status, headers);
-            _this._onCompleteItem(item, response, xhr.status, headers);
-        };
-        xhr.onabort = function () {
-            var headers = _this._parseHeaders(xhr.getAllResponseHeaders());
-            var response = _this._transformResponse(xhr.response, headers);
-            _this._onCancelItem(item, response, xhr.status, headers);
-            _this._onCompleteItem(item, response, xhr.status, headers);
-        };
-        xhr.open(item.method, item.url, true);
-        xhr.withCredentials = item.withCredentials;
-        if (this.options.headers) {
-            for (var _i = 0, _a = this.options.headers; _i < _a.length; _i++) {
-                var header = _a[_i];
-                xhr.setRequestHeader(header.name, header.value);
-            }
-        }
-        if (item.headers.length) {
-            for (var _b = 0, _c = item.headers; _b < _c.length; _b++) {
-                var header = _c[_b];
-                xhr.setRequestHeader(header.name, header.value);
-            }
-        }
-        if (this.authToken) {
-            xhr.setRequestHeader(this.authTokenHeader, this.authToken);
-        }
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == XMLHttpRequest.DONE) {
-                that.response.emit(xhr.responseText);
-            }
-        };
-        if (this.options.formatDataFunctionIsAsync) {
-            sendable.then(function (result) { return xhr.send(JSON.stringify(result)); });
-        }
-        else {
-            xhr.send(sendable);
-        }
-        this._render();
-    };
-    FileUploader.prototype._getTotalProgress = function (value) {
-        if (value === void 0) { value = 0; }
-        if (this.options.removeAfterUpload) {
-            return value;
-        }
-        var notUploaded = this.getNotUploadedItems().length;
-        var uploaded = notUploaded ? this.queue.length - notUploaded : this.queue.length;
-        var ratio = 100 / this.queue.length;
-        var current = value * ratio / 100;
-        return Math.round(uploaded * ratio + current);
-    };
-    FileUploader.prototype._getFilters = function (filters) {
-        if (!filters) {
-            return this.options.filters;
-        }
-        if (Array.isArray(filters)) {
-            return filters;
-        }
-        if (typeof filters === 'string') {
-            var names_1 = filters.match(/[^\s,]+/g);
-            return this.options.filters
-                .filter(function (filter) { return names_1.indexOf(filter.name) !== -1; });
-        }
-        return this.options.filters;
-    };
-    FileUploader.prototype._render = function () {
-        return void 0;
-    };
-    FileUploader.prototype._queueLimitFilter = function () {
-        return this.options.queueLimit === undefined || this.queue.length < this.options.queueLimit;
-    };
-    FileUploader.prototype._isValidFile = function (file, filters, options) {
-        var _this = this;
-        this._failFilterIndex = -1;
-        return !filters.length ? true : filters.every(function (filter) {
-            _this._failFilterIndex++;
-            return filter.fn.call(_this, file, options);
-        });
-    };
-    FileUploader.prototype._isSuccessCode = function (status) {
-        return (status >= 200 && status < 300) || status === 304;
-    };
-    FileUploader.prototype._transformResponse = function (response, headers) {
-        return response;
-    };
-    FileUploader.prototype._parseHeaders = function (headers) {
-        var parsed = {};
-        var key;
-        var val;
-        var i;
-        if (!headers) {
-            return parsed;
-        }
-        headers.split('\n').map(function (line) {
-            i = line.indexOf(':');
-            key = line.slice(0, i).trim().toLowerCase();
-            val = line.slice(i + 1).trim();
-            if (key) {
-                parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
-            }
-        });
-        return parsed;
-    };
-    FileUploader.prototype._onWhenAddingFileFailed = function (item, filter, options) {
-        this.onWhenAddingFileFailed(item, filter, options);
-    };
-    FileUploader.prototype._onAfterAddingFile = function (item) {
-        this.onAfterAddingFile(item);
-    };
-    FileUploader.prototype._onAfterAddingAll = function (items) {
-        this.onAfterAddingAll(items);
-    };
-    FileUploader.prototype._onBeforeUploadItem = function (item) {
-        item._onBeforeUpload();
-        this.onBeforeUploadItem(item);
-    };
-    FileUploader.prototype._onBuildItemForm = function (item, form) {
-        item._onBuildForm(form);
-        this.onBuildItemForm(item, form);
-    };
-    FileUploader.prototype._onProgressItem = function (item, progress) {
-        var total = this._getTotalProgress(progress);
-        this.progress = total;
-        item._onProgress(progress);
-        this.onProgressItem(item, progress);
-        this.onProgressAll(total);
-        this._render();
-    };
-    FileUploader.prototype._onSuccessItem = function (item, response, status, headers) {
-        item._onSuccess(response, status, headers);
-        this.onSuccessItem(item, response, status, headers);
-    };
-    FileUploader.prototype._onCancelItem = function (item, response, status, headers) {
-        item._onCancel(response, status, headers);
-        this.onCancelItem(item, response, status, headers);
-    };
-    return FileUploader;
-}());
-exports.FileUploader = FileUploader;
-
-
-/***/ }),
-
-/***/ "./node_modules/ng2-file-upload/index.js":
-/*!***********************************************!*\
-  !*** ./node_modules/ng2-file-upload/index.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-__export(__webpack_require__(/*! ./file-upload/file-select.directive */ "./node_modules/ng2-file-upload/file-upload/file-select.directive.js"));
-__export(__webpack_require__(/*! ./file-upload/file-drop.directive */ "./node_modules/ng2-file-upload/file-upload/file-drop.directive.js"));
-__export(__webpack_require__(/*! ./file-upload/file-uploader.class */ "./node_modules/ng2-file-upload/file-upload/file-uploader.class.js"));
-__export(__webpack_require__(/*! ./file-upload/file-item.class */ "./node_modules/ng2-file-upload/file-upload/file-item.class.js"));
-__export(__webpack_require__(/*! ./file-upload/file-like-object.class */ "./node_modules/ng2-file-upload/file-upload/file-like-object.class.js"));
-var file_upload_module_1 = __webpack_require__(/*! ./file-upload/file-upload.module */ "./node_modules/ng2-file-upload/file-upload/file-upload.module.js");
-exports.FileUploadModule = file_upload_module_1.FileUploadModule;
-
-
-/***/ }),
-
-/***/ "./src/app/components/multi-file-upload/multi-file-upload.component.html":
-/*!*******************************************************************************!*\
-  !*** ./src/app/components/multi-file-upload/multi-file-upload.component.html ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\" [uploader]=\"uploader\" class=\"drop-zone\">\n  <img src=\"assets/icons/icon-upload.svg\" /> \n  <p class=\"multi-file-main-title\">Drag and drop a file here or Click</p>\n</div>\n\n<div class=\"file-input-container\">\n  <label>\n    <input type=\"file\" ng2FileSelect [uploader]=\"uploader\" multiple />\n    Add Files\n  </label>\n</div>\n\n<h2>Files: {{ uploader?.queue?.length }}</h2>\n\n<ion-list>\n  <ion-reorder-group (ionItemReorder)=\"reorderFiles($event)\" disabled=\"true\">\n    <ion-item *ngFor=\"let item of uploader.queue\">\n      <ion-label>\n        {{ item?.file?.name }}\n      </ion-label>\n      <ion-reorder></ion-reorder>\n    </ion-item>\n  </ion-reorder-group>\n</ion-list>"
-
-/***/ }),
-
-/***/ "./src/app/components/multi-file-upload/multi-file-upload.component.scss":
-/*!*******************************************************************************!*\
-  !*** ./src/app/components/multi-file-upload/multi-file-upload.component.scss ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".drop-zone {\n  background-color: #f6f6f6;\n  border: dotted 3px #dedddd;\n  height: 30vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin: 20px 0; }\n\n.file-input-container {\n  text-align: right; }\n\n.file-input-container input[type=\"file\"] {\n    display: none; }\n\n.file-input-container label {\n    border: 1px solid #ccc;\n    padding: 6px 12px;\n    cursor: pointer; }\n\n.nv-file-over {\n  border: dotted 3px red; }\n\n.multi-file-main-title {\n  color: #7f8ea7;\n  margin-left: 16px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0RhdGExL1dvcmtzcGFjZS9pb25pYy92ZXJpZG9jL3NyYy9hcHAvY29tcG9uZW50cy9tdWx0aS1maWxlLXVwbG9hZC9tdWx0aS1maWxlLXVwbG9hZC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHlCQUF5QjtFQUN6QiwwQkFBMEI7RUFDMUIsWUFBWTtFQUNaLGFBQWE7RUFDYixtQkFBbUI7RUFDbkIsdUJBQXVCO0VBQ3ZCLGNBQWMsRUFBQTs7QUFHbEI7RUFFSSxpQkFBaUIsRUFBQTs7QUFGckI7SUFLUSxhQUFhLEVBQUE7O0FBTHJCO0lBU1Esc0JBQXNCO0lBQ3RCLGlCQUFpQjtJQUNqQixlQUFlLEVBQUE7O0FBSXZCO0VBQ0ksc0JBQXNCLEVBQUE7O0FBRzFCO0VBQ0ksY0FBYztFQUNkLGlCQUFpQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9tdWx0aS1maWxlLXVwbG9hZC9tdWx0aS1maWxlLXVwbG9hZC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5kcm9wLXpvbmUgeyBcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjZmNmY2O1xuICAgIGJvcmRlcjogZG90dGVkIDNweCAjZGVkZGRkOyBcbiAgICBoZWlnaHQ6IDMwdmg7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIG1hcmdpbjogMjBweCAwO1xufVxuXG4uZmlsZS1pbnB1dC1jb250YWluZXIge1xuXG4gICAgdGV4dC1hbGlnbjogcmlnaHQ7XG5cbiAgICBpbnB1dFt0eXBlPVwiZmlsZVwiXSB7XG4gICAgICAgIGRpc3BsYXk6IG5vbmU7XG4gICAgfVxuXG4gICAgbGFiZWwge1xuICAgICAgICBib3JkZXI6IDFweCBzb2xpZCAjY2NjO1xuICAgICAgICBwYWRkaW5nOiA2cHggMTJweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIH1cbn1cblxuLm52LWZpbGUtb3ZlciB7IFxuICAgIGJvcmRlcjogZG90dGVkIDNweCByZWQ7IFxufVxuXG4ubXVsdGktZmlsZS1tYWluLXRpdGxlIHtcbiAgICBjb2xvcjogIzdmOGVhNztcbiAgICBtYXJnaW4tbGVmdDogMTZweDtcbn0iXX0= */"
-
-/***/ }),
-
-/***/ "./src/app/components/multi-file-upload/multi-file-upload.component.ts":
-/*!*****************************************************************************!*\
-  !*** ./src/app/components/multi-file-upload/multi-file-upload.component.ts ***!
-  \*****************************************************************************/
-/*! exports provided: MultiFileUploadComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MultiFileUploadComponent", function() { return MultiFileUploadComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
-/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-var MultiFileUploadComponent = /** @class */ (function () {
-    function MultiFileUploadComponent() {
-        this.uploader = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__["FileUploader"]({
-            allowedMimeType: ['image/png', 'image/gif', 'image/jpeg', 'application/pdf']
-        });
-        this.hasBaseDropZoneOver = false;
-    }
-    MultiFileUploadComponent.prototype.getFiles = function () {
-        return this.uploader.queue.map(function (fileItem) {
-            return fileItem.file;
-        });
-    };
-    MultiFileUploadComponent.prototype.fileOverBase = function (ev) {
-        this.hasBaseDropZoneOver = ev;
-    };
-    MultiFileUploadComponent.prototype.reorderFiles = function (reorderEvent) {
-        var element = this.uploader.queue.splice(reorderEvent.detail.from, 1)[0];
-        this.uploader.queue.splice(reorderEvent.detail.to, 0, element);
-    };
-    MultiFileUploadComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-multi-file-upload',
-            template: __webpack_require__(/*! ./multi-file-upload.component.html */ "./src/app/components/multi-file-upload/multi-file-upload.component.html"),
-            styles: [__webpack_require__(/*! ./multi-file-upload.component.scss */ "./src/app/components/multi-file-upload/multi-file-upload.component.scss")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], MultiFileUploadComponent);
-    return MultiFileUploadComponent;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/pages/user/expertsreview/expertsreview.module.ts":
 /*!******************************************************************!*\
   !*** ./src/app/pages/user/expertsreview/expertsreview.module.ts ***!
@@ -1110,10 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _expertsreview_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./expertsreview.page */ "./src/app/pages/user/expertsreview/expertsreview.page.ts");
-/* harmony import */ var src_app_components_multi_file_upload_multi_file_upload_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/components/multi-file-upload/multi-file-upload.component */ "./src/app/components/multi-file-upload/multi-file-upload.component.ts");
-/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
-/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(ng2_file_upload__WEBPACK_IMPORTED_MODULE_8__);
-
+/* harmony import */ var _modal_modal_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../modal/modal.module */ "./src/app/pages/modal/modal.module.ts");
 
 
 
@@ -1136,13 +40,13 @@ var ExpertsreviewPageModule = /** @class */ (function () {
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
-                ng2_file_upload__WEBPACK_IMPORTED_MODULE_8__["FileUploadModule"],
+                _modal_modal_module__WEBPACK_IMPORTED_MODULE_7__["ModalModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(routes)
             ],
             declarations: [
                 _expertsreview_page__WEBPACK_IMPORTED_MODULE_6__["ExpertsreviewPage"],
-                src_app_components_multi_file_upload_multi_file_upload_component__WEBPACK_IMPORTED_MODULE_7__["MultiFileUploadComponent"]
             ]
         })
     ], ExpertsreviewPageModule);
@@ -1160,7 +64,7 @@ var ExpertsreviewPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"onClickNavBack()\">\n        <ion-icon name=\"arrow-back\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <img src=\"assets/imgs/logo-veridoc.svg\" />\n    <ion-buttons slot=\"end\">\n      <ion-button *ngIf=\"!isLoggedIn\" fill=\"solid\" color=\"success\" (click)=\"onClickGetStarted()\">Get Started</ion-button>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"verify-progress-indicator-container\">\n    <div class=\"verify-progress-header\">\n      <p>\n        Verify your documents in Just 3 steps\n      </p>\n    </div>\n  \n    <div class=\"verify-progress-indicator\">\n      <div [class]=\"initVerifyStep>=1?'verify-progress-active-step': 'verify-progress-inactive-step'\">1</div>\n      <div class=\"verify-progress-connector\"></div>\n      <div [class]=\"initVerifyStep>=2?'verify-progress-active-step': 'verify-progress-inactive-step'\">2</div>\n      <div class=\"verify-progress-connector\"></div>\n      <div [class]=\"initVerifyStep>=3?'verify-progress-active-step': 'verify-progress-inactive-step'\">3</div>\n    </div>\n  </div>\n\n  <div id=\"verify-progress-main-content\">\n    <div [ngSwitch]=\"initVerifyStep\">\n      <div *ngSwitchCase=\"1\">\n        <ion-item>\n          <ion-label>Category</ion-label>\n          <ion-select [(ngModel)]=\"requestCategory\">\n            <ion-select-option *ngFor=\"let category of arrCategories; let i = index;\" [value]=\"i\">\n              {{category}}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n\n        <app-multi-file-upload></app-multi-file-upload>\n        <ion-item>\n          <ion-label position=\"stacked\">Comments</ion-label>\n          <ion-textarea [(ngModel)]=\"strComment\"></ion-textarea>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"stacked\">Queries</ion-label>\n          <ion-textarea [(ngModel)]=\"strQuery\"></ion-textarea>\n        </ion-item>\n\n        <ion-item lines=\"none\">\n          <ion-checkbox slot=\"start\" [(ngModel)]=\"isRequestBehalf\"></ion-checkbox>\n          <ion-label>Request on behalf of</ion-label>\n        </ion-item>\n\n        <!-- Behalf request fields -->\n        <ion-item-group *ngIf=\"isRequestBehalf\">\n          <ion-item>\n            <ion-input type=\"text\" [(ngModel)]=\"behalfofname\" placeholder=\"Name\" required=true></ion-input>\n          </ion-item>\n\n          <ion-item>\n            <ion-input type=\"text\" [(ngModel)]=\"behalfofrelation\" placeholder=\"Relation\" required=true></ion-input>\n          </ion-item>\n\n          <ion-item>\n            <ion-label>Birthday</ion-label>\n            <ion-datetime displayFormat=\"DD/MM/YYYY\" [(ngModel)]=\"behalfofbod\" pickerFormat=\"DD MMMM YYYY\"></ion-datetime>\n          </ion-item>\n\n          <ion-item-group>\n            <ion-item-divider>\n              <ion-label>Gender</ion-label>\n            </ion-item-divider>\n            <ion-radio-group [(ngModel)]=\"behalfofgender\">\n              <ion-item>\n                <ion-label>Male</ion-label>\n                <ion-radio value=\"m\"></ion-radio>\n              </ion-item>\n          \n              <ion-item>\n                <ion-label>Female</ion-label>\n                <ion-radio value=\"f\"></ion-radio>\n              </ion-item>\n            </ion-radio-group>\n          </ion-item-group>\n\n          <ion-item>\n            <ion-input type=\"text\" [(ngModel)]=\"behalfofcountry\" placeholder=\"Country and State\" required=true></ion-input>\n          </ion-item>\n        </ion-item-group>\n      </div>\n      <div *ngSwitchCase=\"2\" class=\"verify-progress-new-user\">\n        <ion-item>\n          <ion-label position=\"stacked\">First name</ion-label>\n          <ion-input type=\"text\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Last name</ion-label>\n          <ion-input type=\"text\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Email</ion-label>\n          <ion-input type=\"email\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Aadhar</ion-label>\n          <ion-input type=\"number\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Username</ion-label>\n          <ion-input type=\"text\"></ion-input>\n        </ion-item>\n  \n        <ion-item>\n          <ion-label position=\"stacked\">Password</ion-label>\n          <ion-input type=\"password\"></ion-input>\n        </ion-item>\n      </div>\n      <div *ngSwitchCase=\"3\" class=\"verify-progress-payment\">\n        <ion-item>\n          <ion-label>Payment</ion-label>\n          <ion-select [(ngModel)]=\"selectedPaymentOpt\">\n            <ion-select-option *ngFor=\"let opt of arrPaymentopts; let i = index;\" [value]=\"i\">\n              {{opt}}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n      </div>\n    </div>\n  \n    <div id=\"verify-progress-controllers\">\n      <div>\n        <ion-button color=\"hardmedium\" (click)=\"onClickBack()\">Back</ion-button>\n      </div>\n      <div>\n        <ion-button color=\"success\" (click)=\"onClickNext()\">\n          {{initVerifyStep==3?'Finish': 'Next'}}\n        </ion-button>\n      </div>\n    </div>\n  </div>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"onClickNavBack()\">\n        <ion-icon name=\"arrow-back\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <img src=\"assets/imgs/logo-veridoc.svg\" />\n    <ion-buttons slot=\"end\">\n      <ion-button *ngIf=\"!isLoggedIn\" fill=\"solid\" color=\"success\" (click)=\"onClickGetStarted()\">Get Started</ion-button>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"verify-progress-indicator-container\">\n    <div class=\"verify-progress-header\">\n      <p>\n        Verify your documents in Just 3 steps\n      </p>\n    </div>\n  \n    <div class=\"verify-progress-indicator\">\n      <div [class]=\"initVerifyStep>=1?'verify-progress-active-step': 'verify-progress-inactive-step'\">1</div>\n      <div class=\"verify-progress-connector\"></div>\n      <div [class]=\"initVerifyStep>=2?'verify-progress-active-step': 'verify-progress-inactive-step'\">2</div>\n      <div class=\"verify-progress-connector\"></div>\n      <div [class]=\"initVerifyStep>=3?'verify-progress-active-step': 'verify-progress-inactive-step'\">3</div>\n    </div>\n  </div>\n\n  <div id=\"verify-progress-main-content\">\n    <div [ngSwitch]=\"initVerifyStep\">\n      <div *ngSwitchCase=\"1\">\n        <ion-item>\n          <ion-label>Category</ion-label>\n          <ion-select [(ngModel)]=\"requestCategory\">\n            <ion-select-option *ngFor=\"let category of arrCategories; let i = index;\" [value]=\"i\">\n              {{category}}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n\n        <app-multi-file-upload [draftFiles]=\"draftFiles\"></app-multi-file-upload>\n        <ion-item>\n          <ion-label position=\"stacked\">Comments</ion-label>\n          <ion-textarea [(ngModel)]=\"strComment\"></ion-textarea>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"stacked\">Queries</ion-label>\n          <ion-textarea [(ngModel)]=\"strQuery\"></ion-textarea>\n        </ion-item>\n\n        <ion-item lines=\"none\">\n          <ion-checkbox slot=\"start\" [(ngModel)]=\"isRequestBehalf\"></ion-checkbox>\n          <ion-label>Request on behalf of</ion-label>\n        </ion-item>\n\n        <!-- Behalf request fields -->\n        <ion-item-group *ngIf=\"isRequestBehalf\">\n          <ion-item>\n            <ion-input type=\"text\" [(ngModel)]=\"behalfofname\" placeholder=\"Name\" required=true></ion-input>\n          </ion-item>\n\n          <ion-item>\n            <ion-input type=\"text\" [(ngModel)]=\"behalfofrelation\" placeholder=\"Relation\" required=true></ion-input>\n          </ion-item>\n\n          <ion-item>\n            <ion-label>Birthday</ion-label>\n            <ion-datetime displayFormat=\"DD/MM/YYYY\" [(ngModel)]=\"behalfofbod\" pickerFormat=\"DD MMMM YYYY\"></ion-datetime>\n          </ion-item>\n\n          <div class=\"experts-review-gender\">\n            <div (click)=\"onChangeGender('m')\">\n              <img [src]=\"behalfofgender=='m'?'assets/icons/icon-checkbox.svg': 'assets/icons/icon-checkbox-inactive.svg'\" />\n              <span>Male</span>\n            </div>\n            <div (click)=\"onChangeGender('f')\">\n              <img [src]=\"behalfofgender=='f'?'assets/icons/icon-checkbox.svg': 'assets/icons/icon-checkbox-inactive.svg'\" />\n              <span>Female</span>\n            </div>\n          </div>\n\n          <ion-item>\n            <ion-input type=\"text\" [(ngModel)]=\"behalfofcountry\" placeholder=\"Country and State\" required=true></ion-input>\n          </ion-item>\n        </ion-item-group>\n      </div>\n      <div *ngSwitchCase=\"2\" class=\"verify-progress-new-user\">\n        <form [formGroup]=\"secondStepForm\">\n          <ion-item>\n            <ion-label position=\"stacked\">First name</ion-label>\n            <ion-input formControlName=\"fname\" type=\"text\"></ion-input>\n          </ion-item>\n    \n          <ion-item>\n            <ion-label position=\"stacked\">Last name</ion-label>\n            <ion-input formControlName=\"lname\" type=\"text\"></ion-input>\n          </ion-item>\n\n          <!-- Birthdate -->\n          <ion-item>\n            <ion-label>BOD</ion-label>\n            <ion-datetime displayFormat=\"DD/MM/YYYY\" formControlName=\"dob\" pickerFormat=\"DD MMMM YYYY\"></ion-datetime>\n          </ion-item>\n    \n          <ion-item>\n            <ion-label position=\"stacked\">Email</ion-label>\n            <ion-input formControlName=\"email\" type=\"email\"></ion-input>\n          </ion-item>\n    \n          <ion-item>\n            <ion-label position=\"stacked\">Username</ion-label>\n            <ion-input formControlName=\"username\" type=\"text\"></ion-input>\n          </ion-item>\n    \n          <ion-item *ngIf=\"!isLoggedIn\">\n            <ion-label position=\"stacked\">Password</ion-label>\n            <ion-input formControlName=\"password\" type=\"password\"></ion-input>\n          </ion-item>\n        </form>\n        <ng-container *ngIf=\"isRequestBehalf\">\n          <ion-item-group>\n            <ion-item-divider>\n              Request Behalf\n            </ion-item-divider>\n\n            <ion-item>\n              <ion-label position=\"stacked\">Name</ion-label>\n              <ion-input type=\"text\" [(ngModel)]=\"behalfofname\" disabled=true></ion-input>\n            </ion-item>\n\n            <ion-item>\n              <ion-label position=\"stacked\">Relation</ion-label>\n              <ion-input type=\"text\" [(ngModel)]=\"behalfofrelation\" disabled=\"true\"></ion-input>\n            </ion-item>\n\n            <ion-item>\n              <ion-label position=\"stacked\">Birthday</ion-label>\n              <ion-input type=\"text\" [(ngModel)]=\"behalfofbod\" disabled=true></ion-input>\n            </ion-item>\n\n            <ion-item>\n              <ion-label position=\"stacked\">Gender</ion-label>\n              <ion-input type=\"text\" disabled=true [value]=\"behalfofgender=='m'?'Male': 'Female'\"></ion-input>\n            </ion-item>\n\n            <ion-item>\n              <ion-label position=\"stacked\">Country</ion-label>\n              <ion-input type=\"text\" disabled=true [(ngModel)]=\"behalfofcountry\"></ion-input>\n            </ion-item>\n          </ion-item-group>\n        </ng-container>\n      </div>\n      <div *ngSwitchCase=\"3\" class=\"verify-progress-payment\">\n        <div id=\"verify-progress-paymentopt-container\">\n          <div *ngFor=\"let payment of arrPaymentopts; let i = index;\">\n            <div [class]=\"selectedPaymentOpt==i?'paymentopt-img-container active-payment': 'paymentopt-img-container inactive-payment'\">\n              <img [src]=\"payment.image\" (click)=\"onChangePaymentOption(i)\"/>\n            </div>\n          </div>\n        </div>\n\n        <div id=\"verify-progress-paymentopt-fields\">\n          <form [formGroup]=\"paymentOptForm\">\n            <ion-item>\n              <ion-label floating>Account HolderName</ion-label>\n              <ion-input formControlName=\"accountholdername\" type=\"text\"></ion-input>\n            </ion-item>\n  \n            <ion-item>\n              <ion-label floating>Account Number</ion-label>\n              <ion-input formControlName=\"accountnumber\" type=\"text\"></ion-input>\n            </ion-item>\n  \n            <ion-item>\n              <ion-label floating>IFSC code</ion-label>\n              <ion-input  formControlName=\"ifsccode\" type=\"text\"></ion-input>\n            </ion-item>\n  \n            <ion-item>\n              <ion-label floating>Bank Name</ion-label>\n              <ion-input formControlName=\"bankname\" type=\"text\"></ion-input>\n            </ion-item>\n  \n            <ion-item>\n              <ion-label floating>Bank Address</ion-label>\n              <ion-input formControlName=\"bankaddress\" type=\"text\"></ion-input>\n            </ion-item>\n          </form>\n        </div>\n      </div>\n    </div>\n  \n    <div id=\"verify-progress-controllers\">\n      <div>\n        <ion-button color=\"hardmedium\" (click)=\"onClickBack()\">Back</ion-button>\n      </div>\n      <div *ngIf=\"initVerifyStep==1\">\n        <ion-button (click)=\"onClickSave()\">Save</ion-button>\n      </div>\n      <div *ngIf=\"initVerifyStep==2 && !isLoggedIn\">\n        <ion-button (click)=\"onClickSignup()\">Sign Up</ion-button>\n      </div>\n      <div>\n        <ion-button color=\"success\" (click)=\"onClickNext()\">\n          {{initVerifyStep==3?'Finish': 'Next'}}\n        </ion-button>\n      </div>\n    </div>\n  </div>\n</ion-content>\n"
 
 /***/ }),
 
@@ -1171,7 +75,7 @@ module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-toolbar img {\n  margin-left: 16px; }\n\n.verify-progress-indicator-container {\n  background: #F3F6F9;\n  padding: 8vh 16px; }\n\n.verify-progress-header p {\n  text-align: center;\n  font-size: 2em;\n  color: #505050; }\n\n.verify-progress-indicator {\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n\n.verify-progress-active-step {\n  width: 2em;\n  height: 2em;\n  background: #E1F0E1;\n  border-radius: 50%;\n  border: 5px solid #fff;\n  box-shadow: 0 4px 12px #dadada;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  color: #3CC93C;\n  font-size: 1.4em;\n  font-weight: bold; }\n\n.verify-progress-inactive-step {\n  width: 2em;\n  height: 2em;\n  background: #EAEBEB;\n  border-radius: 50%;\n  border: 5px solid #fff;\n  box-shadow: 0 4px 12px #dadada;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  color: #929BA2;\n  font-size: 1.4em;\n  font-weight: bold; }\n\n.verify-progress-connector {\n  width: 8vw;\n  height: .3em;\n  background: #929BA2;\n  margin: 0 8px; }\n\n#verify-progress-controllers {\n  display: flex;\n  margin-top: 3vh;\n  margin-bottom: 3vh; }\n\n#verify-progress-controllers div {\n    flex: 1;\n    text-align: center; }\n\n#verify-progress-controllers div ion-button {\n      width: 50%; }\n\n.verify-progress-upload-container {\n  height: 25vh;\n  margin: 16px;\n  border: 1px dashed #adadad;\n  border-radius: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer; }\n\n.verify-progress-upload-container p {\n    color: #9e9e9e;\n    font-size: .9em; }\n\n#verify-progress-file-selector {\n  visibility: hidden;\n  z-index: -1; }\n\n.verify-progress-new-user {\n  padding: 16px; }\n\n.verify-progress-payment {\n  padding: 16px; }\n\n#verify-progress-main-content {\n  padding: 16px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0RhdGExL1dvcmtzcGFjZS9pb25pYy92ZXJpZG9jL3NyYy9hcHAvcGFnZXMvdXNlci9leHBlcnRzcmV2aWV3L2V4cGVydHNyZXZpZXcucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBR1EsaUJBQWlCLEVBQUE7O0FBSXpCO0VBQ0ksbUJBQW1CO0VBQ25CLGlCQUFpQixFQUFBOztBQUdyQjtFQUVRLGtCQUFrQjtFQUNsQixjQUFjO0VBQ2QsY0FBYyxFQUFBOztBQUl0QjtFQUNJLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsbUJBQW1CLEVBQUE7O0FBR3ZCO0VBQ0ksVUFBVTtFQUNWLFdBQVc7RUFDWCxtQkFBbUI7RUFDbkIsa0JBQWtCO0VBQ2xCLHNCQUFzQjtFQUN0Qiw4QkFBOEI7RUFDOUIsYUFBYTtFQUNiLHVCQUF1QjtFQUN2QixtQkFBbUI7RUFDbkIsY0FBYztFQUNkLGdCQUFnQjtFQUNoQixpQkFBaUIsRUFBQTs7QUFHckI7RUFDSSxVQUFVO0VBQ1YsV0FBVztFQUNYLG1CQUFtQjtFQUNuQixrQkFBa0I7RUFDbEIsc0JBQXNCO0VBQ3RCLDhCQUE4QjtFQUM5QixhQUFhO0VBQ2IsdUJBQXVCO0VBQ3ZCLG1CQUFtQjtFQUNuQixjQUFjO0VBQ2QsZ0JBQWdCO0VBQ2hCLGlCQUFpQixFQUFBOztBQUdyQjtFQUNJLFVBQVU7RUFDVixZQUFZO0VBQ1osbUJBQW1CO0VBQ25CLGFBQWEsRUFBQTs7QUFHakI7RUFDSSxhQUFhO0VBQ2IsZUFBZTtFQUNmLGtCQUFrQixFQUFBOztBQUh0QjtJQUtRLE9BQU87SUFDUCxrQkFBa0IsRUFBQTs7QUFOMUI7TUFRWSxVQUFVLEVBQUE7O0FBS3RCO0VBQ0ksWUFBWTtFQUNaLFlBQVk7RUFDWiwwQkFBMEI7RUFDMUIsbUJBQW1CO0VBQ25CLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsbUJBQW1CO0VBQ25CLGVBQWUsRUFBQTs7QUFSbkI7SUFVUSxjQUFjO0lBQ2QsZUFBZSxFQUFBOztBQUl2QjtFQUNJLGtCQUFrQjtFQUNsQixXQUFXLEVBQUE7O0FBR2Y7RUFDSSxhQUFhLEVBQUE7O0FBR2pCO0VBQ0ksYUFBYSxFQUFBOztBQUdqQjtFQUNJLGFBQWEsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3VzZXIvZXhwZXJ0c3Jldmlldy9leHBlcnRzcmV2aWV3LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi10b29sYmFyIHtcbiAgICAvLyAtLWJhY2tncm91bmQ6ICNGM0Y2Rjk7XG4gICAgaW1nIHtcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDE2cHg7XG4gICAgfVxufVxuXG4udmVyaWZ5LXByb2dyZXNzLWluZGljYXRvci1jb250YWluZXIge1xuICAgIGJhY2tncm91bmQ6ICNGM0Y2Rjk7XG4gICAgcGFkZGluZzogOHZoIDE2cHg7XG59XG5cbi52ZXJpZnktcHJvZ3Jlc3MtaGVhZGVyIHtcbiAgICBwIHtcbiAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgICAgICBmb250LXNpemU6IDJlbTtcbiAgICAgICAgY29sb3I6ICM1MDUwNTA7XG4gICAgfVxufVxuXG4udmVyaWZ5LXByb2dyZXNzLWluZGljYXRvciB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuXG4udmVyaWZ5LXByb2dyZXNzLWFjdGl2ZS1zdGVwIHtcbiAgICB3aWR0aDogMmVtO1xuICAgIGhlaWdodDogMmVtO1xuICAgIGJhY2tncm91bmQ6ICNFMUYwRTE7XG4gICAgYm9yZGVyLXJhZGl1czogNTAlO1xuICAgIGJvcmRlcjogNXB4IHNvbGlkICNmZmY7XG4gICAgYm94LXNoYWRvdzogMCA0cHggMTJweCAjZGFkYWRhO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBjb2xvcjogIzNDQzkzQztcbiAgICBmb250LXNpemU6IDEuNGVtO1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4udmVyaWZ5LXByb2dyZXNzLWluYWN0aXZlLXN0ZXAge1xuICAgIHdpZHRoOiAyZW07XG4gICAgaGVpZ2h0OiAyZW07XG4gICAgYmFja2dyb3VuZDogI0VBRUJFQjtcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XG4gICAgYm9yZGVyOiA1cHggc29saWQgI2ZmZjtcbiAgICBib3gtc2hhZG93OiAwIDRweCAxMnB4ICNkYWRhZGE7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGNvbG9yOiAjOTI5QkEyO1xuICAgIGZvbnQtc2l6ZTogMS40ZW07XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbi52ZXJpZnktcHJvZ3Jlc3MtY29ubmVjdG9yIHtcbiAgICB3aWR0aDogOHZ3O1xuICAgIGhlaWdodDogLjNlbTtcbiAgICBiYWNrZ3JvdW5kOiAjOTI5QkEyO1xuICAgIG1hcmdpbjogMCA4cHg7XG59XG5cbiN2ZXJpZnktcHJvZ3Jlc3MtY29udHJvbGxlcnMge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgbWFyZ2luLXRvcDogM3ZoO1xuICAgIG1hcmdpbi1ib3R0b206IDN2aDtcbiAgICBkaXYge1xuICAgICAgICBmbGV4OiAxO1xuICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgICAgIGlvbi1idXR0b24ge1xuICAgICAgICAgICAgd2lkdGg6IDUwJTtcbiAgICAgICAgfVxuICAgIH1cbn1cblxuLnZlcmlmeS1wcm9ncmVzcy11cGxvYWQtY29udGFpbmVyIHtcbiAgICBoZWlnaHQ6IDI1dmg7XG4gICAgbWFyZ2luOiAxNnB4O1xuICAgIGJvcmRlcjogMXB4IGRhc2hlZCAjYWRhZGFkO1xuICAgIGJvcmRlci1yYWRpdXM6IDEwcHg7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBwIHtcbiAgICAgICAgY29sb3I6ICM5ZTllOWU7XG4gICAgICAgIGZvbnQtc2l6ZTogLjllbTtcbiAgICB9XG59XG5cbiN2ZXJpZnktcHJvZ3Jlc3MtZmlsZS1zZWxlY3RvciB7XG4gICAgdmlzaWJpbGl0eTogaGlkZGVuO1xuICAgIHotaW5kZXg6IC0xO1xufVxuXG4udmVyaWZ5LXByb2dyZXNzLW5ldy11c2VyIHtcbiAgICBwYWRkaW5nOiAxNnB4O1xufVxuXG4udmVyaWZ5LXByb2dyZXNzLXBheW1lbnQge1xuICAgIHBhZGRpbmc6IDE2cHg7XG59XG5cbiN2ZXJpZnktcHJvZ3Jlc3MtbWFpbi1jb250ZW50IHtcbiAgICBwYWRkaW5nOiAxNnB4O1xufSJdfQ== */"
+module.exports = "ion-toolbar img {\n  margin-left: 16px; }\n\nion-content {\n  --background: #f7f7f7; }\n\nion-list, ion-item-divider {\n  background: transparent !important; }\n\nion-item {\n  --background: transparent; }\n\n.verify-progress-indicator-container {\n  background: #F3F6F9;\n  padding: 8vh 16px; }\n\n.verify-progress-header p {\n  text-align: center;\n  font-size: 2em;\n  color: #505050; }\n\n.verify-progress-indicator {\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n\n.verify-progress-active-step {\n  width: 2em;\n  height: 2em;\n  background: #E1F0E1;\n  border-radius: 50%;\n  border: 5px solid #fff;\n  box-shadow: 0 4px 12px #dadada;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  color: #3CC93C;\n  font-size: 1.4em;\n  font-weight: bold; }\n\n.verify-progress-inactive-step {\n  width: 2em;\n  height: 2em;\n  background: #EAEBEB;\n  border-radius: 50%;\n  border: 5px solid #fff;\n  box-shadow: 0 4px 12px #dadada;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  color: #929BA2;\n  font-size: 1.4em;\n  font-weight: bold; }\n\n.verify-progress-connector {\n  width: 8vw;\n  height: .3em;\n  background: #929BA2;\n  margin: 0 8px; }\n\n#verify-progress-controllers {\n  display: flex;\n  margin-top: 3vh;\n  margin-bottom: 3vh; }\n\n#verify-progress-controllers div {\n    flex: 1;\n    text-align: center; }\n\n#verify-progress-controllers div ion-button {\n      width: 90%; }\n\n.verify-progress-upload-container {\n  height: 25vh;\n  margin: 16px;\n  border: 1px dashed #adadad;\n  border-radius: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer; }\n\n.verify-progress-upload-container p {\n    color: #9e9e9e;\n    font-size: .9em; }\n\n#verify-progress-file-selector {\n  visibility: hidden;\n  z-index: -1; }\n\n.verify-progress-new-user {\n  padding: 16px; }\n\n.verify-progress-payment {\n  padding: 16px; }\n\n#verify-progress-main-content {\n  padding: 16px; }\n\n#verify-progress-paymentopt-container {\n  display: flex; }\n\n#verify-progress-paymentopt-container div {\n    flex: 1;\n    text-align: center; }\n\n.paymentopt-img-container {\n  display: inline-block;\n  padding: 12px; }\n\n.active-payment {\n  background-color: #dedede; }\n\n.inactive-payment {\n  background-color: #f7f7f7; }\n\n@media only screen and (max-width: 420px) {\n  .paymentopt-img-container img {\n    max-width: 64px; } }\n\n@media only screen and (min-width: 421px) {\n  .paymentopt-img-container img {\n    max-width: 100px; } }\n\n.experts-review-gender {\n  display: flex;\n  margin-top: 2vh;\n  padding: 0 16px 16px;\n  border-bottom: 1px solid #d7d7d7; }\n\n.experts-review-gender div {\n    flex: 1;\n    display: flex;\n    align-items: center; }\n\n.experts-review-gender div span {\n      padding-left: 8px; }\n\nion-item-group {\n  margin-top: 2vh; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0RhdGExL1dvcmtzcGFjZS9pb25pYy92ZXJpZG9jL3NyYy9hcHAvcGFnZXMvdXNlci9leHBlcnRzcmV2aWV3L2V4cGVydHNyZXZpZXcucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBR1EsaUJBQWlCLEVBQUE7O0FBSXpCO0VBQ0kscUJBQWEsRUFBQTs7QUFHakI7RUFDSSxrQ0FBa0MsRUFBQTs7QUFHdEM7RUFDSSx5QkFBYSxFQUFBOztBQUdqQjtFQUNJLG1CQUFtQjtFQUNuQixpQkFBaUIsRUFBQTs7QUFHckI7RUFFUSxrQkFBa0I7RUFDbEIsY0FBYztFQUNkLGNBQWMsRUFBQTs7QUFJdEI7RUFDSSxhQUFhO0VBQ2IsdUJBQXVCO0VBQ3ZCLG1CQUFtQixFQUFBOztBQUd2QjtFQUNJLFVBQVU7RUFDVixXQUFXO0VBQ1gsbUJBQW1CO0VBQ25CLGtCQUFrQjtFQUNsQixzQkFBc0I7RUFDdEIsOEJBQThCO0VBQzlCLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsbUJBQW1CO0VBQ25CLGNBQWM7RUFDZCxnQkFBZ0I7RUFDaEIsaUJBQWlCLEVBQUE7O0FBR3JCO0VBQ0ksVUFBVTtFQUNWLFdBQVc7RUFDWCxtQkFBbUI7RUFDbkIsa0JBQWtCO0VBQ2xCLHNCQUFzQjtFQUN0Qiw4QkFBOEI7RUFDOUIsYUFBYTtFQUNiLHVCQUF1QjtFQUN2QixtQkFBbUI7RUFDbkIsY0FBYztFQUNkLGdCQUFnQjtFQUNoQixpQkFBaUIsRUFBQTs7QUFHckI7RUFDSSxVQUFVO0VBQ1YsWUFBWTtFQUNaLG1CQUFtQjtFQUNuQixhQUFhLEVBQUE7O0FBR2pCO0VBQ0ksYUFBYTtFQUNiLGVBQWU7RUFDZixrQkFBa0IsRUFBQTs7QUFIdEI7SUFLUSxPQUFPO0lBQ1Asa0JBQWtCLEVBQUE7O0FBTjFCO01BUVksVUFBVSxFQUFBOztBQUt0QjtFQUNJLFlBQVk7RUFDWixZQUFZO0VBQ1osMEJBQTBCO0VBQzFCLG1CQUFtQjtFQUNuQixhQUFhO0VBQ2IsdUJBQXVCO0VBQ3ZCLG1CQUFtQjtFQUNuQixlQUFlLEVBQUE7O0FBUm5CO0lBVVEsY0FBYztJQUNkLGVBQWUsRUFBQTs7QUFJdkI7RUFDSSxrQkFBa0I7RUFDbEIsV0FBVyxFQUFBOztBQUdmO0VBQ0ksYUFBYSxFQUFBOztBQUdqQjtFQUNJLGFBQWEsRUFBQTs7QUFHakI7RUFDSSxhQUFhLEVBQUE7O0FBR2pCO0VBQ0ksYUFBYSxFQUFBOztBQURqQjtJQUdRLE9BQU87SUFDUCxrQkFBa0IsRUFBQTs7QUFJMUI7RUFDSSxxQkFBcUI7RUFDckIsYUFBYSxFQUFBOztBQUdqQjtFQUNJLHlCQUF5QixFQUFBOztBQUc3QjtFQUNJLHlCQUF5QixFQUFBOztBQUc3QjtFQUNJO0lBRVEsZUFBZSxFQUFBLEVBQ2xCOztBQUlUO0VBQ0k7SUFFUSxnQkFBZ0IsRUFBQSxFQUNuQjs7QUFJVDtFQUNJLGFBQWE7RUFDYixlQUFlO0VBQ2Ysb0JBQW9CO0VBQ3BCLGdDQUFnQyxFQUFBOztBQUpwQztJQU1RLE9BQU87SUFDUCxhQUFhO0lBQ2IsbUJBQW1CLEVBQUE7O0FBUjNCO01BVVksaUJBQWlCLEVBQUE7O0FBSzdCO0VBQ0ksZUFBZSxFQUFBIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvdXNlci9leHBlcnRzcmV2aWV3L2V4cGVydHNyZXZpZXcucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLXRvb2xiYXIge1xuICAgIC8vIC0tYmFja2dyb3VuZDogI0YzRjZGOTtcbiAgICBpbWcge1xuICAgICAgICBtYXJnaW4tbGVmdDogMTZweDtcbiAgICB9XG59XG5cbmlvbi1jb250ZW50IHtcbiAgICAtLWJhY2tncm91bmQ6ICNmN2Y3Zjc7XG59XG5cbmlvbi1saXN0LCBpb24taXRlbS1kaXZpZGVyIHtcbiAgICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudCAhaW1wb3J0YW50O1xufVxuXG5pb24taXRlbSB7XG4gICAgLS1iYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcbn1cblxuLnZlcmlmeS1wcm9ncmVzcy1pbmRpY2F0b3ItY29udGFpbmVyIHtcbiAgICBiYWNrZ3JvdW5kOiAjRjNGNkY5O1xuICAgIHBhZGRpbmc6IDh2aCAxNnB4O1xufVxuXG4udmVyaWZ5LXByb2dyZXNzLWhlYWRlciB7XG4gICAgcCB7XG4gICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICAgICAgZm9udC1zaXplOiAyZW07XG4gICAgICAgIGNvbG9yOiAjNTA1MDUwO1xuICAgIH1cbn1cblxuLnZlcmlmeS1wcm9ncmVzcy1pbmRpY2F0b3Ige1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxuLnZlcmlmeS1wcm9ncmVzcy1hY3RpdmUtc3RlcCB7XG4gICAgd2lkdGg6IDJlbTtcbiAgICBoZWlnaHQ6IDJlbTtcbiAgICBiYWNrZ3JvdW5kOiAjRTFGMEUxO1xuICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgICBib3JkZXI6IDVweCBzb2xpZCAjZmZmO1xuICAgIGJveC1zaGFkb3c6IDAgNHB4IDEycHggI2RhZGFkYTtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgY29sb3I6ICMzQ0M5M0M7XG4gICAgZm9udC1zaXplOiAxLjRlbTtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbn1cblxuLnZlcmlmeS1wcm9ncmVzcy1pbmFjdGl2ZS1zdGVwIHtcbiAgICB3aWR0aDogMmVtO1xuICAgIGhlaWdodDogMmVtO1xuICAgIGJhY2tncm91bmQ6ICNFQUVCRUI7XG4gICAgYm9yZGVyLXJhZGl1czogNTAlO1xuICAgIGJvcmRlcjogNXB4IHNvbGlkICNmZmY7XG4gICAgYm94LXNoYWRvdzogMCA0cHggMTJweCAjZGFkYWRhO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBjb2xvcjogIzkyOUJBMjtcbiAgICBmb250LXNpemU6IDEuNGVtO1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4udmVyaWZ5LXByb2dyZXNzLWNvbm5lY3RvciB7XG4gICAgd2lkdGg6IDh2dztcbiAgICBoZWlnaHQ6IC4zZW07XG4gICAgYmFja2dyb3VuZDogIzkyOUJBMjtcbiAgICBtYXJnaW46IDAgOHB4O1xufVxuXG4jdmVyaWZ5LXByb2dyZXNzLWNvbnRyb2xsZXJzIHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIG1hcmdpbi10b3A6IDN2aDtcbiAgICBtYXJnaW4tYm90dG9tOiAzdmg7XG4gICAgZGl2IHtcbiAgICAgICAgZmxleDogMTtcbiAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgICAgICBpb24tYnV0dG9uIHtcbiAgICAgICAgICAgIHdpZHRoOiA5MCU7XG4gICAgICAgIH1cbiAgICB9XG59XG5cbi52ZXJpZnktcHJvZ3Jlc3MtdXBsb2FkLWNvbnRhaW5lciB7XG4gICAgaGVpZ2h0OiAyNXZoO1xuICAgIG1hcmdpbjogMTZweDtcbiAgICBib3JkZXI6IDFweCBkYXNoZWQgI2FkYWRhZDtcbiAgICBib3JkZXItcmFkaXVzOiAxMHB4O1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgcCB7XG4gICAgICAgIGNvbG9yOiAjOWU5ZTllO1xuICAgICAgICBmb250LXNpemU6IC45ZW07XG4gICAgfVxufVxuXG4jdmVyaWZ5LXByb2dyZXNzLWZpbGUtc2VsZWN0b3Ige1xuICAgIHZpc2liaWxpdHk6IGhpZGRlbjtcbiAgICB6LWluZGV4OiAtMTtcbn1cblxuLnZlcmlmeS1wcm9ncmVzcy1uZXctdXNlciB7XG4gICAgcGFkZGluZzogMTZweDtcbn1cblxuLnZlcmlmeS1wcm9ncmVzcy1wYXltZW50IHtcbiAgICBwYWRkaW5nOiAxNnB4O1xufVxuXG4jdmVyaWZ5LXByb2dyZXNzLW1haW4tY29udGVudCB7XG4gICAgcGFkZGluZzogMTZweDtcbn1cblxuI3ZlcmlmeS1wcm9ncmVzcy1wYXltZW50b3B0LWNvbnRhaW5lciB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBkaXYge1xuICAgICAgICBmbGV4OiAxO1xuICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgfVxufVxuXG4ucGF5bWVudG9wdC1pbWctY29udGFpbmVyIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgcGFkZGluZzogMTJweDtcbn1cblxuLmFjdGl2ZS1wYXltZW50IHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZGVkZWRlO1xufVxuXG4uaW5hY3RpdmUtcGF5bWVudCB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2Y3ZjdmNztcbn1cblxuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiA0MjBweCkge1xuICAgIC5wYXltZW50b3B0LWltZy1jb250YWluZXIge1xuICAgICAgICBpbWcge1xuICAgICAgICAgICAgbWF4LXdpZHRoOiA2NHB4O1xuICAgICAgICB9XG4gICAgfVxufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDQyMXB4KSB7XG4gICAgLnBheW1lbnRvcHQtaW1nLWNvbnRhaW5lciB7XG4gICAgICAgIGltZyB7XG4gICAgICAgICAgICBtYXgtd2lkdGg6IDEwMHB4O1xuICAgICAgICB9XG4gICAgfSAgIFxufVxuXG4uZXhwZXJ0cy1yZXZpZXctZ2VuZGVyIHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIG1hcmdpbi10b3A6IDJ2aDtcbiAgICBwYWRkaW5nOiAwIDE2cHggMTZweDtcbiAgICBib3JkZXItYm90dG9tOiAxcHggc29saWQgI2Q3ZDdkNztcbiAgICBkaXYge1xuICAgICAgICBmbGV4OiAxO1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBzcGFuIHtcbiAgICAgICAgICAgIHBhZGRpbmctbGVmdDogOHB4O1xuICAgICAgICB9XG4gICAgfVxufVxuXG5pb24taXRlbS1ncm91cCB7XG4gICAgbWFyZ2luLXRvcDogMnZoO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -1193,6 +97,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_api_api_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/api/api.service */ "./src/app/services/api/api.service.ts");
 /* harmony import */ var src_app_services_toast_toast_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/toast/toast.service */ "./src/app/services/toast/toast.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var md5__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! md5 */ "./node_modules/md5/md5.js");
+/* harmony import */ var md5__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(md5__WEBPACK_IMPORTED_MODULE_9__);
+
+
 
 
 
@@ -1202,7 +111,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ExpertsreviewPage = /** @class */ (function () {
-    function ExpertsreviewPage(altCtrl, event, navCtrl, loadingCtrl, apiService, toastService, route) {
+    function ExpertsreviewPage(altCtrl, event, navCtrl, loadingCtrl, apiService, toastService, route, formBuilder) {
         var _this = this;
         this.altCtrl = altCtrl;
         this.event = event;
@@ -1211,8 +120,12 @@ var ExpertsreviewPage = /** @class */ (function () {
         this.apiService = apiService;
         this.toastService = toastService;
         this.route = route;
+        this.formBuilder = formBuilder;
+        this.objUserInfo = null;
         this.arrCategories = _constants__WEBPACK_IMPORTED_MODULE_2__["CATEGORIES"];
-        this.draftRequestId = "";
+        this.draftFiles = [];
+        this.arrDraftTrackReq = [];
+        this.requestId = "";
         this.objDraftRequest = null;
         this.requestCategory = 0;
         this.isRequestBehalf = false;
@@ -1237,8 +150,24 @@ var ExpertsreviewPage = /** @class */ (function () {
         this.behalfofbod = "1/1/1970";
         this.behalfofgender = "m";
         this.behalfofcountry = "";
+        this.paymentOptFormSubmit = false;
         this.event.subscribe("onLoginStatusChange", function (data) {
             _this.initPage();
+        });
+        this.paymentOptForm = formBuilder.group({
+            accountholdername: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].required])],
+            accountnumber: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].required])],
+            ifsccode: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].required])],
+            bankname: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].required])],
+            bankaddress: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].required])]
+        });
+        this.secondStepForm = formBuilder.group({
+            fname: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].required])],
+            lname: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].required])],
+            email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/), _angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].required])],
+            username: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].required])],
+            password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].required])],
+            dob: ['1970-01-01', _angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_8__["Validators"].required])],
         });
     }
     ExpertsreviewPage.prototype.ngOnInit = function () {
@@ -1246,41 +175,130 @@ var ExpertsreviewPage = /** @class */ (function () {
     ExpertsreviewPage.prototype.ionViewWillEnter = function () {
         this.initPage();
     };
+    /**
+     * Initialize page
+     */
     ExpertsreviewPage.prototype.initPage = function () {
-        this.draftRequestId = this.route.snapshot.paramMap.get("requestId") == 'null' ? null : this.route.snapshot.paramMap.get("requestId");
-        if (this.draftRequestId) {
-            this.getDraftRequest();
-        }
-        this.isLoggedIn = localStorage.getItem("isLoggedIn") == 'true' ? true : false;
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var userInfoLoader;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        /**
+                         * Init variables
+                         */
+                        this.objUserInfo = null;
+                        this.draftFiles = [];
+                        this.requestId = "";
+                        this.objDraftRequest = null;
+                        this.requestCategory = 0;
+                        this.isRequestBehalf = false;
+                        this.initVerifyStep = 1;
+                        this.isFinishCurrentStep = false;
+                        this.selectedPaymentOpt = 0;
+                        this.isLoggedIn = false;
+                        this.uploadedFiles = [];
+                        this.strComment = "";
+                        this.strQuery = "";
+                        this.behalfofname = "";
+                        this.behalfofrelation = "";
+                        this.behalfofbod = "1/1/1970";
+                        this.behalfofgender = "m";
+                        this.behalfofcountry = "";
+                        this.paymentOptFormSubmit = false;
+                        this.requestId = this.route.snapshot.paramMap.get("requestId") == 'null' ? null : this.route.snapshot.paramMap.get("requestId");
+                        this.draftFiles = [];
+                        this.isLoggedIn = localStorage.getItem("isLoggedIn") == 'true' ? true : false;
+                        if (!this.requestId && this.isLoggedIn) {
+                            this.checkDraftRequest();
+                        }
+                        if (!this.isLoggedIn) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.loadingCtrl.create({
+                                message: "Loading..."
+                            })];
+                    case 1:
+                        userInfoLoader = _a.sent();
+                        return [4 /*yield*/, userInfoLoader.present()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.getUserInfo()];
+                    case 3:
+                        _a.sent();
+                        userInfoLoader.dismiss();
+                        _a.label = 4;
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
     };
-    ExpertsreviewPage.prototype.getDraftRequest = function () {
+    /**
+     * Get logged in user's info
+     */
+    ExpertsreviewPage.prototype.getUserInfo = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var result, error_1;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.apiService.getUser(localStorage.getItem("uid")).toPromise()];
+                    case 1:
+                        result = _a.sent();
+                        this.objUserInfo = result.user;
+                        this.secondStepForm.controls['fname'].setValue(this.objUserInfo.fname);
+                        this.secondStepForm.controls['lname'].setValue(this.objUserInfo.lname);
+                        this.secondStepForm.controls['dob'].setValue(this.objUserInfo.birthday);
+                        this.secondStepForm.controls['email'].setValue(this.objUserInfo.email);
+                        this.secondStepForm.controls['username'].setValue(this.objUserInfo.username);
+                        this.secondStepForm.controls['password'].setValue(this.objUserInfo.password);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_1 = _a.sent();
+                        console.log(error_1);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * Check user if have draft request
+     */
+    ExpertsreviewPage.prototype.checkDraftRequest = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var draftLoader;
             var _this = this;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.loadingCtrl.create({
-                            message: "Loading..."
-                        })];
+                    case 0:
+                        this.draftFiles = [];
+                        this.arrDraftTrackReq = [];
+                        return [4 /*yield*/, this.loadingCtrl.create({
+                                message: "Loading..."
+                            })];
                     case 1:
                         draftLoader = _a.sent();
                         return [4 /*yield*/, draftLoader.present()];
                     case 2:
                         _a.sent();
-                        this.apiService.getRequestById(this.draftRequestId)
+                        this.apiService.getRequestByStatus(0, localStorage.getItem("uid"))
                             .subscribe(function (data) {
-                            console.log(data);
                             if (data.data) {
-                                _this.strComment = data.data.comments;
-                                _this.strQuery = data.data.queries;
-                                _this.requestCategory = data.data.category;
-                                _this.selectedPaymentOpt = data.data.paymentStatus;
-                                _this.behalfofname = data.data.behalfofname;
-                                _this.behalfofrelation = data.data.behalfofrelation;
-                                _this.behalfofbod = data.data.behalfofbod;
-                                _this.behalfofgender = data.data.behalfofgender;
-                                _this.behalfofcountry = data.data.behalfofcountry;
-                                _this.isRequestBehalf = data.data.isbehalfof;
+                                var draft = data.data.length > 1 ? data.data[data.data.length - 1] : data.data[0];
+                                if (draft) {
+                                    _this.strComment = draft.comments;
+                                    _this.strQuery = draft.queries;
+                                    _this.requestCategory = draft.category;
+                                    _this.selectedPaymentOpt = draft.paymentStatus;
+                                    _this.behalfofname = draft.behalfofname;
+                                    _this.behalfofrelation = draft.behalfofrelation;
+                                    _this.behalfofbod = draft.behalfofbod;
+                                    _this.behalfofgender = draft.behalfofgender;
+                                    _this.behalfofcountry = draft.behalfofcountry;
+                                    _this.isRequestBehalf = draft.isbehalfof;
+                                    _this.draftFiles = draft.files;
+                                    _this.arrDraftTrackReq = draft.trackRequest;
+                                }
                             }
                             draftLoader.dismiss();
                         }, function (error) {
@@ -1298,75 +316,53 @@ var ExpertsreviewPage = /** @class */ (function () {
      */
     ExpertsreviewPage.prototype.onClickNext = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var userTypeAlt, files, formData_1, uploadResult_1, err_1;
+            var files, draftFiles_1, formData_1, uploadResult_1, err_1;
             var _this = this;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.altCtrl.create({
-                            header: "Is New User?",
-                            subHeader: "",
-                            inputs: [
-                                {
-                                    type: 'radio',
-                                    label: 'Yes',
-                                    value: '0',
-                                    checked: true
-                                },
-                                {
-                                    type: 'radio',
-                                    label: 'No',
-                                    value: '1'
-                                }
-                            ],
-                            buttons: [
-                                {
-                                    text: 'Ok',
-                                    handler: function (data) {
-                                        if (data == "1") {
-                                            _this.initVerifyStep++;
-                                        }
-                                    }
-                                }
-                            ]
-                        })];
-                    case 1:
-                        userTypeAlt = _a.sent();
-                        if (!(this.initVerifyStep >= 3)) return [3 /*break*/, 2];
+                    case 0:
+                        if (!(this.initVerifyStep >= 3)) return [3 /*break*/, 1];
                         this.initVerifyStep = 3;
-                        this.postRequest();
-                        return [3 /*break*/, 9];
-                    case 2:
-                        if (!(this.initVerifyStep == 1)) return [3 /*break*/, 9];
+                        // this.postRequest();
+                        this.onClickSavePayment();
+                        return [3 /*break*/, 7];
+                    case 1:
+                        if (!(this.initVerifyStep == 1)) return [3 /*break*/, 6];
                         files = this.fileField.getFiles();
+                        draftFiles_1 = this.fileField.getDraftFiles();
                         formData_1 = new FormData();
                         files.forEach(function (file) {
                             formData_1.append('attachments', file.rawFile, file.name);
                         });
-                        _a.label = 3;
-                    case 3:
-                        _a.trys.push([3, 8, , 9]);
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 4, , 5]);
                         return [4 /*yield*/, this.apiService.uploadFiles(formData_1)];
-                    case 4:
+                    case 3:
                         uploadResult_1 = _a.sent();
                         Object.keys(uploadResult_1).map(function (key) {
                             _this.uploadedFiles.push(uploadResult_1[key]._id);
                         });
-                        if (!!this.isLoggedIn) return [3 /*break*/, 6];
+                        Object.keys(draftFiles_1).map(function (key) {
+                            _this.uploadedFiles.push(draftFiles_1[key]._id);
+                        });
                         this.initVerifyStep++;
-                        return [4 /*yield*/, userTypeAlt.present()];
-                    case 5:
-                        _a.sent();
-                        return [3 /*break*/, 7];
-                    case 6:
-                        this.initVerifyStep = 3;
-                        _a.label = 7;
-                    case 7: return [3 /*break*/, 9];
-                    case 8:
+                        return [3 /*break*/, 5];
+                    case 4:
                         err_1 = _a.sent();
                         console.log(err_1);
                         this.toastService.showToast("Uploading file failed!");
-                        return [3 /*break*/, 9];
-                    case 9: return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 5: return [3 /*break*/, 7];
+                    case 6:
+                        if (this.isLoggedIn) {
+                            this.initVerifyStep++;
+                        }
+                        else {
+                            this.toastService.showToast("Please signup before place your request!");
+                        }
+                        _a.label = 7;
+                    case 7: return [2 /*return*/];
                 }
             });
         });
@@ -1374,9 +370,9 @@ var ExpertsreviewPage = /** @class */ (function () {
     /**
      * Post Requeust
      */
-    ExpertsreviewPage.prototype.postRequest = function () {
+    ExpertsreviewPage.prototype.postRequest = function (status) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var postLoader, postData;
+            var postLoader, files, formData_2, uploadResult_2, error_2, postData, trackRequestResult, i, error_3;
             var _this = this;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
@@ -1385,13 +381,35 @@ var ExpertsreviewPage = /** @class */ (function () {
                         })];
                     case 1:
                         postLoader = _a.sent();
+                        if (!(status == 0)) return [3 /*break*/, 5];
+                        files = this.fileField.getFiles();
+                        formData_2 = new FormData();
+                        files.forEach(function (file) {
+                            formData_2.append('attachments', file.rawFile, file.name);
+                        });
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 4, , 5]);
+                        return [4 /*yield*/, this.apiService.uploadFiles(formData_2)];
+                    case 3:
+                        uploadResult_2 = _a.sent();
+                        Object.keys(uploadResult_2).map(function (key) {
+                            _this.uploadedFiles.push(uploadResult_2[key]._id);
+                        });
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_2 = _a.sent();
+                        console.log(error_2);
+                        postLoader.dismiss();
+                        this.toastService.showToast("Upload files failed!");
+                        return [3 /*break*/, 5];
+                    case 5:
                         postData = {
                             category: this.requestCategory,
                             user: localStorage.getItem("uid"),
-                            expert: "",
                             comments: this.strComment,
                             queries: this.strQuery,
-                            status: 1,
+                            status: status,
                             files: this.uploadedFiles,
                             paymentStatus: 0,
                             isbehalfof: this.isRequestBehalf,
@@ -1400,22 +418,38 @@ var ExpertsreviewPage = /** @class */ (function () {
                             behalfofbod: this.behalfofbod,
                             behalfofgender: this.behalfofgender,
                             behalfofcountry: this.behalfofcountry,
+                            trackRequest: []
                         };
                         return [4 /*yield*/, postLoader.present()];
-                    case 2:
+                    case 6:
                         _a.sent();
-                        this.apiService.postRequest(postData)
-                            .subscribe(function (data) {
-                            _this.uploadedFiles = [];
-                            postLoader.dismiss();
-                            _this.toastService.showToast("Successfully Requested!");
-                            _this.navCtrl.navigateBack('/menu/landing');
-                        }, function (error) {
-                            console.log(error);
-                            postLoader.dismiss();
-                            _this.toastService.showToast("Request failed!");
-                        });
-                        return [2 /*return*/];
+                        _a.label = 7;
+                    case 7:
+                        _a.trys.push([7, 10, , 11]);
+                        return [4 /*yield*/, this.apiService.saveRequestStatus(postData.status).toPromise()];
+                    case 8:
+                        trackRequestResult = _a.sent();
+                        if (this.arrDraftTrackReq.length > 0) {
+                            for (i = 0; i < this.arrDraftTrackReq.length; i++) {
+                                postData.trackRequest.push(this.arrDraftTrackReq[i]);
+                            }
+                        }
+                        postData.trackRequest.push(trackRequestResult.data._id);
+                        return [4 /*yield*/, this.apiService.postRequest(postData).toPromise()];
+                    case 9:
+                        _a.sent();
+                        this.uploadedFiles = [];
+                        postLoader.dismiss();
+                        this.toastService.showToast("Successfully Requested!");
+                        this.navCtrl.navigateBack('/menu/landing');
+                        return [3 /*break*/, 11];
+                    case 10:
+                        error_3 = _a.sent();
+                        console.log(error_3);
+                        postLoader.dismiss();
+                        this.toastService.showToast("Request failed!");
+                        return [3 /*break*/, 11];
+                    case 11: return [2 /*return*/];
                 }
             });
         });
@@ -1438,6 +472,146 @@ var ExpertsreviewPage = /** @class */ (function () {
             }
         }
     };
+    /**
+     * Highlight selected paymentoption
+     * @param index payment option index
+     */
+    ExpertsreviewPage.prototype.onChangePaymentOption = function (index) {
+        this.selectedPaymentOpt = index;
+    };
+    /**
+     * Save Payment option
+     */
+    ExpertsreviewPage.prototype.onClickSavePayment = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var savePaymentOptLoader_1, paymentRequestData;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.paymentOptFormSubmit = true;
+                        if (!this.paymentOptForm.valid) return [3 /*break*/, 3];
+                        return [4 /*yield*/, this.loadingCtrl.create({
+                                message: "Please wait..."
+                            })];
+                    case 1:
+                        savePaymentOptLoader_1 = _a.sent();
+                        return [4 /*yield*/, savePaymentOptLoader_1.present()];
+                    case 2:
+                        _a.sent();
+                        paymentRequestData = {
+                            method: this.selectedPaymentOpt,
+                            accountholdername: this.paymentOptForm.controls.accountholdername.value,
+                            accountnumber: this.paymentOptForm.controls.accountnumber.value,
+                            ifsccode: this.paymentOptForm.controls.ifsccode.value,
+                            bankname: this.paymentOptForm.controls.bankname.value,
+                            bankaddress: this.paymentOptForm.controls.bankaddress.value,
+                            userid: localStorage.getItem("uid")
+                        };
+                        this.apiService.savePaymentOption(paymentRequestData)
+                            .subscribe(function (data) {
+                            console.log(data);
+                            savePaymentOptLoader_1.dismiss();
+                            _this.postRequest(1);
+                            // this.toastService.showToast("Payment option is saved now.");
+                        }, function (error) {
+                            console.log("Save Paymentoption failed!");
+                            savePaymentOptLoader_1.dismiss();
+                            _this.toastService.showToast("Save Paymentoption failed!");
+                        });
+                        return [3 /*break*/, 4];
+                    case 3:
+                        this.toastService.showToast("Please input necessary fields!");
+                        _a.label = 4;
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * Save Draft Request
+     */
+    ExpertsreviewPage.prototype.onClickSave = function () {
+        this.postRequest(0);
+    };
+    /**
+     * Register User if not loggedin
+     */
+    ExpertsreviewPage.prototype.onClickSignup = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var newUser, signupLoader;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        newUser = {
+                            email: this.secondStepForm.controls.email.value,
+                            role: 0,
+                            fname: this.secondStepForm.controls.fname.value,
+                            lname: this.secondStepForm.controls.lname.value,
+                            birthday: this.secondStepForm.controls.dob.value,
+                            username: this.secondStepForm.controls.username.value,
+                            password: md5__WEBPACK_IMPORTED_MODULE_9___default()(this.secondStepForm.controls.password.value),
+                            experiencedyear: 0,
+                            isverified: false,
+                            highlight: false,
+                            title: "",
+                            headline: "",
+                            category: 'null',
+                            avatar: "assets/imgs/img-default-profile.svg",
+                            expertbio: "",
+                            expertschool: "",
+                            expertresidency: "",
+                            expertinternship: "",
+                            expertdegree: "",
+                            expertaward: ""
+                        };
+                        return [4 /*yield*/, this.loadingCtrl.create({
+                                message: "Please wait..."
+                            })];
+                    case 1:
+                        signupLoader = _a.sent();
+                        return [4 /*yield*/, signupLoader.present()];
+                    case 2:
+                        _a.sent();
+                        this.apiService.signUp(newUser)
+                            .subscribe(function (res) {
+                            signupLoader.dismiss();
+                            _this.toastService.showToast("Successfully Registered!");
+                            localStorage.setItem("isLoggedIn", 'true');
+                            localStorage.setItem("uid", res.user._id);
+                            localStorage.setItem("role", res.user.role);
+                            _this.event.publish("onLoginStatusChange");
+                        }, function (error) {
+                            console.log(error);
+                            signupLoader.dismiss();
+                            if (error.error.message) {
+                                _this.toastService.showToast(error.error.message);
+                            }
+                            else if (error.error.err.errors.email.message) {
+                                _this.toastService.showToast(error.error.err.errors.email.message);
+                            }
+                            else if (error.message) {
+                                _this.toastService.showToast(error.message);
+                            }
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * Change Gender
+     * @param gender string
+     * m: Male
+     * f: Female
+     */
+    ExpertsreviewPage.prototype.onChangeGender = function (gender) {
+        this.behalfofgender = gender;
+    };
+    /**
+     * Navigate back to landing page
+     */
     ExpertsreviewPage.prototype.onClickNavBack = function () {
         this.navCtrl.navigateBack('/menu/landing');
     };
@@ -1457,7 +631,8 @@ var ExpertsreviewPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"],
             src_app_services_api_api_service__WEBPACK_IMPORTED_MODULE_5__["ApiService"],
             src_app_services_toast_toast_service__WEBPACK_IMPORTED_MODULE_6__["ToastService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_7__["ActivatedRoute"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_7__["ActivatedRoute"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_8__["FormBuilder"]])
     ], ExpertsreviewPage);
     return ExpertsreviewPage;
 }());

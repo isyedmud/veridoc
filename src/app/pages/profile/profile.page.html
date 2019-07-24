@@ -36,10 +36,30 @@
     <ion-input type="text" [(ngModel)]="userInfo.email"></ion-input>
   </ion-item>
 
-  <ion-item>
+  <!-- <ion-item (click)="onClickBirthDay()">
     <ion-label position="stacked">BOD</ion-label>
-    <ion-datetime [(ngModel)]="userInfo.birthday" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY"></ion-datetime>
-  </ion-item>
+    <ion-label>
+      {{userInfo.birthday}}
+    </ion-label>
+  </ion-item> -->
+  <div (click)="onClickBirthDay()" id="profile-birthday">
+    <p>BOD</p>
+    <p>
+      {{userInfo.birthday}}
+    </p>
+  </div>
+
+  <div *ngIf="isShowCalendar">
+    <calendar 
+      [calendarMode]="calendar.mode" 
+      [currentDate]="calendar.currentDate"
+      (onCurrentDateChanged)="onCurrentDateChanged($event)" 
+      startingDayWeek="1" 
+      [showEventDetail]='false'
+      class="profile-calendar"
+      >
+    </calendar>
+  </div>
 
   <div id="pf-btn-save">
     <ion-button (click)="onClickBtnSave()">Update</ion-button>

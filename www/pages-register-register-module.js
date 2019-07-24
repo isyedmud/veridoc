@@ -80,6 +80,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _register_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./register.page */ "./src/app/pages/register/register.page.ts");
 /* harmony import */ var _popover_usertype_usertype_page__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../popover/usertype/usertype.page */ "./src/app/pages/popover/usertype/usertype.page.ts");
+/* harmony import */ var ionic2_calendar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ionic2-calendar */ "./node_modules/ionic2-calendar/index.js");
+
 
 
 
@@ -103,14 +105,15 @@ var RegisterPageModule = /** @class */ (function () {
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
+                ionic2_calendar__WEBPACK_IMPORTED_MODULE_8__["NgCalendarModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(routes)
             ],
             declarations: [
                 _register_page__WEBPACK_IMPORTED_MODULE_6__["RegisterPage"],
-                _popover_usertype_usertype_page__WEBPACK_IMPORTED_MODULE_7__["UsertypePage"]
+                _popover_usertype_usertype_page__WEBPACK_IMPORTED_MODULE_7__["UsertypePage"],
             ],
             entryComponents: [
-                _popover_usertype_usertype_page__WEBPACK_IMPORTED_MODULE_7__["UsertypePage"]
+                _popover_usertype_usertype_page__WEBPACK_IMPORTED_MODULE_7__["UsertypePage"],
             ]
         })
     ], RegisterPageModule);
@@ -128,7 +131,7 @@ var RegisterPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header no-border>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"onClickNavBack()\">\n        <ion-icon name=\"arrow-back\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n  <div id=\"register-page-container\">\n    <p id=\"register-page-header\">Register</p>\n    <div id=\"register-page-avatar-form\">\n      <div id=\"register-page-avatar\">\n        <img [src]=\"avatarImg\" (click)=\"onClickAvatar()\"/>\n      </div>\n    </div>\n    <input type=\"file\" id=\"avatarSelector\" accept=\"image/*\" #avatarSelector (change)=\"onSelectAvatarImage()\"/>\n    <div id=\"register-page-main-content\">\n      <form [formGroup]=\"registerForm\">\n\n        <!-- UserType -->\n        <ion-item (click)=\"onSelectUserRole()\">\n          <ion-label>Type</ion-label>\n          <ion-label id=\"label-usertype\">{{userRole==0?\"I'm Requestor\":\"I'm Expert\"}}</ion-label>\n          <ion-icon slot=\"end\" name=\"arrow-dropdown\"></ion-icon>\n        </ion-item>\n\n        <!-- Expert title -->\n        <ion-item *ngIf=\"userRole == '1'\">\n          <ion-input type=\"text\" formControlName=\"title\" placeholder=\"Title\"></ion-input>\n        </ion-item>\n        <ion-item *ngIf=\"!registerForm.controls.title.valid && registerForm.controls.role=='1' && submitAttempt\">\n          <p [class.invalid]=\"!registerForm.controls.title.valid && registerForm.controls.role=='1' && submitAttempt\">Please enter a Title.</p>\n        </ion-item>\n\n        <!-- Expert Headline -->\n        <ion-item *ngIf=\"userRole == '1'\">\n          <ion-input type=\"text\" formControlName=\"headline\" placeholder=\"Headline\"></ion-input>\n        </ion-item>\n        <ion-item *ngIf=\"!registerForm.controls.headline.valid && registerForm.controls.role=='1' && submitAttempt\">\n          <p [class.invalid]=\"!registerForm.controls.headline.valid && registerForm.controls.role=='1' && submitAttempt\">Please enter a Headline.</p>\n        </ion-item>\n\n        <!-- Expert Category -->\n        <ion-item *ngIf=\"userRole == '1'\">\n          <ion-label>Category</ion-label>\n          <ion-select formControlName=\"category\">\n            <ion-select-option value=\"0\">Cardiology</ion-select-option>\n            <ion-select-option value=\"1\">Endocrinology</ion-select-option>\n            <ion-select-option value=\"2\">Infectious Diseases</ion-select-option>\n            <ion-select-option value=\"3\">Nephrology</ion-select-option>\n            <ion-select-option value=\"4\">Oncology & Hematology</ion-select-option>\n            <ion-select-option value=\"5\">Pediatrics</ion-select-option>\n            <ion-select-option value=\"6\">Psychiatry</ion-select-option>\n            <ion-select-option value=\"7\">Radiology</ion-select-option>\n            <ion-select-option value=\"8\">Dermatology</ion-select-option>\n            <ion-select-option value=\"9\">Gastroenterology</ion-select-option>\n            <ion-select-option value=\"10\">Internal Medicine</ion-select-option>\n            <ion-select-option value=\"11\">Neurology</ion-select-option>\n            <ion-select-option value=\"12\">Precision Oncology</ion-select-option>\n            <ion-select-option value=\"13\">Physical Med/Rehab</ion-select-option>\n            <ion-select-option value=\"14\">Pulmonary Medicine and Critical Care</ion-select-option>\n            <ion-select-option value=\"15\">Rheumatology</ion-select-option>\n          </ion-select>\n        </ion-item>\n      \n        <!-- First Name -->\n        <ion-item>\n          <ion-input type='text' formControlName=\"fname\" placeholder=\"First Name\"></ion-input>\n        </ion-item>\n        <ion-item *ngIf=\"!registerForm.controls.fname.valid && submitAttempt\">\n          <p [class.invalid]=\"!registerForm.controls.fname.valid && submitAttempt\">Please enter a First Name.</p>\n        </ion-item>\n      \n        <!-- Last Name -->\n        <ion-item>\n          <ion-input type='text' formControlName=\"lname\" placeholder=\"Last Name\"></ion-input>\n        </ion-item>\n        <ion-item *ngIf=\"!registerForm.controls.lname.valid && submitAttempt\">\n          <p [class.invalid]=\"!registerForm.controls.lname.valid && submitAttempt\">Please enter a Last Name.</p>\n        </ion-item>\n      \n        <!-- Email -->\n        <ion-item>\n          <ion-input type='email' formControlName=\"email\" placeholder=\"Email\"></ion-input>\n        </ion-item>\n        <ion-item *ngIf=\"!registerForm.controls.email.valid && submitAttempt\">\n          <p [class.invalid]=\"!registerForm.controls.email.valid && submitAttempt\">Please enter a valid Email Address.</p>\n        </ion-item>\n      \n        <!-- Birthdate -->\n        <ion-item>\n          <ion-label>BOD</ion-label>\n          <ion-datetime displayFormat=\"DD/MM/YYYY\" formControlName=\"dob\" pickerFormat=\"DD MMMM YYYY\"></ion-datetime>\n        </ion-item>\n\n        <!-- Experienced Year for expert -->\n        <ion-item *ngIf=\"userRole == '1'\">\n          <ion-input type=\"number\" formControlName=\"experiencedyear\" placeholder=\"Experienced Years\"></ion-input>\n        </ion-item>\n      \n        <!-- User Name -->\n        <ion-item>\n          <ion-input type=\"text\" formControlName=\"username\" placeholder=\"Username\"></ion-input>\n        </ion-item>\n        <ion-item *ngIf=\"!registerForm.controls.username.valid && submitAttempt\">\n          <p [class.invalid]=\"!registerForm.controls.username.valid && submitAttempt\">Please enter a Username.</p>\n        </ion-item>\n      \n        <ion-item>\n          <ion-input type=\"password\" formControlName=\"password\" placeholder=\"Password\"></ion-input>\n        </ion-item>\n        <ion-item *ngIf=\"!registerForm.controls.password.valid && submitAttempt\">\n          <p [class.invalid]=\"!registerForm.controls.password.valid && submitAttempt\">Please enter password.</p>\n        </ion-item>\n      \n        <ion-item *ngIf=\"isExpert\">Bank Detail</ion-item>\n        <ion-item *ngIf=\"isExpert\">License Documents</ion-item>\n      </form>\n    \n      <p id=\"r-registered\" (click)=\"onClickAlreadyRegisteredBtn()\">\n        Already Registered?\n      </p>\n    \n      <ion-item lines=\"none\">\n        <ion-checkbox slot=\"start\" (ionChange)=\"onChangeTermsAndConditions($event)\"></ion-checkbox>\n        <ion-label>Accept terms and conditions</ion-label>\n      </ion-item>\n    \n      <div id=\"r-btn-register\">\n        <ion-button (click)=\"onClickSignupBtn()\">Sign Up</ion-button>\n      </div>\n    </div>\n  </div>\n</ion-content>\n"
+module.exports = "<ion-header no-border>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button (click)=\"onClickNavBack()\">\n        <ion-icon name=\"arrow-back\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n  <div id=\"register-page-container\">\n    <p id=\"register-page-header\">Register</p>\n    <div id=\"register-page-avatar-form\">\n      <div id=\"register-page-avatar\">\n        <img [src]=\"avatarImg\" (click)=\"onClickAvatar()\" />\n      </div>\n    </div>\n    <input type=\"file\" id=\"avatarSelector\" accept=\"image/*\" #avatarSelector (change)=\"onSelectAvatarImage()\" />\n    <div id=\"register-page-main-content\">\n      <form [formGroup]=\"registerForm\">\n\n        <!-- UserType -->\n        <ion-item (click)=\"onSelectUserRole()\">\n          <ion-label>Type</ion-label>\n          <ion-label id=\"label-usertype\">{{userRole==0?\"I'm Requestor\":\"I'm Expert\"}}</ion-label>\n          <ion-icon slot=\"end\" name=\"arrow-dropdown\"></ion-icon>\n        </ion-item>\n\n        <!-- Expert title -->\n        <ion-item *ngIf=\"userRole == '1'\">\n          <ion-input type=\"text\" formControlName=\"title\" placeholder=\"Title\"></ion-input>\n        </ion-item>\n        <ion-item *ngIf=\"!registerForm.controls.title.valid && registerForm.controls.role=='1' && submitAttempt\">\n          <p [class.invalid]=\"!registerForm.controls.title.valid && registerForm.controls.role=='1' && submitAttempt\">\n            Please enter a Title.</p>\n        </ion-item>\n\n        <!-- Expert Headline -->\n        <ion-item *ngIf=\"userRole == '1'\">\n          <ion-input type=\"text\" formControlName=\"headline\" placeholder=\"Headline\"></ion-input>\n        </ion-item>\n        <ion-item *ngIf=\"!registerForm.controls.headline.valid && registerForm.controls.role=='1' && submitAttempt\">\n          <p\n            [class.invalid]=\"!registerForm.controls.headline.valid && registerForm.controls.role=='1' && submitAttempt\">\n            Please enter a Headline.</p>\n        </ion-item>\n\n        <!-- Expert Category -->\n        <ion-item *ngIf=\"userRole == '1'\">\n          <ion-label>Category</ion-label>\n          <ion-select formControlName=\"category\">\n            <ion-select-option value=\"0\">Cardiology</ion-select-option>\n            <ion-select-option value=\"1\">Endocrinology</ion-select-option>\n            <ion-select-option value=\"2\">Infectious Diseases</ion-select-option>\n            <ion-select-option value=\"3\">Nephrology</ion-select-option>\n            <ion-select-option value=\"4\">Oncology & Hematology</ion-select-option>\n            <ion-select-option value=\"5\">Pediatrics</ion-select-option>\n            <ion-select-option value=\"6\">Psychiatry</ion-select-option>\n            <ion-select-option value=\"7\">Radiology</ion-select-option>\n            <ion-select-option value=\"8\">Dermatology</ion-select-option>\n            <ion-select-option value=\"9\">Gastroenterology</ion-select-option>\n            <ion-select-option value=\"10\">Internal Medicine</ion-select-option>\n            <ion-select-option value=\"11\">Neurology</ion-select-option>\n            <ion-select-option value=\"12\">Precision Oncology</ion-select-option>\n            <ion-select-option value=\"13\">Physical Med/Rehab</ion-select-option>\n            <ion-select-option value=\"14\">Pulmonary Medicine and Critical Care</ion-select-option>\n            <ion-select-option value=\"15\">Rheumatology</ion-select-option>\n          </ion-select>\n        </ion-item>\n\n        <!-- Expert Information -->\n        <!-- Bio -->\n        <ion-item *ngIf=\"userRole == '1'\">\n          <ion-input type=\"text\" formControlName=\"expertbio\" placeholder=\"Bio\"></ion-input>\n        </ion-item>\n\n        <!-- Education -->\n        <ng-container *ngIf=\"userRole=='1'\">\n          <div class=\"margin-div\"></div>\n          <ion-item-divider>\n            Education\n          </ion-item-divider>\n          <ion-item>\n            <ion-input type=\"text\" formControlName=\"expertschool\" placeholder=\"School\"></ion-input>\n          </ion-item>\n\n          <ion-item>\n            <ion-input type=\"text\" formControlName=\"expertresidency\" placeholder=\"Residency\"></ion-input>\n          </ion-item>\n\n          <ion-item>\n            <ion-input type=\"text\" formControlName=\"expertinternship\" placeholder=\"Internship\"></ion-input>\n          </ion-item>\n\n          <ion-item>\n            <ion-input type=\"text\" formControlName=\"expertdegree\" placeholder=\"Medical Degree\"></ion-input>\n          </ion-item>\n\n          <div class=\"margin-div\"></div>\n          <ion-item-divider>\n            Awards\n          </ion-item-divider>\n          <ion-item>\n            <ion-input type=\"text\" formControlName=\"expertaward\" placeholder=\"Award\"></ion-input>\n          </ion-item>\n        </ng-container>\n\n        <div class=\"margin-div\"></div>\n\n        <!-- First Name -->\n        <ion-item>\n          <ion-input type='text' formControlName=\"fname\" placeholder=\"First Name\"></ion-input>\n        </ion-item>\n        <ion-item *ngIf=\"!registerForm.controls.fname.valid && submitAttempt\">\n          <p [class.invalid]=\"!registerForm.controls.fname.valid && submitAttempt\">Please enter a First Name.</p>\n        </ion-item>\n\n        <!-- Last Name -->\n        <ion-item>\n          <ion-input type='text' formControlName=\"lname\" placeholder=\"Last Name\"></ion-input>\n        </ion-item>\n        <ion-item *ngIf=\"!registerForm.controls.lname.valid && submitAttempt\">\n          <p [class.invalid]=\"!registerForm.controls.lname.valid && submitAttempt\">Please enter a Last Name.</p>\n        </ion-item>\n\n        <!-- Email -->\n        <ion-item>\n          <ion-input type='email' formControlName=\"email\" placeholder=\"Email\"></ion-input>\n        </ion-item>\n        <ion-item *ngIf=\"!registerForm.controls.email.valid && submitAttempt\">\n          <p [class.invalid]=\"!registerForm.controls.email.valid && submitAttempt\">Please enter a valid Email Address.\n          </p>\n        </ion-item>\n\n        <!-- Birthdate -->\n\n        <div id=\"register-birthday\" (click)=\"onClickBirthDay()\">\n          <p>\n            Birth Day\n          </p>\n          <p>\n            {{birthDay}}\n          </p>\n        </div>\n\n        <div *ngIf=\"isShowCalendar\">\n          <ion-grid>\n            <ion-row>\n              <ion-col size=\"4\">\n                <div class=\"calendar-btn-back\">\n                  <ion-icon name=\"arrow-back\" (click)=\"onBackCalendar()\"></ion-icon>\n                </div>\n              </ion-col>\n              <ion-col size=\"4\">\n                <p class=\"register-calendar-selected-date\">\n                  {{birthDay}}\n                </p>\n              </ion-col>\n              <ion-col size=\"4\">\n                <div class=\"calendar-btn-next\">\n                  <ion-icon name=\"arrow-forward\" (click)=\"onNextCalendar()\"></ion-icon>\n                </div>\n              </ion-col>\n            </ion-row>\n          </ion-grid>\n  \n          <calendar [calendarMode]=\"calendar.mode\" [currentDate]=\"calendar.currentDate\"\n            (onCurrentDateChanged)=\"onCurrentDateChanged($event)\" startingDayWeek=\"1\" [showEventDetail]='false'>\n          </calendar>\n        </div>\n\n        <!-- Experienced Year for expert -->\n        <ion-item *ngIf=\"userRole == '1'\">\n          <ion-input type=\"number\" formControlName=\"experiencedyear\" placeholder=\"Experienced Years\"></ion-input>\n        </ion-item>\n\n        <!-- User Name -->\n        <ion-item>\n          <ion-input type=\"text\" formControlName=\"username\" placeholder=\"Username\"></ion-input>\n        </ion-item>\n        <ion-item *ngIf=\"!registerForm.controls.username.valid && submitAttempt\">\n          <p [class.invalid]=\"!registerForm.controls.username.valid && submitAttempt\">Please enter a Username.</p>\n        </ion-item>\n\n        <ion-item>\n          <ion-input type=\"password\" formControlName=\"password\" placeholder=\"Password\"></ion-input>\n        </ion-item>\n        <ion-item *ngIf=\"!registerForm.controls.password.valid && submitAttempt\">\n          <p [class.invalid]=\"!registerForm.controls.password.valid && submitAttempt\">Please enter password.</p>\n        </ion-item>\n\n        <ion-item *ngIf=\"isExpert\">Bank Detail</ion-item>\n        <ion-item *ngIf=\"isExpert\">License Documents</ion-item>\n      </form>\n\n      <p id=\"r-registered\" (click)=\"onClickAlreadyRegisteredBtn()\">\n        Already Registered?\n      </p>\n\n      <ion-item lines=\"none\">\n        <ion-checkbox slot=\"start\" (ionChange)=\"onChangeTermsAndConditions($event)\"></ion-checkbox>\n        <ion-label>Accept terms and conditions</ion-label>\n      </ion-item>\n\n      <div id=\"r-btn-register\">\n        <ion-button (click)=\"onClickSignupBtn()\">Sign Up</ion-button>\n      </div>\n    </div>\n  </div>\n</ion-content>\n"
 
 /***/ }),
 
@@ -139,7 +142,7 @@ module.exports = "<ion-header no-border>\n  <ion-toolbar>\n    <ion-buttons slot
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@media only screen and (min-width: 641px) {\n  #register-page-container {\n    margin: 6vh 20% 0 20%;\n    box-shadow: 0 4px 4px #d2d2d2; }\n  #register-page-header {\n    background-color: #3780ff;\n    color: white; }\n  #register-page-main-content {\n    padding: 16px; } }\n\n#label-usertype {\n  text-align: right; }\n\n#register-page-header {\n  text-align: center;\n  font-size: 1.4em;\n  margin: 0;\n  padding: 16px 0; }\n\n#register-page-avatar-form {\n  display: flex;\n  justify-content: center;\n  margin-top: 3vh; }\n\n#register-page-avatar {\n  width: 80px;\n  height: 80px;\n  overflow: hidden;\n  border-radius: 50%;\n  position: relative; }\n\n#register-page-avatar img {\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    height: 100%;\n    -webkit-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%); }\n\n#r-registered {\n  font-size: .9em;\n  color: #808080;\n  text-align: center; }\n\n#r-btn-register {\n  width: 100%;\n  text-align: center;\n  margin-top: 3vh; }\n\n#r-btn-register ion-button {\n    width: 70%; }\n\n#avatarSelector {\n  display: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0RhdGExL1dvcmtzcGFjZS9pb25pYy92ZXJpZG9jL3NyYy9hcHAvcGFnZXMvcmVnaXN0ZXIvcmVnaXN0ZXIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0k7SUFDSSxxQkFBcUI7SUFDckIsNkJBQTZCLEVBQUE7RUFHakM7SUFDSSx5QkFBeUI7SUFDekIsWUFBWSxFQUFBO0VBR2hCO0lBQ0ksYUFBYSxFQUFBLEVBQ2hCOztBQUdMO0VBQ0ksaUJBQWlCLEVBQUE7O0FBR3JCO0VBQ0ksa0JBQWtCO0VBQ2xCLGdCQUFnQjtFQUNoQixTQUFTO0VBQ1QsZUFBZSxFQUFBOztBQUduQjtFQUNJLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsZUFBZSxFQUFBOztBQUduQjtFQUNJLFdBQVc7RUFDWCxZQUFZO0VBQ1osZ0JBQWdCO0VBQ2hCLGtCQUFrQjtFQUNsQixrQkFBa0IsRUFBQTs7QUFMdEI7SUFPUSxrQkFBa0I7SUFDbEIsU0FBUztJQUNULFFBQVE7SUFDUixZQUFZO0lBQ1osd0NBQWdDO1lBQWhDLGdDQUFnQyxFQUFBOztBQUl4QztFQUNJLGVBQWU7RUFDZixjQUFjO0VBQ2Qsa0JBQWtCLEVBQUE7O0FBR3RCO0VBQ0ksV0FBVztFQUNYLGtCQUFrQjtFQUNsQixlQUFlLEVBQUE7O0FBSG5CO0lBS1EsVUFBVSxFQUFBOztBQUlsQjtFQUNJLGFBQWEsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL3JlZ2lzdGVyL3JlZ2lzdGVyLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIkBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogNjQxcHgpIHtcbiAgICAjcmVnaXN0ZXItcGFnZS1jb250YWluZXIge1xuICAgICAgICBtYXJnaW46IDZ2aCAyMCUgMCAyMCU7XG4gICAgICAgIGJveC1zaGFkb3c6IDAgNHB4IDRweCAjZDJkMmQyO1xuICAgIH1cblxuICAgICNyZWdpc3Rlci1wYWdlLWhlYWRlciB7XG4gICAgICAgIGJhY2tncm91bmQtY29sb3I6ICMzNzgwZmY7XG4gICAgICAgIGNvbG9yOiB3aGl0ZTtcbiAgICB9XG5cbiAgICAjcmVnaXN0ZXItcGFnZS1tYWluLWNvbnRlbnQge1xuICAgICAgICBwYWRkaW5nOiAxNnB4O1xuICAgIH1cbn1cblxuI2xhYmVsLXVzZXJ0eXBlIHtcbiAgICB0ZXh0LWFsaWduOiByaWdodDtcbn1cblxuI3JlZ2lzdGVyLXBhZ2UtaGVhZGVyIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgZm9udC1zaXplOiAxLjRlbTtcbiAgICBtYXJnaW46IDA7XG4gICAgcGFkZGluZzogMTZweCAwO1xufVxuXG4jcmVnaXN0ZXItcGFnZS1hdmF0YXItZm9ybSB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBtYXJnaW4tdG9wOiAzdmg7XG59XG5cbiNyZWdpc3Rlci1wYWdlLWF2YXRhciB7XG4gICAgd2lkdGg6IDgwcHg7XG4gICAgaGVpZ2h0OiA4MHB4O1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgYm9yZGVyLXJhZGl1czogNTAlO1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICBpbWcge1xuICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICAgIGxlZnQ6IDUwJTtcbiAgICAgICAgdG9wOiA1MCU7XG4gICAgICAgIGhlaWdodDogMTAwJTtcbiAgICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgLTUwJSk7XG4gICAgfVxufVxuXG4jci1yZWdpc3RlcmVkIHtcbiAgICBmb250LXNpemU6IC45ZW07XG4gICAgY29sb3I6ICM4MDgwODA7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4jci1idG4tcmVnaXN0ZXIge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW4tdG9wOiAzdmg7XG4gICAgaW9uLWJ1dHRvbiB7XG4gICAgICAgIHdpZHRoOiA3MCU7XG4gICAgfVxufVxuXG4jYXZhdGFyU2VsZWN0b3Ige1xuICAgIGRpc3BsYXk6IG5vbmU7XG59Il19 */"
+module.exports = "@media only screen and (min-width: 641px) {\n  #register-page-container {\n    margin: 6vh 20% 0 20%;\n    box-shadow: 0 4px 4px #d2d2d2; }\n  #register-page-header {\n    background-color: #3780ff;\n    color: white; }\n  #register-page-main-content {\n    padding: 16px; } }\n\n#label-usertype {\n  text-align: right; }\n\n#register-page-header {\n  text-align: center;\n  font-size: 1.4em;\n  margin: 0;\n  padding: 16px 0; }\n\n#register-page-avatar-form {\n  display: flex;\n  justify-content: center;\n  margin-top: 3vh; }\n\n#register-page-avatar {\n  width: 80px;\n  height: 80px;\n  overflow: hidden;\n  border-radius: 50%;\n  position: relative; }\n\n#register-page-avatar img {\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    height: 100%;\n    transform: translate(-50%, -50%); }\n\n#r-registered {\n  font-size: .9em;\n  color: #808080;\n  text-align: center; }\n\n#r-btn-register {\n  width: 100%;\n  text-align: center;\n  margin-top: 3vh; }\n\n#r-btn-register ion-button {\n    width: 70%; }\n\n#avatarSelector {\n  display: none; }\n\n.margin-div {\n  margin: 3vh 0; }\n\nion-item-divider {\n  font-size: 16px;\n  color: #000000; }\n\n.calendar-btn-back {\n  text-align: left; }\n\n.calendar-btn-next {\n  text-align: right; }\n\n.register-calendar-selected-date {\n  text-align: center;\n  margin: 0; }\n\n#register-birthday {\n  display: flex;\n  padding: 0 16px;\n  border-bottom: 1px solid #dedede; }\n\n#register-birthday p {\n    flex: 1;\n    margin: 16px 0 8px;\n    color: #818181; }\n\n#register-birthday-label {\n  padding-left: 16px;\n  color: #8e8e8e; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0RhdGExL1dvcmtzcGFjZS9pb25pYy92ZXJpZG9jL3NyYy9hcHAvcGFnZXMvcmVnaXN0ZXIvcmVnaXN0ZXIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0k7SUFDSSxxQkFBcUI7SUFDckIsNkJBQTZCLEVBQUE7RUFHakM7SUFDSSx5QkFBeUI7SUFDekIsWUFBWSxFQUFBO0VBR2hCO0lBQ0ksYUFBYSxFQUFBLEVBQ2hCOztBQUdMO0VBQ0ksaUJBQWlCLEVBQUE7O0FBR3JCO0VBQ0ksa0JBQWtCO0VBQ2xCLGdCQUFnQjtFQUNoQixTQUFTO0VBQ1QsZUFBZSxFQUFBOztBQUduQjtFQUNJLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsZUFBZSxFQUFBOztBQUduQjtFQUNJLFdBQVc7RUFDWCxZQUFZO0VBQ1osZ0JBQWdCO0VBQ2hCLGtCQUFrQjtFQUNsQixrQkFBa0IsRUFBQTs7QUFMdEI7SUFPUSxrQkFBa0I7SUFDbEIsU0FBUztJQUNULFFBQVE7SUFDUixZQUFZO0lBQ1osZ0NBQWdDLEVBQUE7O0FBSXhDO0VBQ0ksZUFBZTtFQUNmLGNBQWM7RUFDZCxrQkFBa0IsRUFBQTs7QUFHdEI7RUFDSSxXQUFXO0VBQ1gsa0JBQWtCO0VBQ2xCLGVBQWUsRUFBQTs7QUFIbkI7SUFLUSxVQUFVLEVBQUE7O0FBSWxCO0VBQ0ksYUFBYSxFQUFBOztBQUdqQjtFQUNJLGFBQWEsRUFBQTs7QUFHakI7RUFDSSxlQUFlO0VBQ2YsY0FBYyxFQUFBOztBQUdsQjtFQUNJLGdCQUFnQixFQUFBOztBQUdwQjtFQUNJLGlCQUFpQixFQUFBOztBQUdyQjtFQUNJLGtCQUFrQjtFQUNsQixTQUFTLEVBQUE7O0FBR2I7RUFDSSxhQUFhO0VBQ2IsZUFBZTtFQUNmLGdDQUFnQyxFQUFBOztBQUhwQztJQUtRLE9BQU87SUFDUCxrQkFBa0I7SUFDbEIsY0FBYyxFQUFBOztBQUl0QjtFQUNJLGtCQUFrQjtFQUNsQixjQUFjLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9yZWdpc3Rlci9yZWdpc3Rlci5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDY0MXB4KSB7XG4gICAgI3JlZ2lzdGVyLXBhZ2UtY29udGFpbmVyIHtcbiAgICAgICAgbWFyZ2luOiA2dmggMjAlIDAgMjAlO1xuICAgICAgICBib3gtc2hhZG93OiAwIDRweCA0cHggI2QyZDJkMjtcbiAgICB9XG5cbiAgICAjcmVnaXN0ZXItcGFnZS1oZWFkZXIge1xuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMzc4MGZmO1xuICAgICAgICBjb2xvcjogd2hpdGU7XG4gICAgfVxuXG4gICAgI3JlZ2lzdGVyLXBhZ2UtbWFpbi1jb250ZW50IHtcbiAgICAgICAgcGFkZGluZzogMTZweDtcbiAgICB9XG59XG5cbiNsYWJlbC11c2VydHlwZSB7XG4gICAgdGV4dC1hbGlnbjogcmlnaHQ7XG59XG5cbiNyZWdpc3Rlci1wYWdlLWhlYWRlciB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIGZvbnQtc2l6ZTogMS40ZW07XG4gICAgbWFyZ2luOiAwO1xuICAgIHBhZGRpbmc6IDE2cHggMDtcbn1cblxuI3JlZ2lzdGVyLXBhZ2UtYXZhdGFyLWZvcm0ge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgbWFyZ2luLXRvcDogM3ZoO1xufVxuXG4jcmVnaXN0ZXItcGFnZS1hdmF0YXIge1xuICAgIHdpZHRoOiA4MHB4O1xuICAgIGhlaWdodDogODBweDtcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgaW1nIHtcbiAgICAgICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgICAgICBsZWZ0OiA1MCU7XG4gICAgICAgIHRvcDogNTAlO1xuICAgICAgICBoZWlnaHQ6IDEwMCU7XG4gICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xuICAgIH1cbn1cblxuI3ItcmVnaXN0ZXJlZCB7XG4gICAgZm9udC1zaXplOiAuOWVtO1xuICAgIGNvbG9yOiAjODA4MDgwO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuI3ItYnRuLXJlZ2lzdGVyIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luLXRvcDogM3ZoO1xuICAgIGlvbi1idXR0b24ge1xuICAgICAgICB3aWR0aDogNzAlO1xuICAgIH1cbn1cblxuI2F2YXRhclNlbGVjdG9yIHtcbiAgICBkaXNwbGF5OiBub25lO1xufVxuXG4ubWFyZ2luLWRpdiB7XG4gICAgbWFyZ2luOiAzdmggMDtcbn1cblxuaW9uLWl0ZW0tZGl2aWRlciB7XG4gICAgZm9udC1zaXplOiAxNnB4O1xuICAgIGNvbG9yOiAjMDAwMDAwO1xufVxuXG4uY2FsZW5kYXItYnRuLWJhY2sge1xuICAgIHRleHQtYWxpZ246IGxlZnQ7XG59XG5cbi5jYWxlbmRhci1idG4tbmV4dCB7XG4gICAgdGV4dC1hbGlnbjogcmlnaHQ7XG59XG5cbi5yZWdpc3Rlci1jYWxlbmRhci1zZWxlY3RlZC1kYXRlIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luOiAwO1xufVxuXG4jcmVnaXN0ZXItYmlydGhkYXkge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgcGFkZGluZzogMCAxNnB4O1xuICAgIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjZGVkZWRlO1xuICAgIHAge1xuICAgICAgICBmbGV4OiAxO1xuICAgICAgICBtYXJnaW46IDE2cHggMCA4cHg7XG4gICAgICAgIGNvbG9yOiAjODE4MTgxO1xuICAgIH1cbn1cblxuI3JlZ2lzdGVyLWJpcnRoZGF5LWxhYmVsIHtcbiAgICBwYWRkaW5nLWxlZnQ6IDE2cHg7XG4gICAgY29sb3I6ICM4ZThlOGU7XG59Il19 */"
 
 /***/ }),
 
@@ -164,6 +167,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_toast_toast_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/toast/toast.service */ "./src/app/services/toast/toast.service.ts");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../constants */ "./src/app/pages/constants.ts");
 /* harmony import */ var _popover_usertype_usertype_page__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../popover/usertype/usertype.page */ "./src/app/pages/popover/usertype/usertype.page.ts");
+/* harmony import */ var ionic2_calendar_calendar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ionic2-calendar/calendar */ "./node_modules/ionic2-calendar/calendar.js");
+
 
 
 
@@ -187,6 +192,10 @@ var RegisterPage = /** @class */ (function () {
         this.camera = camera;
         this.platform = platform;
         this.popOver = popOver;
+        this.calendar = {
+            mode: 'month',
+            currentDate: new Date()
+        };
         /**
          * Form Group Validator
          */
@@ -208,23 +217,39 @@ var RegisterPage = /** @class */ (function () {
          * Avatar Image(base64)
          */
         this.avatarImg = "assets/imgs/img-default-profile.svg";
+        this.birthDay = "";
+        this.isShowCalendar = false;
         this.registerForm = formBuilder.group({
             email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required])],
             password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required])],
             role: ['0'],
             fname: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required])],
             lname: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required])],
-            dob: ['1970-01-01', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required])],
             username: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required])],
             acceptTerms: [false, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required])],
             experiencedyear: [0],
             category: ['0'],
             title: [''],
-            headline: ['']
+            headline: [''],
+            expertbio: [''],
+            expertschool: [''],
+            expertresidency: [''],
+            expertinternship: [''],
+            expertdegree: [''],
+            expertaward: ['']
         });
     }
     RegisterPage.prototype.ngOnInit = function () {
     };
+    RegisterPage.prototype.ionViewWillEnter = function () {
+        this.birthDay = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
+    };
+    /**
+     * Show dropdown to select user role
+     * 0: normal user
+     * 1: expert
+     * 2: admin
+     */
     RegisterPage.prototype.onSelectUserRole = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var userTypePopover, result, err_1;
@@ -279,21 +304,26 @@ var RegisterPage = /** @class */ (function () {
                         if (!this.registerForm.valid) return [3 /*break*/, 3];
                         reqData = {
                             email: this.registerForm.controls.email.value,
-                            role: Number(this.registerForm.controls.role.value),
+                            role: this.userRole,
                             fname: this.registerForm.controls.fname.value,
                             lname: this.registerForm.controls.lname.value,
-                            birthday: this.registerForm.controls.dob.value,
+                            birthday: this.birthDay,
                             username: this.registerForm.controls.username.value,
                             password: md5__WEBPACK_IMPORTED_MODULE_5___default()(this.registerForm.controls.password.value),
-                            experiencedyear: this.registerForm.controls.role.value == '1' ? this.registerForm.controls.experiencedyear.value : 0,
+                            experiencedyear: this.userRole == 1 ? this.registerForm.controls.experiencedyear.value : 0,
                             isverified: false,
                             highlight: false,
-                            title: this.registerForm.controls.role.value == '1' ? this.registerForm.controls.title.value : "",
-                            headline: this.registerForm.controls.role.value == '1' ? this.registerForm.controls.headline.value : "",
-                            category: this.registerForm.controls.role.value == '1' ? this.registerForm.controls.category.value : 'null',
-                            avatar: this.avatarImg
+                            title: this.userRole == 1 ? this.registerForm.controls.title.value : "",
+                            headline: this.userRole == 1 ? this.registerForm.controls.headline.value : "",
+                            category: this.userRole == 1 ? this.registerForm.controls.category.value : 'null',
+                            avatar: this.avatarImg,
+                            expertbio: this.userRole == 1 ? this.registerForm.controls.expertbio.value : "",
+                            expertschool: this.userRole == 1 ? this.registerForm.controls.expertschool.value : "",
+                            expertresidency: this.userRole == 1 ? this.registerForm.controls.expertresidency.value : "",
+                            expertinternship: this.userRole == 1 ? this.registerForm.controls.expertinternship.value : "",
+                            expertdegree: this.userRole == 1 ? this.registerForm.controls.expertdegree.value : "",
+                            expertaward: this.userRole == 1 ? this.registerForm.controls.expertaward.value : ""
                         };
-                        console.log(reqData);
                         return [4 /*yield*/, this.loadingCtrl.create({
                                 message: "Please wait..."
                             })];
@@ -317,8 +347,11 @@ var RegisterPage = /** @class */ (function () {
                             if (error.error.message) {
                                 _this.toastService.showToast(error.error.message);
                             }
-                            else {
+                            else if (error.error.err.errors.email.message) {
                                 _this.toastService.showToast(error.error.err.errors.email.message);
+                            }
+                            else if (error.message) {
+                                _this.toastService.showToast(error.message);
                             }
                         });
                         _a.label = 3;
@@ -457,6 +490,21 @@ var RegisterPage = /** @class */ (function () {
             });
         });
     };
+    RegisterPage.prototype.onClickBirthDay = function () {
+        this.isShowCalendar = !this.isShowCalendar;
+    };
+    RegisterPage.prototype.onBackCalendar = function () {
+        var swiper = document.querySelector('.swiper-container')['swiper'];
+        swiper.slidePrev();
+    };
+    RegisterPage.prototype.onNextCalendar = function () {
+        var swiper = document.querySelector('.swiper-container')['swiper'];
+        swiper.slideNext();
+    };
+    RegisterPage.prototype.onCurrentDateChanged = function (evt) {
+        var d = new Date(evt);
+        this.birthDay = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+    };
     RegisterPage.prototype.onClickNavBack = function () {
         this.navCtrl.navigateBack('/menu/landing');
     };
@@ -464,6 +512,10 @@ var RegisterPage = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('avatarSelector'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
     ], RegisterPage.prototype, "avatarSelector", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(ionic2_calendar_calendar__WEBPACK_IMPORTED_MODULE_10__["CalendarComponent"]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", ionic2_calendar_calendar__WEBPACK_IMPORTED_MODULE_10__["CalendarComponent"])
+    ], RegisterPage.prototype, "registerCalendar", void 0);
     RegisterPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-register',
@@ -483,6 +535,61 @@ var RegisterPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["PopoverController"]])
     ], RegisterPage);
     return RegisterPage;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/toast/toast.service.ts":
+/*!*************************************************!*\
+  !*** ./src/app/services/toast/toast.service.ts ***!
+  \*************************************************/
+/*! exports provided: ToastService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastService", function() { return ToastService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
+
+var ToastService = /** @class */ (function () {
+    function ToastService(toastCtrl) {
+        this.toastCtrl = toastCtrl;
+    }
+    /**
+     *
+     * @param message String
+     * @returns null
+     */
+    ToastService.prototype.showToast = function (message) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var toast;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.toastCtrl.create({
+                            message: message,
+                            duration: 3000
+                        })];
+                    case 1:
+                        toast = _a.sent();
+                        toast.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ToastService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
+    ], ToastService);
+    return ToastService;
 }());
 
 

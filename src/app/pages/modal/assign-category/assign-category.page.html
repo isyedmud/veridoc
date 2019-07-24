@@ -1,0 +1,19 @@
+<ion-content padding>
+  <ion-item>
+    <ion-label>Category</ion-label>
+    <ion-select [(ngModel)]="newCategory">
+      <ion-select-option *ngFor="let category of arrCategories; let i = index;" [value]="i">
+        {{category}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <div class="assign-category-controls">
+    <div>
+      <ion-button (click)="onClickCancel()">Cancel</ion-button>
+    </div>
+    <div>
+      <ion-button (click)="onClickOk()">Ok</ion-button>
+    </div>
+  </div>
+</ion-content>

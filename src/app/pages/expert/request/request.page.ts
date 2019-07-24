@@ -17,6 +17,7 @@ import { ExpertCommentPage } from '../../modal/expert-comment/expert-comment.pag
 export class RequestPage implements OnInit {
 
   private uid = "";
+  private objUserInfo = null;
   private arrRequests = [];
   private arrFilterOpts = [
     "Category",
@@ -58,6 +59,11 @@ export class RequestPage implements OnInit {
     this.uid = localStorage.getItem("uid");
 
     try {
+
+      if(localStorage.getItem("isLoggedIn")) {
+        await this.getUserInfo();
+      }
+
       this.apiService.getAllRequests()
         .subscribe((res: any) => {
           this.arrRequests = [];
@@ -65,7 +71,11 @@ export class RequestPage implements OnInit {
             console.log(res.data);
             for(let i = 0; i < res.data.length; i++) {
               if(res.data[i].status == 1 && (res.data[i].expert == this.uid || !res.data[i].expert)) {
-                this.arrRequests.push({...res.data[i], expanded: false, expandattachment: false});
+                // if(this.objUserInfo && (this.objUserInfo.category.toString() && Number(res.data[i].category))) {
+                if(this.objUserInfo.category == res.data[i].category.toString()) {
+                  this.arrRequests.push({...res.data[i], expanded: false, expandattachment: false});
+                }
+                // }
               }
             }
           }
@@ -76,6 +86,16 @@ export class RequestPage implements OnInit {
       console.log(err);
       requestLoader.dismiss();
     }
+  }
+
+  async getUserInfo() {
+    const userInfoResult: any = await this.apiService.getUser(localStorage.getItem("uid")).toPromise();
+    this.objUserInfo = userInfoResult.user;
+    console.log(this.objUserInfo);
+  }
+
+  onClickViewDetails(objRequest) {
+    this.navCtrl.navigateForward('/request-detail/' + objRequest._id + "/1");
   }
 
   /**
@@ -189,15 +209,16 @@ export class RequestPage implements OnInit {
       message: "Please wait..."
     });
     await updateStatusLoader.present();
-    this.apiService.updateRequestStatus(this.arrRequests[index]._id, 2)
-      .subscribe(() => {
-        updateStatusLoader.dismiss();
-        this.toastService.showToast("Success!");
-      }, error => {
-        console.log(error);
-        updateStatusLoader.dismiss();
-        this.toastService.showToast("Operation Failed!");
-      });
+    try {
+      let trackRequestResult: any = await this.apiService.saveRequestStatus(2).toPromise();
+      await this.apiService.updateRequestStatus(this.arrRequests[index]._id, 2, trackRequestResult.data._id).toPromise();
+      updateStatusLoader.dismiss();
+      this.toastService.showToast("Success!");
+    } catch(error) {
+      console.log(error);
+      updateStatusLoader.dismiss();
+      this.toastService.showToast("Operation Failed!");
+    }
   }
 
   /**

@@ -1,93 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["pages-profile-profile-module"],{
 
-/***/ "./src/app/pages/constants.ts":
-/*!************************************!*\
-  !*** ./src/app/pages/constants.ts ***!
-  \************************************/
-/*! exports provided: CATEGORIES, PAYMENTOPTIONS, CONTACTINFO, BACKENDURL, SERVERASSETS, STATUS, TERMSANDCONDITIONSTXT */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CATEGORIES", function() { return CATEGORIES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PAYMENTOPTIONS", function() { return PAYMENTOPTIONS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONTACTINFO", function() { return CONTACTINFO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BACKENDURL", function() { return BACKENDURL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SERVERASSETS", function() { return SERVERASSETS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STATUS", function() { return STATUS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TERMSANDCONDITIONSTXT", function() { return TERMSANDCONDITIONSTXT; });
-var CATEGORIES = [
-    "Cardiology",
-    "Endocrinology",
-    "Infectious Diseases",
-    "Nephrology",
-    "Oncology & Hematology",
-    "Pediatrics",
-    "Psychiatry",
-    "Radiology",
-    "Dermatology",
-    "Gastroenterology",
-    "Internal Medicine",
-    "Neurology",
-    "Precision Oncology",
-    "Physical Med/Rehab",
-    "Pulmonary Medicine and Critical Care",
-    "Rheumatology",
-    "I don't know"
-];
-/**
- * Payment option List
- */
-var PAYMENTOPTIONS = [
-    "Debit Card",
-    "Credit Card",
-    "Paypal",
-    "Paytm",
-    "Internet Banking"
-];
-/**
- * Contact info for Veridoc
- */
-var CONTACTINFO = {
-    email: "test@testemail.com",
-    number: "+123456789"
-};
-/**
- * backend server url
- */
-var BACKENDURL = 'http://192.168.0.108:4200/api/v1';
-/**
- * uploaded file path on backend server
- */
-var SERVERASSETS = 'http://192.168.0.108:4200/attachments/';
-/**
- * Request status
- */
-var STATUS = [
-    "Draft",
-    "In Progress",
-    "Provide Input",
-    "Completed",
-    "Closed"
-    // "Pending",
-    // "In Progress",
-    // "Closed"
-];
-/**
- * Terms and conditions text
- */
-var TERMSANDCONDITIONSTXT = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-/**
- * 0: open
- * 1: in progress
- * 2: aborted
- * 3: closed
- * 4: withdrawn
- */ 
-
-
-/***/ }),
-
 /***/ "./src/app/pages/profile/profile.module.ts":
 /*!*************************************************!*\
   !*** ./src/app/pages/profile/profile.module.ts ***!
@@ -105,6 +17,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _profile_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./profile.page */ "./src/app/pages/profile/profile.page.ts");
+/* harmony import */ var ionic2_calendar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ionic2-calendar */ "./node_modules/ionic2-calendar/index.js");
+
 
 
 
@@ -127,6 +41,7 @@ var ProfilePageModule = /** @class */ (function () {
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
+                ionic2_calendar__WEBPACK_IMPORTED_MODULE_7__["NgCalendarModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(routes)
             ],
             declarations: [_profile_page__WEBPACK_IMPORTED_MODULE_6__["ProfilePage"]]
@@ -146,7 +61,7 @@ var ProfilePageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button fill=\"clear\" (click)=\"onClickNavBack()\">\n        <ion-icon name=\"arrow-back\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <ion-title>Profile</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n  <div id=\"pf-user-image-container\">\n    <div id=\"pf-user-image-inner\">\n      <img src=\"assets/imgs/img-default-profile.svg\" />\n    </div>\n  </div>\n\n  <ion-item>\n    <ion-label position=\"stacked\">Username</ion-label>\n    <ion-input type=\"text\" [(ngModel)]=\"userInfo.username\"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label position=\"stacked\">First Name</ion-label>\n    <ion-input type=\"text\" [(ngModel)]=\"userInfo.fname\"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label position=\"stacked\">Last Name</ion-label>\n    <ion-input type=\"text\" [(ngModel)]=\"userInfo.lname\"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label position=\"stacked\">Email</ion-label>\n    <ion-input type=\"text\" [(ngModel)]=\"userInfo.email\"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label position=\"stacked\">BOD</ion-label>\n    <ion-datetime [(ngModel)]=\"userInfo.birthday\" displayFormat=\"DD/MM/YYYY\" pickerFormat=\"DD MMMM YYYY\"></ion-datetime>\n  </ion-item>\n\n  <div id=\"pf-btn-save\">\n    <ion-button (click)=\"onClickBtnSave()\">Update</ion-button>\n  </div>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button fill=\"clear\" (click)=\"onClickNavBack()\">\n        <ion-icon name=\"arrow-back\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <ion-title>Profile</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n  <div id=\"pf-user-image-container\">\n    <div id=\"pf-user-image-inner\">\n      <img src=\"assets/imgs/img-default-profile.svg\" />\n    </div>\n  </div>\n\n  <ion-item>\n    <ion-label position=\"stacked\">Username</ion-label>\n    <ion-input type=\"text\" [(ngModel)]=\"userInfo.username\"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label position=\"stacked\">First Name</ion-label>\n    <ion-input type=\"text\" [(ngModel)]=\"userInfo.fname\"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label position=\"stacked\">Last Name</ion-label>\n    <ion-input type=\"text\" [(ngModel)]=\"userInfo.lname\"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label position=\"stacked\">Email</ion-label>\n    <ion-input type=\"text\" [(ngModel)]=\"userInfo.email\"></ion-input>\n  </ion-item>\n\n  <!-- <ion-item (click)=\"onClickBirthDay()\">\n    <ion-label position=\"stacked\">BOD</ion-label>\n    <ion-label>\n      {{userInfo.birthday}}\n    </ion-label>\n  </ion-item> -->\n  <div (click)=\"onClickBirthDay()\" id=\"profile-birthday\">\n    <p>BOD</p>\n    <p>\n      {{userInfo.birthday}}\n    </p>\n  </div>\n\n  <div *ngIf=\"isShowCalendar\">\n    <calendar \n      [calendarMode]=\"calendar.mode\" \n      [currentDate]=\"calendar.currentDate\"\n      (onCurrentDateChanged)=\"onCurrentDateChanged($event)\" \n      startingDayWeek=\"1\" \n      [showEventDetail]='false'\n      class=\"profile-calendar\"\n      >\n    </calendar>\n  </div>\n\n  <div id=\"pf-btn-save\">\n    <ion-button (click)=\"onClickBtnSave()\">Update</ion-button>\n  </div>\n</ion-content>\n"
 
 /***/ }),
 
@@ -157,7 +72,7 @@ module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#pf-user-image-container {\n  position: relative;\n  height: 6em; }\n\n#pf-user-image-inner {\n  position: absolute;\n  width: 6em;\n  height: 6em;\n  border-radius: 50%;\n  overflow: hidden;\n  top: 50%;\n  left: 50%;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%); }\n\n#pf-btn-save {\n  width: 100%;\n  text-align: center;\n  margin-top: 3vh; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0RhdGExL1dvcmtzcGFjZS9pb25pYy92ZXJpZG9jL3NyYy9hcHAvcGFnZXMvcHJvZmlsZS9wcm9maWxlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFrQjtFQUNsQixXQUFXLEVBQUE7O0FBR2Y7RUFDSSxrQkFBa0I7RUFDbEIsVUFBVTtFQUNWLFdBQVc7RUFDWCxrQkFBa0I7RUFDbEIsZ0JBQWdCO0VBQ2hCLFFBQVE7RUFDUixTQUFTO0VBQ1Qsd0NBQWdDO1VBQWhDLGdDQUFnQyxFQUFBOztBQUdwQztFQUNJLFdBQVc7RUFDWCxrQkFBa0I7RUFDbEIsZUFBZSxFQUFBIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvcHJvZmlsZS9wcm9maWxlLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIiNwZi11c2VyLWltYWdlLWNvbnRhaW5lciB7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIGhlaWdodDogNmVtO1xufVxuXG4jcGYtdXNlci1pbWFnZS1pbm5lciB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHdpZHRoOiA2ZW07XG4gICAgaGVpZ2h0OiA2ZW07XG4gICAgYm9yZGVyLXJhZGl1czogNTAlO1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgdG9wOiA1MCU7XG4gICAgbGVmdDogNTAlO1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xufVxuXG4jcGYtYnRuLXNhdmUge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW4tdG9wOiAzdmg7XG59Il19 */"
+module.exports = "#pf-user-image-container {\n  position: relative;\n  height: 6em; }\n\n#pf-user-image-inner {\n  position: absolute;\n  width: 6em;\n  height: 6em;\n  border-radius: 50%;\n  overflow: hidden;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%); }\n\n#pf-btn-save {\n  width: 100%;\n  text-align: center;\n  margin-top: 3vh; }\n\n#profile-birthday {\n  display: flex;\n  padding: 0 16px;\n  border-bottom: 1px solid #dedede; }\n\n#profile-birthday p {\n    flex: 1;\n    margin: 16px 0 8px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0RhdGExL1dvcmtzcGFjZS9pb25pYy92ZXJpZG9jL3NyYy9hcHAvcGFnZXMvcHJvZmlsZS9wcm9maWxlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFrQjtFQUNsQixXQUFXLEVBQUE7O0FBR2Y7RUFDSSxrQkFBa0I7RUFDbEIsVUFBVTtFQUNWLFdBQVc7RUFDWCxrQkFBa0I7RUFDbEIsZ0JBQWdCO0VBQ2hCLFFBQVE7RUFDUixTQUFTO0VBQ1QsZ0NBQWdDLEVBQUE7O0FBR3BDO0VBQ0ksV0FBVztFQUNYLGtCQUFrQjtFQUNsQixlQUFlLEVBQUE7O0FBR25CO0VBQ0ksYUFBYTtFQUNiLGVBQWU7RUFDZixnQ0FBZ0MsRUFBQTs7QUFIcEM7SUFLUSxPQUFPO0lBQ1Asa0JBQWtCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9wcm9maWxlL3Byb2ZpbGUucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI3BmLXVzZXItaW1hZ2UtY29udGFpbmVyIHtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgaGVpZ2h0OiA2ZW07XG59XG5cbiNwZi11c2VyLWltYWdlLWlubmVyIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgd2lkdGg6IDZlbTtcbiAgICBoZWlnaHQ6IDZlbTtcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICB0b3A6IDUwJTtcbiAgICBsZWZ0OiA1MCU7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgLTUwJSk7XG59XG5cbiNwZi1idG4tc2F2ZSB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbi10b3A6IDN2aDtcbn1cblxuI3Byb2ZpbGUtYmlydGhkYXkge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgcGFkZGluZzogMCAxNnB4O1xuICAgIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjZGVkZWRlO1xuICAgIHAge1xuICAgICAgICBmbGV4OiAxO1xuICAgICAgICBtYXJnaW46IDE2cHggMCA4cHg7XG4gICAgfVxufSJdfQ== */"
 
 /***/ }),
 
@@ -187,6 +102,11 @@ var ProfilePage = /** @class */ (function () {
         this.navCtrl = navCtrl;
         this.loadingCtrl = loadingCtrl;
         this.apiService = apiService;
+        this.isShowCalendar = false;
+        this.calendar = {
+            mode: 'month',
+            currentDate: null
+        };
         this.userInfo = {};
     }
     ProfilePage.prototype.ngOnInit = function () {
@@ -225,6 +145,7 @@ var ProfilePage = /** @class */ (function () {
                                 birthday: res.user.birthday ? res.user.birthday : '',
                                 uid: uid
                             };
+                            _this.calendar.currentDate = new Date(_this.userInfo.birthday);
                             console.log(_this.userInfo);
                             profileLoader.dismiss();
                         }, function (error) {
@@ -267,6 +188,13 @@ var ProfilePage = /** @class */ (function () {
             });
         });
     };
+    ProfilePage.prototype.onClickBirthDay = function () {
+        this.isShowCalendar = !this.isShowCalendar;
+    };
+    ProfilePage.prototype.onCurrentDateChanged = function (evt) {
+        var d = new Date(evt);
+        this.userInfo.birthday = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+    };
     ProfilePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-profile',
@@ -279,220 +207,6 @@ var ProfilePage = /** @class */ (function () {
             src_app_services_api_api_service__WEBPACK_IMPORTED_MODULE_4__["ApiService"]])
     ], ProfilePage);
     return ProfilePage;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/api/api.service.ts":
-/*!*********************************************!*\
-  !*** ./src/app/services/api/api.service.ts ***!
-  \*********************************************/
-/*! exports provided: ApiService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiService", function() { return ApiService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var src_app_pages_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/pages/constants */ "./src/app/pages/constants.ts");
-
-
-
-
-var ApiService = /** @class */ (function () {
-    function ApiService(http) {
-        this.http = http;
-        /**
-         * API url from constants
-         * @see src/app/pages/constants
-         */
-        this.apiUrl = src_app_pages_constants__WEBPACK_IMPORTED_MODULE_3__["BACKENDURL"];
-    }
-    /**
-     *
-     * @param req
-     * @returns observable
-     */
-    ApiService.prototype.signUp = function (req) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/register", req, { headers: headers });
-    };
-    /**
-     *
-     * @param credential(email: String, password: String)
-     * @returns observable
-     */
-    ApiService.prototype.login = function (credential) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/login", credential, { headers: headers });
-    };
-    /**
-     * Reset Password
-     * @param email: String
-     * @returns observable
-     */
-    ApiService.prototype.resetPassword = function (email) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/restPassword", { email: email }, { headers: headers });
-    };
-    /**
-     * Get Profile Info
-     * @param uid
-     * @returns observable
-     */
-    ApiService.prototype.getUser = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/getUser", { uid: uid }, { headers: headers });
-    };
-    /**
-     * Update User Profile
-     * @param user: Object
-     * @returns observable
-     */
-    ApiService.prototype.updateUser = function (user) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/updateUser", { user: user }, { headers: headers });
-    };
-    /**
-     * Get users by their role
-     * @param role user role
-     * 0: normal user
-     * 1: expert
-     * 2: admin
-     */
-    ApiService.prototype.getUsers = function (role) {
-        if (role === void 0) { role = ""; }
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/getUsers", { role: role }, { headers: headers });
-    };
-    ApiService.prototype.acceptUser = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/acceptUser", { uid: uid }, { headers: headers });
-    };
-    ApiService.prototype.deleteAccount = function (uid, role) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/deleteUser", { uid: uid, role: role }, { headers: headers });
-    };
-    /**
-     * Post Request
-     * @param post: Object
-     * @returns observable
-     */
-    ApiService.prototype.postRequest = function (post) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/postRequest", { post: post }, { headers: headers });
-    };
-    /**
-     * Get My Requests (User side)
-     * @param uid userid
-     * @returns observable
-     */
-    ApiService.prototype.getRequest = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/getRequest", { uid: uid }, { headers: headers });
-    };
-    /**
-     * Get All requests by expertid
-     * @param expertId expert id
-     */
-    ApiService.prototype.getAllRequests = function (expertId) {
-        if (expertId === void 0) { expertId = ""; }
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/getAllRequests", { expertId: expertId }, { headers: headers });
-    };
-    /**
-     * Assign request to expert
-     * @param reqdata request data
-     */
-    ApiService.prototype.requestSetExpert = function (reqdata) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/setExpert", reqdata, { headers: headers });
-    };
-    ApiService.prototype.getRequestById = function (reqId) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/getRequestById", { reqId: reqId }, { headers: headers });
-    };
-    ApiService.prototype.uploadFiles = function (formData) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("enctype", "multipart/form-data");
-        return this.http.post(this.apiUrl + "/post/uploadAttachment", formData, { headers: headers }).toPromise();
-    };
-    /**
-     * Download File from server
-     * @param filename filename to download
-     */
-    ApiService.prototype.downloadFile = function (filename) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/downloadAttachment", { filename: filename }, { responseType: 'blob', headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().append('Content-Type', 'application/json') });
-    };
-    ApiService.prototype.processPayment = function (requestId) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/processPayment", { requestId: requestId }, { headers: headers });
-    };
-    /**
-     * Close Request
-     * @param id request id
-     * @returns observable
-     */
-    ApiService.prototype.closeRequest = function (id) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/closeRequest", { id: id }, { headers: headers });
-    };
-    /**
-     * Update Request Status
-     * @param id request id
-     * @param status request status
-     */
-    ApiService.prototype.updateRequestStatus = function (id, status) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/updateStatus", { id: id, status: status }, { headers: headers });
-    };
-    /**
-     * Provide user's feedback to expert
-     * @param feedback User Feedback: Object
-     */
-    ApiService.prototype.provideFeedback = function (feedback) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/review/provideReview", { feedback: feedback }, { headers: headers });
-    };
-    /**
-     * Provide expert's review for Request
-     * @param expertComment Expert's Comment: Object
-     */
-    ApiService.prototype.provideExpertComment = function (expertComment) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/expert/provideExpertComment", { comment: expertComment }, { headers: headers });
-    };
-    ApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
-    ], ApiService);
-    return ApiService;
 }());
 
 

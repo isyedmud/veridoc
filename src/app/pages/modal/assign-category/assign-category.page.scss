@@ -1,0 +1,18 @@
+ion-select {
+    max-width: 100% !important; 
+}
+
+.assign-category-controls {
+    margin-top: 3vh;
+    display: flex;
+    position: absolute;
+    width: calc(100% - 32px);
+    bottom: 16px;
+    div {
+        flex: 1;
+        padding: 0 8px;
+        ion-button {
+            width: 100%;
+        }
+    }
+}

@@ -57,12 +57,12 @@ export const CONTACTINFO = {
 /**
  * backend server url
  */
-export const BACKENDURL = 'http://192.168.0.106:4200/api/v1';
+export const BACKENDURL = 'http://192.168.0.104:4200/api/v1';
 
 /**
  * uploaded file path on backend server
  */
-export const SERVERASSETS = 'http://192.168.0.106:4200/attachments/';
+export const SERVERASSETS = 'http://192.168.0.104:4200/attachments/';
 
 /**
  * Request status

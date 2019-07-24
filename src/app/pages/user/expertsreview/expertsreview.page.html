@@ -42,7 +42,7 @@
           </ion-select>
         </ion-item>
 
-        <app-multi-file-upload></app-multi-file-upload>
+        <app-multi-file-upload [draftFiles]="draftFiles"></app-multi-file-upload>
         <ion-item>
           <ion-label position="stacked">Comments</ion-label>
           <ion-textarea [(ngModel)]="strComment"></ion-textarea>
@@ -72,22 +72,16 @@
             <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="behalfofbod" pickerFormat="DD MMMM YYYY"></ion-datetime>
           </ion-item>
 
-          <ion-item-group>
-            <ion-item-divider>
-              <ion-label>Gender</ion-label>
-            </ion-item-divider>
-            <ion-radio-group [(ngModel)]="behalfofgender">
-              <ion-item>
-                <ion-label>Male</ion-label>
-                <ion-radio value="m"></ion-radio>
-              </ion-item>
-          
-              <ion-item>
-                <ion-label>Female</ion-label>
-                <ion-radio value="f"></ion-radio>
-              </ion-item>
-            </ion-radio-group>
-          </ion-item-group>
+          <div class="experts-review-gender">
+            <div (click)="onChangeGender('m')">
+              <img [src]="behalfofgender=='m'?'assets/icons/icon-checkbox.svg': 'assets/icons/icon-checkbox-inactive.svg'" />
+              <span>Male</span>
+            </div>
+            <div (click)="onChangeGender('f')">
+              <img [src]="behalfofgender=='f'?'assets/icons/icon-checkbox.svg': 'assets/icons/icon-checkbox-inactive.svg'" />
+              <span>Female</span>
+            </div>
+          </div>
 
           <ion-item>
             <ion-input type="text" [(ngModel)]="behalfofcountry" placeholder="Country and State" required=true></ion-input>
@@ -95,35 +89,70 @@
         </ion-item-group>
       </div>
       <div *ngSwitchCase="2" class="verify-progress-new-user">
-        <ion-item>
-          <ion-label position="stacked">First name</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-  
-        <ion-item>
-          <ion-label position="stacked">Last name</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-  
-        <ion-item>
-          <ion-label position="stacked">Email</ion-label>
-          <ion-input type="email"></ion-input>
-        </ion-item>
-  
-        <ion-item>
-          <ion-label position="stacked">Aadhar</ion-label>
-          <ion-input type="number"></ion-input>
-        </ion-item>
-  
-        <ion-item>
-          <ion-label position="stacked">Username</ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-  
-        <ion-item>
-          <ion-label position="stacked">Password</ion-label>
-          <ion-input type="password"></ion-input>
-        </ion-item>
+        <form [formGroup]="secondStepForm">
+          <ion-item>
+            <ion-label position="stacked">First name</ion-label>
+            <ion-input formControlName="fname" type="text"></ion-input>
+          </ion-item>
+    
+          <ion-item>
+            <ion-label position="stacked">Last name</ion-label>
+            <ion-input formControlName="lname" type="text"></ion-input>
+          </ion-item>
+
+          <!-- Birthdate -->
+          <ion-item>
+            <ion-label>BOD</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" formControlName="dob" pickerFormat="DD MMMM YYYY"></ion-datetime>
+          </ion-item>
+    
+          <ion-item>
+            <ion-label position="stacked">Email</ion-label>
+            <ion-input formControlName="email" type="email"></ion-input>
+          </ion-item>
+    
+          <ion-item>
+            <ion-label position="stacked">Username</ion-label>
+            <ion-input formControlName="username" type="text"></ion-input>
+          </ion-item>
+    
+          <ion-item *ngIf="!isLoggedIn">
+            <ion-label position="stacked">Password</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
+          </ion-item>
+        </form>
+        <ng-container *ngIf="isRequestBehalf">
+          <ion-item-group>
+            <ion-item-divider>
+              Request Behalf
+            </ion-item-divider>
+
+            <ion-item>
+              <ion-label position="stacked">Name</ion-label>
+              <ion-input type="text" [(ngModel)]="behalfofname" disabled=true></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">Relation</ion-label>
+              <ion-input type="text" [(ngModel)]="behalfofrelation" disabled="true"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">Birthday</ion-label>
+              <ion-input type="text" [(ngModel)]="behalfofbod" disabled=true></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">Gender</ion-label>
+              <ion-input type="text" disabled=true [value]="behalfofgender=='m'?'Male': 'Female'"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">Country</ion-label>
+              <ion-input type="text" disabled=true [(ngModel)]="behalfofcountry"></ion-input>
+            </ion-item>
+          </ion-item-group>
+        </ng-container>
       </div>
       <div *ngSwitchCase="3" class="verify-progress-payment">
         <div id="verify-progress-paymentopt-container">
@@ -169,16 +198,17 @@
       <div>
         <ion-button color="hardmedium" (click)="onClickBack()">Back</ion-button>
       </div>
+      <div *ngIf="initVerifyStep==1">
+        <ion-button (click)="onClickSave()">Save</ion-button>
+      </div>
+      <div *ngIf="initVerifyStep==2 && !isLoggedIn">
+        <ion-button (click)="onClickSignup()">Sign Up</ion-button>
+      </div>
       <div>
         <ion-button color="success" (click)="onClickNext()">
           {{initVerifyStep==3?'Finish': 'Next'}}
         </ion-button>
       </div>
-      <!-- <div *ngIf="initVerifyStep==3">
-        <ion-button color="danger" (click)="onClickSavePayment()">
-          Save
-        </ion-button>
-      </div> -->
     </div>
   </div>
 </ion-content>

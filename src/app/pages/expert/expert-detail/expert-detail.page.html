@@ -9,7 +9,7 @@
     </ion-toolbar>
   </ion-header>
 
-<ion-content padding>
+<ion-content>
   <div id="expert-detail-header">
     <div>
       <div id="expert-detail-avatar">
@@ -17,44 +17,62 @@
       </div>
     </div>
     <div>
-      <p>
-        Title: {{expertInfo?.title}}
+      <p class="expert-detail-name">
+        {{expertInfo?.fname + " " + expertInfo?.lname}}
       </p>
       <p>
-        Headline: {{expertInfo?.headline}}
+        {{expertInfo?.title}}
       </p>
       <p>
-        Name: {{expertInfo?.fname + " " + expertInfo?.lname}}
+        {{expertInfo?.headline}}
+      </p>
+      <p>
+        Category: {{arrCategories[expertInfo?.category]}}
       </p>
     </div>
   </div>
 
-  <div id="expert-detail-main" *ngIf="arrReviews.length > 0">
-    <div *ngFor="let review of arrReviews" class="expert-detail-review">
-      <div class="expert-detail-review-header">
-        <div>
-          <div class="expert-detail-review-header-userimg">
-            <img [src]="review?.userId.avatar" />
-          </div>
-        </div>
-        <div>
-          <p>
-            {{review?.userId.fname + " " + review?.userId.lname}}
-          </p>
-        </div>
+  <div id="expert-detail-main">
+    <div id="expert-detail-bio">
+      <div id="expert-detail-bio-header">
+        <ion-icon name="person"></ion-icon>
+        <p class="expert-detail-header">
+          Bio
+        </p>
       </div>
-      <div class="expert-detail-review-main">
-        <div>
-          <rating [rate]="review?.mark"
-            readonly="true"
-            size="default">
-          </rating>
-        </div>
-        <div>
-          <p>
-            "{{review.review}}"
-          </p>
-        </div>
+      <p class="expert-detail-content-txt1">
+        {{expertInfo?.expertbio}}
+      </p>
+    </div>
+    
+    <div id="expert-detail-education">
+      <div id="expert-detail-education-header">
+        <ion-icon src="assets/icons/icon-education.svg"></ion-icon>
+        <p class="expert-detail-header">
+          Education
+        </p>
+      </div>
+      <div id="expert-detail-education-body">
+        <p class="expert-detail-sub-header">
+          School
+        </p>
+        <p class="expert-detail-content-txt1">
+          {{expertInfo?.expertschool}}
+        </p>
+
+        <p class="expert-detail-sub-header">
+          Residency
+        </p>
+        <p class="expert-detail-content-txt1">
+          {{expertInfo?.expertresidency}}
+        </p>
+
+        <p class="expert-detail-sub-header">
+          Internship
+        </p>
+        <p class="expert-detail-content-txt1">
+          {{expertInfo?.expertinternship}}
+        </p>
       </div>
     </div>
   </div>

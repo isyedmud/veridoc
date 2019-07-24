@@ -24,7 +24,13 @@
         </div>
         <div class="admin-requests-item-body">
           <p>
-            {{arrCategories[request.category]}}
+            Category: {{arrCategories[request.category]}}
+          </p>
+          <p>
+            Comments: {{request.comments}}
+          </p>
+          <p>
+            Queries: {{request.queries}}
           </p>
           <ion-item lines="none" (click)="onToggleViewAttachment($event, i)">
             <ion-icon *ngIf="!request.expandattachment" name="arrow-dropright"></ion-icon>
@@ -76,7 +82,8 @@
         </div>
         <div class="admin-requests-item-footer">
           <div>
-            <span *ngIf="request.category == 16" (click)="onClickAssignRequest($event, request)">Assign To Expert</span>
+            <!-- <span *ngIf="request.isCategoryAssigned" (click)="onClickAssignRequest($event, request)">Assign To Expert</span> -->
+            <span *ngIf="request.category == 16 && !request.isCategoryAssigned" (click)="onClickAssignCategory($event, i)">Assign Category</span>
           </div>
         </div>
       </div>

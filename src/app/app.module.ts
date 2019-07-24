@@ -15,8 +15,10 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import * as firebase from 'firebase';
+import { FIREBASECONFIG } from './firebase.config';
 
-
+firebase.initializeApp(FIREBASECONFIG);
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

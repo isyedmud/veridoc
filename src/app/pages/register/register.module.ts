@@ -7,7 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { RegisterPage } from './register.page';
 import { UsertypePage } from '../popover/usertype/usertype.page';
-
+import { NgCalendarModule } from 'ionic2-calendar';
+ 
 const routes: Routes = [
   {
     path: '',
@@ -20,14 +21,15 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     IonicModule,
+    NgCalendarModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
     RegisterPage, 
-    UsertypePage
+    UsertypePage,
   ],
   entryComponents: [
-    UsertypePage
+    UsertypePage,
   ]
 })
 export class RegisterPageModule {}

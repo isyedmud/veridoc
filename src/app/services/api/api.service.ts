@@ -79,7 +79,7 @@ export class ApiService {
    * 1: expert
    * 2: admin
    */
-  getUsers(role="0") {
+  getUsers(role=0) {
     let headers = new HttpHeaders();
     headers = headers.set("Content-type", "application/json");
     return this.http.post(this.apiUrl + "/user/getUsers", {role: role}, {headers: headers});
@@ -89,6 +89,12 @@ export class ApiService {
     let headers = new HttpHeaders();
     headers = headers.set("Content-type", "application/json");
     return this.http.post(this.apiUrl + "/user/acceptUser", {uid: uid}, {headers: headers});
+  }
+
+  getHighlightedExperts() {
+    let headers = new HttpHeaders();
+    headers = headers.set("Content-type", "application/json");
+    return this.http.post(this.apiUrl + "/expert/getHighlighted", {headers: headers});
   }
 
   deleteAccount(uid, role) {
@@ -145,10 +151,26 @@ export class ApiService {
     return this.http.post(this.apiUrl + "/post/getRequestById", {reqId: reqId}, {headers: headers});
   }
 
+  /**
+   * Get Request by status
+   * @param status request status
+   */
+  getRequestByStatus(status, uid) {
+    let headers = new HttpHeaders();
+    headers = headers.set("Content-type", "application/json");
+    return this.http.post(this.apiUrl + "/post/getRequestByStatus", {status: status, uid: uid}, {headers: headers});
+  }
+
   uploadFiles(formData) {
     let headers = new HttpHeaders();
     headers = headers.set("enctype", "multipart/form-data");
     return this.http.post(this.apiUrl + "/post/uploadAttachment", formData, {headers: headers}).toPromise();
+  }
+
+  assignCategoryToRequest(requestId, category) {
+    let headers = new HttpHeaders();
+    headers = headers.set("Content-type", "application/json");
+    return this.http.post(this.apiUrl + "/post/assignCategory", {requestId: requestId, categoryId: category}, {headers: headers}).toPromise();
   }
 
   /**
@@ -183,16 +205,16 @@ export class ApiService {
    * @param id request id
    * @param status request status
    */
-  updateRequestStatus(id, status) {
+  updateRequestStatus(id, status, trackReqId) {
     let headers = new HttpHeaders();
     headers = headers.set("Content-type", "application/json");
-    return this.http.post(this.apiUrl + "/post/updateStatus", {id: id, status: status}, {headers: headers});
+    return this.http.post(this.apiUrl + "/post/updateStatus", {id: id, status: status, trackReqId: trackReqId}, {headers: headers});
   }
 
-  provideInput(id, extra) {
+  provideInput(data) {
     let headers = new HttpHeaders();
     headers = headers.set("Content-type", "application/json");
-    return this.http.post(this.apiUrl + "/post/provideInput", {id: id, extra: extra}, {headers: headers});
+    return this.http.post(this.apiUrl + "/post/provideInput", data, {headers: headers});
   }
 
   /**
@@ -212,7 +234,7 @@ export class ApiService {
   provideExpertComment(expertComment) {
     let headers = new HttpHeaders();
     headers = headers.set("Content-type", "application/json");
-    return this.http.post(this.apiUrl + "/expert/provideExpertComment", {comment: expertComment}, {headers: headers});        
+    return this.http.post(this.apiUrl + "/expert/provideExpertComment", {comment: expertComment}, {headers: headers});   
   }
 
   /**
@@ -228,5 +250,11 @@ export class ApiService {
     let headers = new HttpHeaders();
     headers = headers.set("Content-type", "application/json");
     return this.http.post(this.apiUrl + "/payment/saveOption", data, {headers: headers});  
+  }
+
+  saveRequestStatus(status) {
+    let headers = new HttpHeaders();
+    headers = headers.set("Content-type", "application/json");
+    return this.http.post(this.apiUrl + "/post/saveRequestStatus", {status: status}, {headers: headers});
   }
 }

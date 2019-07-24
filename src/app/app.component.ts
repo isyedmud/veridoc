@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-root',
@@ -30,9 +31,16 @@ export class AppComponent {
       }
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      await this.getFirebaseToken();
     } catch(err) {
-
+      console.log(err);
     }
+  }
 
+  async getFirebaseToken() {
+    console.log("Called")
+    let messaging = firebase.messaging();
+    let token = await messaging.getToken();
+    console.log("token", token);
   }
 }

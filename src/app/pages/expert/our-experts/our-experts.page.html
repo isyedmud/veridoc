@@ -12,22 +12,64 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let expert of arrExperts; let i = index;" size="4">
-        <div class="expert-item" (click)="onClickExpert(i)">
-          <div class="expert-avatar-container">
+      <ion-col *ngFor="let expert of arrExperts; let i = index;" [size]="isMobile?'4': '2'">
+        <div [class]="expert.isExpanded?'active-expert-profile expert-item': 'expert-item'" (mouseover)="onHighlightExpert(i)" (mouseout)="onLowlightExpert(i)" (click)="onClickExpert(i, expert)">
+          <div class="expert-item-main">
             <div class="expert-avatar">
               <img [src]="expert.avatar" />
             </div>
           </div>
-          <p class="expert-name">
-            {{expert.username}}
-          </p>
-          <p class="expert-title">
-            {{expert.title}}
-          </p>
-          <p class="expert-headline">
-            {{expert.headline}}
-          </p>
+          <div [class]="isMobile?'expert-item-extra relative-position': 'expert-item-extra absolute-position'">
+            <ng-container *ngIf="isMobile; else desktopView">
+              <p>
+                {{expert.fname + " " + expert.lname}}
+              </p>
+              <p class="italic-font">
+                {{arrCategories[expert.category]}}
+              </p>
+              <p class="italic-font">
+                {{expert.expertdegree}}
+              </p>
+              <p class="italic-font">
+                {{expert.expertschool}}
+              </p>
+              <!-- <div class="expert-item-extra-btn-detail">
+                <div (click)="onClickViewDetailExpert($event, expert)">
+                  <ion-icon name="person"></ion-icon>
+                  <p>
+                    View Profile
+                  </p>
+                </div>
+              </div> -->
+            </ng-container>
+            <ng-template #desktopView let-i="i">
+              <p class="expert-name" *ngIf="!expert.isExpanded">
+                {{expert.fname + " " + expert.lname}}
+              </p>
+              <ng-container *ngIf="expert.isExpanded">
+                <p>
+                  {{expert.fname + " " + expert.lname}}
+                </p>
+                <p class="italic-font">
+                  {{arrCategories[expert.category]}}
+                </p>
+                <p class="italic-font">
+                  {{expert.expertdegree}}
+                </p>
+                <p class="italic-font">
+                  {{expert.expertschool}}
+                </p>
+                <!-- <div class="expert-item-extra-btn-detail">
+                  <div (click)="onClickViewDetailExpert($event, expert)">
+                    <ion-icon name="person"></ion-icon>
+                    <p>
+                      View Profile
+                    </p>
+                  </div>
+                </div> -->
+              </ng-container>
+            </ng-template>
+          </div>
         </div>
       </ion-col>
     </ion-row>

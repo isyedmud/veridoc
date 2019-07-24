@@ -43,7 +43,7 @@ var MenuPageModule = /** @class */ (function () {
                         component: _menu_page__WEBPACK_IMPORTED_MODULE_6__["MenuPage"],
                         children: [
                             { path: 'landing', loadChildren: '../landing/landing.module#LandingPageModule' },
-                            { path: 'expertsreview/:requestId', loadChildren: '../user/expertsreview/expertsreview.module#ExpertsreviewPageModule', canActivate: [src_app_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_7__["AuthGuard"]] },
+                            { path: 'expertsreview/:requestId', loadChildren: '../user/expertsreview/expertsreview.module#ExpertsreviewPageModule' },
                             { path: 'myrequests', loadChildren: '../user/request-list/request-list.module#RequestListPageModule', canActivate: [src_app_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_7__["AuthGuard"]] },
                             { path: 'expert-requests', loadChildren: '../expert/request/request.module#RequestPageModule', canActivate: [src_app_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_7__["AuthGuard"]] },
                             { path: 'admin-requests', loadChildren: '../admin/admin-requests/admin-requests.module#AdminRequestsPageModule', canActivate: [src_app_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_7__["AuthGuard"]] },
@@ -216,7 +216,6 @@ var MenuPage = /** @class */ (function () {
             }
             this.pages = this.pages.concat(commonMenu);
             this.pages.sort(function (a, b) { return a.id - b.id; });
-            console.log(this.pages);
         }
     };
     /**
@@ -454,6 +453,61 @@ var MenuPage = /** @class */ (function () {
             src_app_services_api_api_service__WEBPACK_IMPORTED_MODULE_4__["ApiService"]])
     ], MenuPage);
     return MenuPage;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/toast/toast.service.ts":
+/*!*************************************************!*\
+  !*** ./src/app/services/toast/toast.service.ts ***!
+  \*************************************************/
+/*! exports provided: ToastService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastService", function() { return ToastService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
+
+var ToastService = /** @class */ (function () {
+    function ToastService(toastCtrl) {
+        this.toastCtrl = toastCtrl;
+    }
+    /**
+     *
+     * @param message String
+     * @returns null
+     */
+    ToastService.prototype.showToast = function (message) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var toast;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.toastCtrl.create({
+                            message: message,
+                            duration: 3000
+                        })];
+                    case 1:
+                        toast = _a.sent();
+                        toast.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ToastService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
+    ], ToastService);
+    return ToastService;
 }());
 
 

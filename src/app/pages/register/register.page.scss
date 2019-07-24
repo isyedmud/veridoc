@@ -64,3 +64,41 @@
 #avatarSelector {
     display: none;
 }
+
+.margin-div {
+    margin: 3vh 0;
+}
+
+ion-item-divider {
+    font-size: 16px;
+    color: #000000;
+}
+
+.calendar-btn-back {
+    text-align: left;
+}
+
+.calendar-btn-next {
+    text-align: right;
+}
+
+.register-calendar-selected-date {
+    text-align: center;
+    margin: 0;
+}
+
+#register-birthday {
+    display: flex;
+    padding: 0 16px;
+    border-bottom: 1px solid #dedede;
+    p {
+        flex: 1;
+        margin: 16px 0 8px;
+        color: #818181;
+    }
+}
+
+#register-birthday-label {
+    padding-left: 16px;
+    color: #8e8e8e;
+}

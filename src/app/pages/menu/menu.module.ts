@@ -20,7 +20,7 @@ import { FilterPage } from '../popover/filter/filter.page';
         component: MenuPage,
         children: [
           {path: 'landing', loadChildren: '../landing/landing.module#LandingPageModule'},
-          {path: 'expertsreview/:requestId', loadChildren: '../user/expertsreview/expertsreview.module#ExpertsreviewPageModule', canActivate: [ AuthGuard ]},
+          {path: 'expertsreview/:requestId', loadChildren: '../user/expertsreview/expertsreview.module#ExpertsreviewPageModule'},
           {path: 'myrequests', loadChildren: '../user/request-list/request-list.module#RequestListPageModule', canActivate: [ AuthGuard ] },
           {path: 'expert-requests', loadChildren: '../expert/request/request.module#RequestPageModule', canActivate: [ AuthGuard ]},
           { path: 'admin-requests', loadChildren: '../admin/admin-requests/admin-requests.module#AdminRequestsPageModule', canActivate: [AuthGuard] },

@@ -1,0 +1,164 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClickNavBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div id="request-detail-item">
+    <div id="request-detail-item-header">
+      <p>
+        {{arrStatus[objRequestDetail?.status]}}
+      </p>
+      <span *ngIf="objRequestDetail?.status == 0">
+        Complete your Request
+      </span>
+    </div>
+    <div id="request-detail-item-body">
+      <p>
+        <b>Requested Date:</b> {{objRequestDetail?.updatedAt | doctime: false}}
+      </p>
+      <p>
+        <b>Category:</b> {{arrCategories[objRequestDetail?.category]}}
+      </p>
+      <p>
+        <b>Requestor:</b> {{objRequestDetail?.user.username}}
+      </p>
+      <p>
+        <b>Comments:</b> {{objRequestDetail?.comments}}
+      </p>
+      <p>
+        <b>Queries:</b> {{objRequestDetail?.queries}}
+      </p>
+
+      <div id="request-detail-item-footer">
+        <ng-container *ngIf="userType=='0'">
+          <ng-container [ngSwitch]="objRequestDetail?.status">
+            <div *ngSwitchCase="2" class="btn-container">
+              <div>
+                <p (click)="showConfirmMessage($event, 0)">
+                  Take Action
+                </p>
+              </div>
+            </div>
+            <div *ngSwitchCase="3" class="btn-container">
+              <div>
+                <p (click)="showConfirmMessage($event, 1)">
+                  Need Clarification
+                </p>
+              </div>
+              <div>
+                <p (click)="showConfirmMessage($event, 2)">
+                  Close Request
+                </p>            
+              </div>
+              <div>
+                <p (click)="showConfirmMessage($event, 3)">
+                  Not Satisfied
+                </p>            
+              </div>
+            </div>
+            <div *ngSwitchCase="4" class="btn-container">
+              <div>
+                <p (click)="showConfirmMessage($event, 4)">
+                  Re Open
+                </p>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="userType=='1'">
+          <ng-container *ngIf="objRequestDetail?.expert; else acceptRequest">
+            <div class="btn-container">
+              <div>
+                <p (click)="onClickProvideInputFromExpert($event)">
+                  Provide Input
+                </p>
+              </div>
+              <div>
+                <p (click)="onClickFinalOpinion($event)">
+                  Final Opinion
+                </p>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #acceptRequest>
+            <div class="btn-container">
+              <div>
+                <p (click)="onAcceptRequest($event)">
+                  Accept Request
+                </p>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
+      </div>
+
+      <ion-item lines="none" button="true" no-padding *ngIf="objRequestDetail?.files.length > 0" (click)="onClickViewAttachment($event)">
+        <ion-icon [name]="isViewAttachment?'arrow-dropdown':'arrow-dropright'"></ion-icon>
+        <ion-label>View Attachments</ion-label>
+      </ion-item>
+      <ng-container *ngIf="objRequestDetail?.files.length > 0 && isViewAttachment">
+        <p *ngFor="let file of objRequestDetail?.files" class="request-detail-item-attachment" (click)="onClickAttachmentFile($event, file.filename)">
+          {{file.filename}}
+        </p>
+      </ng-container>
+
+      <ion-item lines="none" button="true" no-padding (click)="onClickViewTimeLine($event)">
+        <ion-icon [name]="objRequestDetail?.isViewTimeLine?'arrow-dropdown': 'arrow-dropright'"></ion-icon>
+        <ion-label>View Timeline</ion-label>
+      </ion-item>
+
+      <div class="request-detail-timeline" *ngIf="objRequestDetail?.isViewTimeLine">
+        <!-- Initialize request -->
+        <ng-container *ngFor="let track of objRequestDetail?.trackRequest">
+          <div class="request-detail-time">
+            <div [class]="'request-detail-indicator status-' + track.status"></div>
+            <p>
+              {{track.createdAt | doctime: true}}
+            </p>
+          </div>
+          <div class="request-detail-timeline-main">
+            <p>
+              {{arrStatus[track.status]}}
+            </p>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div id="request-detail-extracomments-btn-view">
+      <ion-item button="true" lines="none" no-padding (click)="onClickViewExtraComments($event)">
+        <ion-icon [name]="objRequestDetail?.isExpandedProvideInput?'arrow-dropdown':'arrow-dropright'"></ion-icon>
+        <ion-label>View Extra Comments</ion-label>
+      </ion-item>
+    </div>
+
+    <div id="request-detail-extracomments-container" *ngIf="objRequestDetail?.isExpandedProvideInput">
+      <div *ngFor="let extra of objRequestDetail?.extracomment" class="request-detail-item-extracomment">
+        <div [class]="userType==extra.role?'request-detail-item-extracomment-inner extra-sender': 'request-detail-item-extracomment-inner extra-receiver'">
+          <p class="request-detail-item-extracomment-username">
+            {{extra.uid.fname + " " + extra.uid.lname}}
+          </p>
+          <p class="request-detail-item-extracomment-message">
+            {{extra.message}}
+          </p>
+          <div>
+            <p *ngFor="let file of extra.files" class="request-detail-item-extra-attachment" (click)="onClickAttachmentFile($event, file.filename)">
+              {{file.filename}}
+            </p>
+          </div>
+          <p class="request-detail-item-extracomment-time">
+            {{extra.createdAt | doctime: true}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

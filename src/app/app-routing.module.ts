@@ -15,9 +15,9 @@ const routes: Routes = [
   { path: 'view-attachment', loadChildren: './pages/expert/view-attachment/view-attachment.module#ViewAttachmentPageModule', canActivate:[AuthGuard] },
   { path: 'reviewed-cases', loadChildren: './pages/expert/reviewed-cases/reviewed-cases.module#ReviewedCasesPageModule', canActivate:[AuthGuard] },
   { path: 'our-experts', loadChildren: './pages/expert/our-experts/our-experts.module#OurExpertsPageModule' },
-  { path: 'admin-assign-expert/:reqId', loadChildren: './pages/admin/admin-assign-expert/admin-assign-expert.module#AdminAssignExpertPageModule' },
+  { path: 'admin-assign-expert/:reqId/:categoryId', loadChildren: './pages/admin/admin-assign-expert/admin-assign-expert.module#AdminAssignExpertPageModule' },
   { path: 'expert-detail/:expertId', loadChildren: './pages/expert/expert-detail/expert-detail.module#ExpertDetailPageModule' },
-  
+  { path: 'request-detail/:reqId/:userType', loadChildren: './pages/user/request-detail/request-detail.module#RequestDetailPageModule' },
 ];
 
 @NgModule({

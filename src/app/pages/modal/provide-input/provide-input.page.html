@@ -1,0 +1,16 @@
+<ion-content padding>
+  <app-multi-file-upload></app-multi-file-upload>
+
+  <ion-item>
+    <ion-textarea [(ngModel)]="strMessage" placeholder="Please input your message here" rows="6"></ion-textarea>
+  </ion-item>
+
+  <div class="provide-input-controls">
+    <div>
+      <ion-button (click)="onClickSend()">Send</ion-button>
+    </div>
+    <div>
+      <ion-button color="danger" (click)="onClickCancel()">Cancel</ion-button>
+    </div>
+  </div>
+</ion-content>

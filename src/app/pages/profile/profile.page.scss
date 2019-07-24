@@ -19,3 +19,13 @@
     text-align: center;
     margin-top: 3vh;
 }
+
+#profile-birthday {
+    display: flex;
+    padding: 0 16px;
+    border-bottom: 1px solid #dedede;
+    p {
+        flex: 1;
+        margin: 16px 0 8px;
+    }
+}

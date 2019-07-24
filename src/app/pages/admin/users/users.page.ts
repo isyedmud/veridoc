@@ -38,7 +38,7 @@ export class UsersPage implements OnInit {
       message: "Loading..."
     });
     await userLoader.present();
-    this.apiService.getUsers("1")
+    this.apiService.getUsers(1)
       .subscribe((res: any) => {
         if(res.data) {
           for(let i = 0; i < res.data.length; i++) {

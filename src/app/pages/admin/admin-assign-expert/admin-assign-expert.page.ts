@@ -14,6 +14,7 @@ export class AdminAssignExpertPage implements OnInit {
   private arrExperts = [];
   private reqId = "";
   private isAssigned = false;
+  private newCategoryId = "";
 
   constructor(
     private navCtrl: NavController,
@@ -32,6 +33,7 @@ export class AdminAssignExpertPage implements OnInit {
 
   async initPage() {
     this.reqId = this.route.snapshot.paramMap.get("reqId");
+    this.newCategoryId = this.route.snapshot.paramMap.get("categoryId");
     const expertsLoader = await this.loadingCtrl.create({
       message: "Loading..."
     });
@@ -39,11 +41,11 @@ export class AdminAssignExpertPage implements OnInit {
 
     this.arrExperts = [];
 
-    this.apiService.getUsers("1")
+    this.apiService.getUsers(1)
       .subscribe((res: any) => {
         if(res.data) {
           for(let i = 0; i < res.data.length; i++) {
-            if(res.data[i].isverified == true) {
+            if(res.data[i].isverified == true && this.newCategoryId == res.data[i].category) {
               this.arrExperts.push(res.data[i]);
             }
           }

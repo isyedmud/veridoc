@@ -15,6 +15,13 @@ export class ProfilePage implements OnInit {
    */
   private userInfo: UserInfo;
 
+  private isShowCalendar = false;
+
+  private calendar = {
+    mode: 'month',
+    currentDate: null
+  }
+
   constructor(
     private myUtils: UtilsService,
     private navCtrl: NavController,
@@ -53,7 +60,8 @@ export class ProfilePage implements OnInit {
           email: res.user.email?res.user.email: '',
           birthday: res.user.birthday?res.user.birthday: '',
           uid: uid
-        }
+        };
+        this.calendar.currentDate = new Date(this.userInfo.birthday)
         console.log(this.userInfo);
         profileLoader.dismiss();
       }, error => {
@@ -83,6 +91,15 @@ export class ProfilePage implements OnInit {
       })
   }
 
+  onClickBirthDay() {
+    this.isShowCalendar = !this.isShowCalendar;
+  }
+
+  onCurrentDateChanged(evt) {
+    let d = new Date(evt);
+    this.userInfo.birthday = d.getFullYear()+ "-" + (d.getMonth() + 1) + "-" + d.getDate();
+  }
+
 }
 
 interface UserInfo {
@@ -91,5 +108,5 @@ interface UserInfo {
   fname?: String,
   lname?: String,
   email?: String,
-  birthday?: String
+  birthday?: string
 }

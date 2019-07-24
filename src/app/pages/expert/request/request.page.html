@@ -19,87 +19,20 @@
     <div *ngFor="let request of arrRequests; let i = index;" class="request-item" (click)="onClickRequest(i)">
       <div class="request-item-header">
         <div>
-          {{request.createdAt | doctime: false}}
-        </div>
-        <div>
-          <span [class]="'status-' + request.status">
+          <span>
             {{arrStatus[request.status]}}
           </span>
         </div>
       </div>
       <div class="request-item-body">
-        <p>
-          {{arrCategories[request.category]}}
-        </p>
-        <p>
-          Requestor: {{request.user.fname + " " + request.user.lname}}
-        </p>
-        <p>
-          Comment: {{request.comments}}
-        </p>
-        <p>
-          Query: {{request.queries}}
-        </p>
-        <p *ngIf="request.extracomment && request.extracomment !== ''">
-          Provided Input: {{request.extracomment}}
-        </p>
-        <ion-item *ngIf="request.files.length > 0" lines="none" (click)="onToggleViewAttachment($event, i)">
-          <ion-icon *ngIf="!request.expandattachment" name="arrow-dropright"></ion-icon>
-          <ion-icon *ngIf="request.expandattachment" name="arrow-dropdown"></ion-icon>
-          <ion-label>View Attachments</ion-label>
-        </ion-item>
-        <ion-list *ngIf="request.expandattachment" no-padding>
-          <div *ngFor="let file of request.files">
-            <p (click)="onClickAttachments($event, file.filename)">
-              {{file.filename}}
-            </p>
-          </div>
-        </ion-list>
-        <div class="request-detail" *ngIf="request.expanded">
-          <!-- Initialize request -->
-          <div class="request-detail-time">
-            <div class="request-detail-indicator status-1"></div>
-            <p>
-              {{request.createdAt | doctime: true}}
-            </p>
-          </div>
-          <div class="request-detail-main">
-            <p>
-              Request Initialized
-            </p>
-            <p>
-              {{request.comments}}
-            </p>
-          </div>
-
-          <!-- Complete request -->
-          <ng-container *ngIf="request.status == 3 || request.status == 4">
-              <div class="request-detail-time">
-                <div class="request-detail-indicator status-3"></div>
-                <p>
-                  {{request.updatedAt | doctime: true}}
-                </p>
-              </div>
-              <div class="request-detail-main">
-                <p>
-                  {{arrStatus[request.status]}}
-                </p>
-                <p>
-                  {{request.comments}}
-                </p>
-              </div>
-          </ng-container>
-        </div>
+        <p><b>Requested Date:</b> {{request.createdAt | doctime: false}}</p>
+        <p><b>Category:</b> {{arrCategories[request.category]}}</p>
+        <p><b>Requestor:</b> {{request.user.fname + " " + request.user.lname}}</p>
       </div>
       <div class="request-item-footer">
         <div>
-          <span *ngIf="!request.expert" (click)="onClickAssignRequest($event, i)">Accept Request</span>
-          <span *ngIf="request.expert" (click)="onClickProvideInput($event, i)">Provide Input</span>
-          <span *ngIf="request.expert" (click)="onClickFinalOpinion($event, i)">Final Opinion</span>
+          <span (click)="onClickViewDetails(request)">View Details</span>
         </div>
-        <!-- <div>
-          <span *ngIf="!request.expert" (click)="onClickFinalOpinion($event, i)">Final Opinion</span>
-        </div> -->
       </div>
     </div>
   </div>

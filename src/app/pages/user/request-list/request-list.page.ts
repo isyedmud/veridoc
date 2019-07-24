@@ -17,6 +17,7 @@ import { ExpertCommentPage } from '../../modal/expert-comment/expert-comment.pag
 })
 export class RequestListPage implements OnInit {
 
+  private isMobile = false;
   private arrAllRequests = [];
   private arrMyRequests = [];
   private arrStatus = STATUS;
@@ -54,6 +55,7 @@ export class RequestListPage implements OnInit {
    * Init Variables
    */
   initPage() {
+    this.isMobile = this.platform.is("mobile");
     this.getRequests();
   }
 
@@ -76,9 +78,7 @@ export class RequestListPage implements OnInit {
           console.log(res.data);
           this.arrAllRequests = res.data;
           for(let i = 0; i < res.data.length; i++) {
-            if(res.data[i].status !== 0) {
-              this.arrMyRequests.push({...res.data[i], expanded: false, expandattachment: false});
-            }
+            this.arrMyRequests.push({...res.data[i], expanded: false, expandattachment: false});
           }
         }
         dataLoader.dismiss();
@@ -159,142 +159,16 @@ export class RequestListPage implements OnInit {
     this.arrMyRequests[index].expanded = !this.arrMyRequests[index].expanded;
   }
 
-  onToggleViewAttachment(evt, i) {
-    evt.stopPropagation();
-    this.arrMyRequests[i].expandattachment = !this.arrMyRequests[i].expandattachment;
-  }
-
-  async onClickAttachments(evt, filename) {
-    evt.stopPropagation();
-    let isMobile = this.platform.is("mobile");
-    console.log(isMobile);
-    if(isMobile) {
-      const fileTransfer: FileTransferObject = this.transfer.create();
-      try {
-        await fileTransfer.download(SERVERASSETS + filename, this.file.externalRootDirectory + 'Download/' + filename);
-      } catch(err) {
-        console.log(err);
-      }
-    } else {
-      this.apiService.downloadFile(filename)
-      .subscribe((data) => {
-        console.log(data);
-        saveAs(data, filename);
-      }, error => {
-        console.log(error);
-      })
-    }
-  }
-
   /**
-   * 
-   * @param evt Click event
-   * @param actionId 
-   *  0: complete the request: go to new request page and complete the step
-   *  1: take action: provide input
-   *  2: need clarification
-   *  3: close request: close request completely
-   *  4: not satisfied: close the request and provide the bad review
-   *  5: reopen: status to "in progress"
-   * @param arrRequestIndex arrMyRequests Index
+   * View request Detail
+   * @param reqId Request Id
    */
-  onClickRequestAction(evt, actionId, arrRequestIndex) {
-    evt.stopPropagation();
-    switch(actionId) {
-      case 0: 
-        this.navCtrl.navigateForward('/menu/expertsreview/' + this.arrMyRequests[arrRequestIndex]._id);
-        break;
-      case 1:
-        this.showProvideInput(arrRequestIndex);
-        break;
-      case 2:
-        this.apiService.updateRequestStatus(this.arrMyRequests[arrRequestIndex], 1)
-          .subscribe(() => {
-            this.toastService.showToast("The Request is in progress");
-          }, error => {
-            console.log(error);
-            this.toastService.showToast("Operation failed!");
-          });
-        break;
-      case 3:
-        this.showFeedbackModal(arrRequestIndex);
-        break;
-      case 4:
-        this.showFeedbackModal(arrRequestIndex);
-        break;
-      case 5:
-        this.apiService.updateRequestStatus(this.arrMyRequests[arrRequestIndex]._id, 1)
-          .subscribe(() => {
-            this.toastService.showToast("The Request is re-opened");
-          }, error => {
-            console.log(error);
-            this.toastService.showToast("Operation failed!");
-          });
-        break;
-      default:
-        break;
-    }
+  onClickViewDetailRequest(reqId) {
+    this.navCtrl.navigateForward('/request-detail/' + reqId + "/0");
   }
 
-  async showProvideInput(index) {
-    const inputModal = await this.modalCtrl.create({
-      component: ExpertCommentPage,
-      cssClass: "info-modal",
-      componentProps: {
-        title: "Provide Input",
-        placeholder: "Please input your comment"
-      }
-    });
-    await inputModal.present();
-    const strExtra = await inputModal.onDidDismiss();
-
-    if(!strExtra.data) {
-      alert("Empty Field!");
-      return;
-    }
-
-    const inputLoader = await this.loadingCtrl.create({
-      message: "Please wait..."
-    });
-    await inputLoader.present();
-
-    this.apiService.provideInput(this.arrMyRequests[index], strExtra.data)
-      .subscribe(() => {
-        inputLoader.dismiss();
-        this.toastService.showToast("Provided input successfully!");
-        this.getRequests();
-      }, error => {
-        console.log(error);
-        inputLoader.dismiss();
-        this.toastService.showToast("Operation failed!");
-      });
-  }
-
-  /**
-   * Show Feedbackmodal
-   * @param arrIndex arrMyRequests array index
-   */
-  async showFeedbackModal(arrIndex) {
-    console.log(this.arrMyRequests[arrIndex]);
-    const feedbackModal = await this.modalCtrl.create({
-      component: FeedbackPage,
-      cssClass: "info-modal",
-      componentProps: {
-        expertId: this.arrMyRequests[arrIndex].expert,
-        requestId: this.arrMyRequests[arrIndex]._id
-      },
-      backdropDismiss: false
-    });
-    await feedbackModal.present();
-    feedbackModal.onDidDismiss()
-      .then((data) => {
-        if(data.data == 0) {
-          this.toastService.showToast("Successfully placed your feedback!");
-          this.getRequests();
-        } else {
-          this.toastService.showToast("Operation failed!");
-        }
-      })
+  onClickCompleteRequest() {
+    this.navCtrl.navigateForward('/menu/expertsreview/null');
   }
 
   /**

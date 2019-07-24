@@ -61,7 +61,7 @@ var UsersPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button fill=\"clear\" (click)=\"onClickNavBack()\">\n        <ion-icon name=\"arrow-back\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <ion-title>User Management</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-list id=\"admin-users-list\">\n    <div *ngFor=\"let user of arrUsers; let i = index\" class=\"admin-users-item\">\n      <div class=\"admin-users-item-header\" (click)=\"onClickExpandUserRow(i)\">\n        <p>\n          {{user.fname + \" \" + user.lname}}\n        </p>\n      </div>\n      <div class=\"admin-users-item-content\" *ngIf=\"user.expanded\">\n        <p [class]=\"user.isverified==true?'admin-users-item-status green-tag': 'admin-users-item-status red-tag'\">\n          {{user.isverified?'Verified': 'Not Verified'}}\n        </p>\n        <p class=\"admin-users-item-content-field\">\n          Username: {{user.username}}\n        </p>\n        <p class=\"admin-users-item-content-field\">\n          Birthday: {{user.birthday}}\n        </p>\n        <p class=\"admin-users-item-content-field\">\n          Email: {{user.email}}\n        </p>\n        <p class=\"admin-users-item-createdat\">\n          Created At: {{user.createdAt | doctime}}\n        </p>\n        <div *ngIf=\"!user.isverified\" class=\"admin-users-item-controller\">\n          <div>\n            <ion-button color=\"success\" (click)=\"onClickAcceptUser(i)\">\n              Accept\n            </ion-button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </ion-list>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-button fill=\"clear\" (click)=\"onClickNavBack()\">\n        <ion-icon name=\"arrow-back\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    <ion-title>User Management</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-list id=\"admin-users-list\">\n    <div *ngFor=\"let user of arrUsers; let i = index\" class=\"admin-users-item\">\n      <div class=\"admin-users-item-header\" (click)=\"onClickExpandUserRow(i)\">\n        <p>\n          {{user.fname + \" \" + user.lname}}\n        </p>\n      </div>\n      <div class=\"admin-users-item-content\" *ngIf=\"user.expanded\">\n        <p [class]=\"user.isverified==true?'admin-users-item-status green-tag': 'admin-users-item-status red-tag'\">\n          {{user.isverified?'Verified': 'Not Verified'}}\n        </p>\n        <p class=\"admin-users-item-content-field\">\n          Username: {{user.username}}\n        </p>\n        <p class=\"admin-users-item-content-field\">\n          Birthday: {{user.birthday}}\n        </p>\n        <p class=\"admin-users-item-content-field\">\n          Email: {{user.email}}\n        </p>\n        <p class=\"admin-users-item-content-field\">\n          Experienced Year: {{user.experiencedyear}}\n        </p>\n        <p class=\"admin-users-item-content-field\">\n          Category: {{arrCategories[user.category]}}\n        </p>\n        <p class=\"admin-users-item-createdat\">\n          Created At: {{user.createdAt | doctime: true}}\n        </p>\n        <div *ngIf=\"!user.isverified\" class=\"admin-users-item-controller\">\n          <div>\n            <ion-button color=\"success\" (click)=\"onClickAcceptUser(i)\">\n              Accept\n            </ion-button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </ion-list>\n</ion-content>\n"
 
 /***/ }),
 
@@ -91,6 +91,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var src_app_services_api_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/api/api.service */ "./src/app/services/api/api.service.ts");
 /* harmony import */ var src_app_services_toast_toast_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/toast/toast.service */ "./src/app/services/toast/toast.service.ts");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../constants */ "./src/app/pages/constants.ts");
+
 
 
 
@@ -103,6 +105,7 @@ var UsersPage = /** @class */ (function () {
         this.apiService = apiService;
         this.toastService = toastService;
         this.arrUsers = [];
+        this.arrCategories = _constants__WEBPACK_IMPORTED_MODULE_5__["CATEGORIES"];
     }
     UsersPage.prototype.ngOnInit = function () {
     };
@@ -129,7 +132,7 @@ var UsersPage = /** @class */ (function () {
                         return [4 /*yield*/, userLoader.present()];
                     case 2:
                         _a.sent();
-                        this.apiService.getUsers("1")
+                        this.apiService.getUsers(1)
                             .subscribe(function (res) {
                             if (res.data) {
                                 for (var i = 0; i < res.data.length; i++) {
@@ -203,6 +206,61 @@ var UsersPage = /** @class */ (function () {
             src_app_services_toast_toast_service__WEBPACK_IMPORTED_MODULE_4__["ToastService"]])
     ], UsersPage);
     return UsersPage;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/toast/toast.service.ts":
+/*!*************************************************!*\
+  !*** ./src/app/services/toast/toast.service.ts ***!
+  \*************************************************/
+/*! exports provided: ToastService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastService", function() { return ToastService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
+
+var ToastService = /** @class */ (function () {
+    function ToastService(toastCtrl) {
+        this.toastCtrl = toastCtrl;
+    }
+    /**
+     *
+     * @param message String
+     * @returns null
+     */
+    ToastService.prototype.showToast = function (message) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var toast;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.toastCtrl.create({
+                            message: message,
+                            duration: 3000
+                        })];
+                    case 1:
+                        toast = _a.sent();
+                        toast.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ToastService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
+    ], ToastService);
+    return ToastService;
 }());
 
 

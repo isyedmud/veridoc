@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, LoadingController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api/api.service';
+import { CATEGORIES } from '../../constants';
 
 @Component({
   selector: 'app-expert-detail',
@@ -13,6 +14,7 @@ export class ExpertDetailPage implements OnInit {
   private expertId = "";
   private expertInfo = null;
   private arrReviews = [];
+  private arrCategories = CATEGORIES;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,7 +50,7 @@ export class ExpertDetailPage implements OnInit {
             this.expertInfo = {...res.data[0]};
           }
         }
-        console.log(this.arrReviews);
+        console.log(this.expertInfo);
         reviewLoader.dismiss();
       }, error => {
         console.log(error);

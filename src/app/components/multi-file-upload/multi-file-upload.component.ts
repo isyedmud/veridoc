@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FileUploader, FileLikeObject } from 'ng2-file-upload';
 
 @Component({
@@ -6,7 +6,10 @@ import { FileUploader, FileLikeObject } from 'ng2-file-upload';
   templateUrl: './multi-file-upload.component.html',
   styleUrls: ['./multi-file-upload.component.scss'],
 })
-export class MultiFileUploadComponent {
+export class MultiFileUploadComponent implements OnInit {
+  @ViewChild('ng2FileSelect') ng2FileSelect: ElementRef;
+  @Input('draftFiles') draftFiles = [];
+  arrDrafts = [];
 
   public uploader: FileUploader = new FileUploader({
     allowedMimeType: ['image/png', 'image/gif', 'image/jpeg', 'application/pdf']
@@ -15,19 +18,40 @@ export class MultiFileUploadComponent {
 
   constructor() { }
 
+  ngOnInit() {
+    
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // console.log("draft", changes);
+    if(changes.draftFiles.currentValue.length > 0) {
+      this.arrDrafts = changes.draftFiles.currentValue;
+    } else {
+      this.arrDrafts = [];
+    }
+    console.log(this.arrDrafts);
+  }
+
+  onClickFileSelector() {
+    this.ng2FileSelect.nativeElement.click();
+  }
+
   getFiles(): FileLikeObject[] {
     return this.uploader.queue.map((fileItem) => {
       return fileItem.file;
     });
   }
 
+  getDraftFiles() {
+    return this.arrDrafts;
+  }
+
   fileOverBase(ev): void {
     this.hasBaseDropZoneOver = ev;
   }
 
-  reorderFiles(reorderEvent: CustomEvent): void {
-    let element = this.uploader.queue.splice(reorderEvent.detail.from, 1)[0];
-    this.uploader.queue.splice(reorderEvent.detail.to, 0, element);
+  onClickRemoveDraftFile(index) {
+    this.arrDrafts.splice(index, 1);
   }
 
 }

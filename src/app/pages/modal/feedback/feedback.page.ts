@@ -32,22 +32,25 @@ export class FeedbackPage implements OnInit {
       message: "Please wait..."
     });
     await feedbackLoader.present();
-    const feedback = {
+    let feedback: any = {
       review: this.strReview,
       mark: this.rate,
       expertsId: this.expertId,
       userId: localStorage.getItem("uid"),
       requestId: this.requestId
     };
-    this.apiService.provideFeedback(feedback)
-      .subscribe(() => {
-        feedbackLoader.dismiss();
-        this.modalCtrl.dismiss(0);
-      }, error => {
-        console.log(error);
-        feedbackLoader.dismiss();
-        this.modalCtrl.dismiss(1);
-      })
+
+    try {
+      let trackRequestResult: any = await this.apiService.saveRequestStatus(4).toPromise();
+      feedback.trackReqId = trackRequestResult.data._id;
+      await this.apiService.provideFeedback(feedback).toPromise();
+      feedbackLoader.dismiss();
+      this.modalCtrl.dismiss(0);
+    } catch(error) {
+      console.log(error);
+      feedbackLoader.dismiss();
+      this.modalCtrl.dismiss(1);
+    }
   }
 
   onClickCancelBtn() {

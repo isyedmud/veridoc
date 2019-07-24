@@ -1,93 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["landing-landing-module"],{
 
-/***/ "./src/app/pages/constants.ts":
-/*!************************************!*\
-  !*** ./src/app/pages/constants.ts ***!
-  \************************************/
-/*! exports provided: CATEGORIES, PAYMENTOPTIONS, CONTACTINFO, BACKENDURL, SERVERASSETS, STATUS, TERMSANDCONDITIONSTXT */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CATEGORIES", function() { return CATEGORIES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PAYMENTOPTIONS", function() { return PAYMENTOPTIONS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONTACTINFO", function() { return CONTACTINFO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BACKENDURL", function() { return BACKENDURL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SERVERASSETS", function() { return SERVERASSETS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STATUS", function() { return STATUS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TERMSANDCONDITIONSTXT", function() { return TERMSANDCONDITIONSTXT; });
-var CATEGORIES = [
-    "Cardiology",
-    "Endocrinology",
-    "Infectious Diseases",
-    "Nephrology",
-    "Oncology & Hematology",
-    "Pediatrics",
-    "Psychiatry",
-    "Radiology",
-    "Dermatology",
-    "Gastroenterology",
-    "Internal Medicine",
-    "Neurology",
-    "Precision Oncology",
-    "Physical Med/Rehab",
-    "Pulmonary Medicine and Critical Care",
-    "Rheumatology",
-    "I don't know"
-];
-/**
- * Payment option List
- */
-var PAYMENTOPTIONS = [
-    "Debit Card",
-    "Credit Card",
-    "Paypal",
-    "Paytm",
-    "Internet Banking"
-];
-/**
- * Contact info for Veridoc
- */
-var CONTACTINFO = {
-    email: "test@testemail.com",
-    number: "+123456789"
-};
-/**
- * backend server url
- */
-var BACKENDURL = 'http://192.168.0.108:4200/api/v1';
-/**
- * uploaded file path on backend server
- */
-var SERVERASSETS = 'http://192.168.0.108:4200/attachments/';
-/**
- * Request status
- */
-var STATUS = [
-    "Draft",
-    "In Progress",
-    "Provide Input",
-    "Completed",
-    "Closed"
-    // "Pending",
-    // "In Progress",
-    // "Closed"
-];
-/**
- * Terms and conditions text
- */
-var TERMSANDCONDITIONSTXT = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-/**
- * 0: open
- * 1: in progress
- * 2: aborted
- * 3: closed
- * 4: withdrawn
- */ 
-
-
-/***/ }),
-
 /***/ "./src/app/pages/landing/landing.module.ts":
 /*!*************************************************!*\
   !*** ./src/app/pages/landing/landing.module.ts ***!
@@ -163,7 +75,7 @@ module.exports = "<ion-header>\n  <ion-toolbar>\n    <img src=\"assets/imgs/logo
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-toolbar img {\n  margin-left: 16px; }\n\nion-slides {\n  max-height: 60vh; }\n\nion-slides ion-slide {\n    max-height: 60vh; }\n\n.landing-item-header p {\n  margin: 16px 0; }\n\n.landing-carousel-container {\n  position: relative;\n  max-height: 60vh; }\n\n.landing-carousel-container img {\n  max-height: 60vh;\n  width: 100%; }\n\n.landing-btn-getexperts {\n  position: absolute;\n  width: 100%;\n  text-align: center;\n  bottom: 1em;\n  left: 50%;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%); }\n\n.landing-item {\n  padding: 16px; }\n\n.landing-item-header div {\n  width: 20vw;\n  height: .6em;\n  margin: auto;\n  background-color: #3F9FEF; }\n\n.landing-item-header p {\n  text-align: center;\n  font-size: 2.8em;\n  color: #505050; }\n\n.howitworks-item {\n  margin-bottom: 3vh; }\n\n.howitworks-item-header {\n  position: relative; }\n\n.howitworks-item-header > p:first-child {\n  margin: 0;\n  color: #EDEDED; }\n\n.howitworks-item-header > p:nth-child(2) {\n  position: absolute;\n  top: 50%;\n  left: 5%;\n  margin: 0;\n  color: #3F9FEF;\n  font-weight: bold;\n  -webkit-transform: translate(0, -50%);\n          transform: translate(0, -50%); }\n\n.howitworks-item-content p,\n.whyveridoc-content p {\n  color: #969EA5; }\n\n.whyveridoc-header {\n  text-align: center; }\n\n.whyveridoc-header p {\n    color: #505050;\n    font-size: 1.4em; }\n\n.whyveridoc-item-content {\n  margin-bottom: 6vh; }\n\n.whyveridoc-item-content > p:nth-child(3) {\n  color: #505050;\n  font-size: 1.2em;\n  font-weight: bold; }\n\n.whyveridoc-item-content > p:nth-child(4) {\n  color: #929BA2; }\n\n.whyveridoc-btn-container {\n  text-align: center;\n  width: 100%; }\n\n#ourexperts-container {\n  background-color: #F8F4F4; }\n\n.ourexperts-content {\n  margin-top: 8vh; }\n\n.ourexperts-item-content {\n  height: 100%;\n  margin-bottom: 3vh;\n  padding: 16px; }\n\n.ourexperts-item-content > div {\n  width: 4.8em;\n  height: 4.8em;\n  margin: auto;\n  overflow: hidden;\n  border-radius: 50%; }\n\n.ourexperts-item-content > div img {\n    width: 100%; }\n\n.ourexperts-item-content > div p {\n    font-size: 1.2em; }\n\n.ourexperts-item-content > p:nth-child(2) {\n  color: #505050;\n  margin: 5px 0; }\n\n.ourexperts-item-content > p:nth-child(4) {\n  color: #A8AEB4;\n  margin-bottom: 5px 0 8vh 0; }\n\n#ourexperts-btn-more {\n  width: 100%;\n  text-align: center; }\n\n#briefinfo-container ion-grid p {\n  margin: 5px 0 5px 16px;\n  font-size: 1.4em;\n  color: #4889D9; }\n\n#briefinfo-container ion-grid p span {\n    font-size: .6em; }\n\n.review-item {\n  display: flex;\n  margin-bottom: 3vh;\n  padding: 16px; }\n\n.review-img {\n  flex: 0.5;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n\n.review-img div {\n    width: 4.8em;\n    height: 4.8em;\n    border-radius: 50%;\n    overflow: hidden; }\n\n.review-img div img {\n      width: 100%; }\n\n.review-content {\n  flex: 2;\n  padding-left: 16px; }\n\n.review-content p {\n    text-align: left; }\n\n.review-content > p:first-child {\n  font-size: 1em;\n  color: #3a4652; }\n\n.review-content > p:nth-child(2) {\n  font-size: .8em;\n  color: #6e7b88; }\n\n#landing-footer {\n  padding: 16px;\n  background: #484848; }\n\n#landing-footer > p {\n  color: #c1c1c1;\n  font-size: .8em;\n  margin: 5px 0; }\n\n#landing-footer-menu ion-row ion-col p {\n  color: #c1c1c1;\n  font-size: 1em;\n  margin: 5px 0; }\n\n.milestones-item {\n  display: flex;\n  align-items: center; }\n\n.milestones-item img {\n    height: 1.6em; }\n\n@media only screen and (max-width: 640px) {\n  .btn-side-navmenu {\n    display: none; }\n  .howitworks-item {\n    display: initial; }\n  .howitworks-img {\n    display: none; }\n  .howitworks-item-header > p:first-child {\n    font-size: 12em; }\n  .howitworks-item-header > p:nth-child(2) {\n    font-size: 1.8em; }\n  .howitworks-item-content p {\n    font-size: 1.2em; } }\n\n@media only screen and (min-width: 641px) {\n  .btn-side-menu {\n    display: none; }\n  .howitworks-item {\n    display: flex; }\n  .howitworks-txt {\n    flex: 1; }\n  .howitworks-img {\n    flex: 1; }\n  .howitworks-img {\n    display: block;\n    margin: auto;\n    text-align: center; }\n    .howitworks-img img {\n      width: 250px; }\n  .howitworks-item-header > p:first-child {\n    font-size: 6em; }\n  .howitworks-item-header > p:nth-child(2) {\n    font-size: 1.2em; }\n  .howitworks-item-content p {\n    font-size: .9em; } }\n\n#landing-footer-social {\n  width: 100%;\n  text-align: right;\n  padding: 16px; }\n\n#landing-footer-social ion-icon {\n    margin-left: 2vw;\n    color: var(--ion-color-medium);\n    font-size: 1.4em; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0RhdGExL1dvcmtzcGFjZS9pb25pYy92ZXJpZG9jL3NyYy9hcHAvcGFnZXMvbGFuZGluZy9sYW5kaW5nLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUVRLGlCQUFpQixFQUFBOztBQUl6QjtFQUNJLGdCQUFnQixFQUFBOztBQURwQjtJQUdRLGdCQUFnQixFQUFBOztBQUl4QjtFQUVRLGNBQWMsRUFBQTs7QUFJdEI7RUFDSSxrQkFBa0I7RUFDbEIsZ0JBQWdCLEVBQUE7O0FBR3BCO0VBQ0ksZ0JBQWdCO0VBQ2hCLFdBQVcsRUFBQTs7QUFHZjtFQUNJLGtCQUFrQjtFQUNsQixXQUFXO0VBQ1gsa0JBQWtCO0VBQ2xCLFdBQVc7RUFDWCxTQUFTO0VBQ1Qsd0NBQWdDO1VBQWhDLGdDQUFnQyxFQUFBOztBQUdwQztFQUNJLGFBQWEsRUFBQTs7QUFHakI7RUFFUSxXQUFXO0VBQ1gsWUFBWTtFQUNaLFlBQVk7RUFDWix5QkFBeUIsRUFBQTs7QUFMakM7RUFTUSxrQkFBa0I7RUFDbEIsZ0JBQWdCO0VBQ2hCLGNBQWMsRUFBQTs7QUFJdEI7RUFDSSxrQkFBa0IsRUFBQTs7QUFHdEI7RUFDSSxrQkFBa0IsRUFBQTs7QUFHdEI7RUFDSSxTQUFTO0VBQ1QsY0FBYyxFQUFBOztBQUdsQjtFQUNJLGtCQUFrQjtFQUNsQixRQUFRO0VBQ1IsUUFBUTtFQUNSLFNBQVM7RUFDVCxjQUFjO0VBQ2QsaUJBQWlCO0VBQ2pCLHFDQUE2QjtVQUE3Qiw2QkFBNkIsRUFBQTs7QUFHakM7O0VBR1EsY0FBYyxFQUFBOztBQUl0QjtFQUNJLGtCQUFrQixFQUFBOztBQUR0QjtJQUlRLGNBQWM7SUFDZCxnQkFBZ0IsRUFBQTs7QUFJeEI7RUFDSSxrQkFBa0IsRUFBQTs7QUFHdEI7RUFDSSxjQUFjO0VBQ2QsZ0JBQWdCO0VBQ2hCLGlCQUFpQixFQUFBOztBQUdyQjtFQUNJLGNBQWMsRUFBQTs7QUFHbEI7RUFDSSxrQkFBa0I7RUFDbEIsV0FBVyxFQUFBOztBQUdmO0VBQ0kseUJBQXlCLEVBQUE7O0FBRzdCO0VBQ0ksZUFBZSxFQUFBOztBQUduQjtFQUNJLFlBQVk7RUFDWixrQkFBa0I7RUFDbEIsYUFBYSxFQUFBOztBQUdqQjtFQUNJLFlBQVk7RUFDWixhQUFhO0VBQ2IsWUFBWTtFQUNaLGdCQUFnQjtFQUNoQixrQkFBa0IsRUFBQTs7QUFMdEI7SUFRUSxXQUFXLEVBQUE7O0FBUm5CO0lBWVEsZ0JBQWdCLEVBQUE7O0FBSXhCO0VBQ0ksY0FBYztFQUNkLGFBQWEsRUFBQTs7QUFHakI7RUFDSSxjQUFjO0VBQ2QsMEJBQTBCLEVBQUE7O0FBRzlCO0VBQ0ksV0FBVztFQUNYLGtCQUFrQixFQUFBOztBQUd0QjtFQUdZLHNCQUFzQjtFQUN0QixnQkFBZ0I7RUFDaEIsY0FBYyxFQUFBOztBQUwxQjtJQVFnQixlQUFlLEVBQUE7O0FBTS9CO0VBQ0ksYUFBYTtFQUNiLGtCQUFrQjtFQUNsQixhQUFhLEVBQUE7O0FBR2pCO0VBQ0ksU0FBUztFQUNULGFBQWE7RUFDYixtQkFBbUI7RUFDbkIsdUJBQXVCLEVBQUE7O0FBSjNCO0lBTVEsWUFBWTtJQUNaLGFBQWE7SUFDYixrQkFBa0I7SUFDbEIsZ0JBQWdCLEVBQUE7O0FBVHhCO01BV1ksV0FBVyxFQUFBOztBQUt2QjtFQUNJLE9BQU87RUFDUCxrQkFBa0IsRUFBQTs7QUFGdEI7SUFJUSxnQkFBZ0IsRUFBQTs7QUFJeEI7RUFDSSxjQUFjO0VBQ2QsY0FBYyxFQUFBOztBQUdsQjtFQUNJLGVBQWU7RUFDZixjQUFjLEVBQUE7O0FBR2xCO0VBQ0ksYUFBYTtFQUNiLG1CQUFtQixFQUFBOztBQUd2QjtFQUNJLGNBQWM7RUFDZCxlQUFlO0VBQ2YsYUFBYSxFQUFBOztBQUdqQjtFQUlnQixjQUFjO0VBQ2QsY0FBYztFQUNkLGFBQWEsRUFBQTs7QUFNN0I7RUFDSSxhQUFhO0VBQ2IsbUJBQW1CLEVBQUE7O0FBRnZCO0lBSVEsYUFBYSxFQUFBOztBQUlyQjtFQUNJO0lBQ0ksYUFBYSxFQUFBO0VBR2pCO0lBQ0ksZ0JBQWdCLEVBQUE7RUFHcEI7SUFDSSxhQUFhLEVBQUE7RUFHakI7SUFDSSxlQUFlLEVBQUE7RUFHbkI7SUFDSSxnQkFBZ0IsRUFBQTtFQUdwQjtJQUVRLGdCQUFnQixFQUFBLEVBQ25COztBQUlUO0VBQ0k7SUFDSSxhQUFhLEVBQUE7RUFHakI7SUFDSSxhQUFhLEVBQUE7RUFHakI7SUFDSSxPQUFPLEVBQUE7RUFHWDtJQUNJLE9BQU8sRUFBQTtFQUdYO0lBQ0ksY0FBYztJQUNkLFlBQVk7SUFDWixrQkFBa0IsRUFBQTtJQUh0QjtNQUtRLFlBQVksRUFBQTtFQUlwQjtJQUNJLGNBQWMsRUFBQTtFQUdsQjtJQUNJLGdCQUFnQixFQUFBO0VBR3BCO0lBRVEsZUFBZSxFQUFBLEVBQ2xCOztBQUlUO0VBQ0ksV0FBVztFQUNYLGlCQUFpQjtFQUNqQixhQUFhLEVBQUE7O0FBSGpCO0lBS1EsZ0JBQWdCO0lBQ2hCLDhCQUE4QjtJQUM5QixnQkFBZ0IsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2xhbmRpbmcvbGFuZGluZy5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tdG9vbGJhciB7XG4gICAgaW1nIHtcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDE2cHg7XG4gICAgfVxufVxuXG5pb24tc2xpZGVzIHtcbiAgICBtYXgtaGVpZ2h0OiA2MHZoO1xuICAgIGlvbi1zbGlkZSB7XG4gICAgICAgIG1heC1oZWlnaHQ6IDYwdmg7XG4gICAgfVxufVxuXG4ubGFuZGluZy1pdGVtLWhlYWRlciB7XG4gICAgcCB7XG4gICAgICAgIG1hcmdpbjogMTZweCAwO1xuICAgIH1cbn1cblxuLmxhbmRpbmctY2Fyb3VzZWwtY29udGFpbmVyIHtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgbWF4LWhlaWdodDogNjB2aDtcbn1cblxuLmxhbmRpbmctY2Fyb3VzZWwtY29udGFpbmVyIGltZyB7XG4gICAgbWF4LWhlaWdodDogNjB2aDtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuLmxhbmRpbmctYnRuLWdldGV4cGVydHMge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB3aWR0aDogMTAwJTtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgYm90dG9tOiAxZW07XG4gICAgbGVmdDogNTAlO1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xufVxuXG4ubGFuZGluZy1pdGVtIHtcbiAgICBwYWRkaW5nOiAxNnB4O1xufVxuXG4ubGFuZGluZy1pdGVtLWhlYWRlciB7XG4gICAgZGl2IHtcbiAgICAgICAgd2lkdGg6IDIwdnc7XG4gICAgICAgIGhlaWdodDogLjZlbTtcbiAgICAgICAgbWFyZ2luOiBhdXRvO1xuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjM0Y5RkVGO1xuICAgIH1cblxuICAgIHAge1xuICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgICAgIGZvbnQtc2l6ZTogMi44ZW07XG4gICAgICAgIGNvbG9yOiAjNTA1MDUwO1xuICAgIH1cbn1cblxuLmhvd2l0d29ya3MtaXRlbSB7XG4gICAgbWFyZ2luLWJvdHRvbTogM3ZoO1xufSAgICBcblxuLmhvd2l0d29ya3MtaXRlbS1oZWFkZXIge1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbn1cblxuLmhvd2l0d29ya3MtaXRlbS1oZWFkZXI+cDpmaXJzdC1jaGlsZCB7XG4gICAgbWFyZ2luOiAwO1xuICAgIGNvbG9yOiAjRURFREVEO1xufVxuXG4uaG93aXR3b3Jrcy1pdGVtLWhlYWRlcj5wOm50aC1jaGlsZCgyKSB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUlO1xuICAgIG1hcmdpbjogMDtcbiAgICBjb2xvcjogIzNGOUZFRjtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgwLCAtNTAlKTtcbn1cblxuLmhvd2l0d29ya3MtaXRlbS1jb250ZW50LFxuLndoeXZlcmlkb2MtY29udGVudCB7XG4gICAgcCB7XG4gICAgICAgIGNvbG9yOiAjOTY5RUE1O1xuICAgIH1cbn1cblxuLndoeXZlcmlkb2MtaGVhZGVyIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG5cbiAgICBwIHtcbiAgICAgICAgY29sb3I6ICM1MDUwNTA7XG4gICAgICAgIGZvbnQtc2l6ZTogMS40ZW07XG4gICAgfVxufVxuXG4ud2h5dmVyaWRvYy1pdGVtLWNvbnRlbnQge1xuICAgIG1hcmdpbi1ib3R0b206IDZ2aDtcbn1cblxuLndoeXZlcmlkb2MtaXRlbS1jb250ZW50PnA6bnRoLWNoaWxkKDMpIHtcbiAgICBjb2xvcjogIzUwNTA1MDtcbiAgICBmb250LXNpemU6IDEuMmVtO1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4ud2h5dmVyaWRvYy1pdGVtLWNvbnRlbnQ+cDpudGgtY2hpbGQoNCkge1xuICAgIGNvbG9yOiAjOTI5QkEyO1xufVxuXG4ud2h5dmVyaWRvYy1idG4tY29udGFpbmVyIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbiNvdXJleHBlcnRzLWNvbnRhaW5lciB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI0Y4RjRGNDtcbn1cblxuLm91cmV4cGVydHMtY29udGVudCB7XG4gICAgbWFyZ2luLXRvcDogOHZoO1xufVxuXG4ub3VyZXhwZXJ0cy1pdGVtLWNvbnRlbnQge1xuICAgIGhlaWdodDogMTAwJTtcbiAgICBtYXJnaW4tYm90dG9tOiAzdmg7XG4gICAgcGFkZGluZzogMTZweDtcbn1cblxuLm91cmV4cGVydHMtaXRlbS1jb250ZW50ID4gZGl2IHtcbiAgICB3aWR0aDogNC44ZW07XG4gICAgaGVpZ2h0OiA0LjhlbTtcbiAgICBtYXJnaW46IGF1dG87XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XG5cbiAgICBpbWcge1xuICAgICAgICB3aWR0aDogMTAwJTtcbiAgICB9XG5cbiAgICBwIHtcbiAgICAgICAgZm9udC1zaXplOiAxLjJlbTtcbiAgICB9XG59XG5cbi5vdXJleHBlcnRzLWl0ZW0tY29udGVudD5wOm50aC1jaGlsZCgyKSB7XG4gICAgY29sb3I6ICM1MDUwNTA7XG4gICAgbWFyZ2luOiA1cHggMDtcbn1cblxuLm91cmV4cGVydHMtaXRlbS1jb250ZW50PnA6bnRoLWNoaWxkKDQpIHtcbiAgICBjb2xvcjogI0E4QUVCNDtcbiAgICBtYXJnaW4tYm90dG9tOiA1cHggMCA4dmggMDtcbn1cblxuI291cmV4cGVydHMtYnRuLW1vcmUge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuI2JyaWVmaW5mby1jb250YWluZXIge1xuICAgIGlvbi1ncmlkIHtcbiAgICAgICAgcCB7XG4gICAgICAgICAgICBtYXJnaW46IDVweCAwIDVweCAxNnB4O1xuICAgICAgICAgICAgZm9udC1zaXplOiAxLjRlbTtcbiAgICAgICAgICAgIGNvbG9yOiAjNDg4OUQ5O1xuICAgICAgICBcbiAgICAgICAgICAgIHNwYW4ge1xuICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogLjZlbTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgIH1cbn1cblxuLnJldmlldy1pdGVtIHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIG1hcmdpbi1ib3R0b206IDN2aDtcbiAgICBwYWRkaW5nOiAxNnB4O1xufVxuXG4ucmV2aWV3LWltZyB7XG4gICAgZmxleDogMC41O1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBkaXYge1xuICAgICAgICB3aWR0aDogNC44ZW07XG4gICAgICAgIGhlaWdodDogNC44ZW07XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgICAgICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICAgICAgaW1nIHtcbiAgICAgICAgICAgIHdpZHRoOiAxMDAlO1xuICAgICAgICB9XG4gICAgfVxufVxuXG4ucmV2aWV3LWNvbnRlbnQge1xuICAgIGZsZXg6IDI7XG4gICAgcGFkZGluZy1sZWZ0OiAxNnB4O1xuICAgIHAge1xuICAgICAgICB0ZXh0LWFsaWduOiBsZWZ0O1xuICAgIH1cbn1cblxuLnJldmlldy1jb250ZW50ID4gcDpmaXJzdC1jaGlsZCB7XG4gICAgZm9udC1zaXplOiAxZW07XG4gICAgY29sb3I6ICMzYTQ2NTI7XG59XG5cbi5yZXZpZXctY29udGVudCA+IHA6bnRoLWNoaWxkKDIpIHtcbiAgICBmb250LXNpemU6IC44ZW07XG4gICAgY29sb3I6ICM2ZTdiODg7XG59XG5cbiNsYW5kaW5nLWZvb3RlciB7XG4gICAgcGFkZGluZzogMTZweDtcbiAgICBiYWNrZ3JvdW5kOiAjNDg0ODQ4O1xufVxuXG4jbGFuZGluZy1mb290ZXIgPiBwIHtcbiAgICBjb2xvcjogI2MxYzFjMTtcbiAgICBmb250LXNpemU6IC44ZW07XG4gICAgbWFyZ2luOiA1cHggMDtcbn1cblxuI2xhbmRpbmctZm9vdGVyLW1lbnUge1xuICAgIGlvbi1yb3cge1xuICAgICAgICBpb24tY29sICB7XG4gICAgICAgICAgICBwIHtcbiAgICAgICAgICAgICAgICBjb2xvcjogI2MxYzFjMTtcbiAgICAgICAgICAgICAgICBmb250LXNpemU6IDFlbTtcbiAgICAgICAgICAgICAgICBtYXJnaW46IDVweCAwO1xuICAgICAgICAgICAgfVxuICAgICAgICB9XG4gICAgfVxufVxuXG4ubWlsZXN0b25lcy1pdGVtIHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgaW1nIHtcbiAgICAgICAgaGVpZ2h0OiAxLjZlbTtcbiAgICB9XG59XG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1heC13aWR0aDogNjQwcHgpIHtcbiAgICAuYnRuLXNpZGUtbmF2bWVudSB7XG4gICAgICAgIGRpc3BsYXk6IG5vbmU7XG4gICAgfVxuXG4gICAgLmhvd2l0d29ya3MtaXRlbSB7XG4gICAgICAgIGRpc3BsYXk6IGluaXRpYWw7XG4gICAgfVxuXG4gICAgLmhvd2l0d29ya3MtaW1nIHtcbiAgICAgICAgZGlzcGxheTogbm9uZTtcbiAgICB9XG5cbiAgICAuaG93aXR3b3Jrcy1pdGVtLWhlYWRlcj5wOmZpcnN0LWNoaWxkIHtcbiAgICAgICAgZm9udC1zaXplOiAxMmVtO1xuICAgIH1cblxuICAgIC5ob3dpdHdvcmtzLWl0ZW0taGVhZGVyPnA6bnRoLWNoaWxkKDIpIHtcbiAgICAgICAgZm9udC1zaXplOiAxLjhlbTtcbiAgICB9XG5cbiAgICAuaG93aXR3b3Jrcy1pdGVtLWNvbnRlbnQge1xuICAgICAgICBwIHtcbiAgICAgICAgICAgIGZvbnQtc2l6ZTogMS4yZW07XG4gICAgICAgIH1cbiAgICB9XG59XG5cbkBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogNjQxcHgpIHtcbiAgICAuYnRuLXNpZGUtbWVudSB7XG4gICAgICAgIGRpc3BsYXk6IG5vbmU7XG4gICAgfVxuXG4gICAgLmhvd2l0d29ya3MtaXRlbSB7XG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgfVxuXG4gICAgLmhvd2l0d29ya3MtdHh0IHtcbiAgICAgICAgZmxleDogMTtcbiAgICB9XG5cbiAgICAuaG93aXR3b3Jrcy1pbWcge1xuICAgICAgICBmbGV4OiAxO1xuICAgIH1cblxuICAgIC5ob3dpdHdvcmtzLWltZyB7XG4gICAgICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgICAgICBtYXJnaW46IGF1dG87XG4gICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICAgICAgaW1nIHtcbiAgICAgICAgICAgIHdpZHRoOiAyNTBweDtcbiAgICAgICAgfVxuICAgIH1cblxuICAgIC5ob3dpdHdvcmtzLWl0ZW0taGVhZGVyPnA6Zmlyc3QtY2hpbGQge1xuICAgICAgICBmb250LXNpemU6IDZlbTtcbiAgICB9XG5cbiAgICAuaG93aXR3b3Jrcy1pdGVtLWhlYWRlcj5wOm50aC1jaGlsZCgyKSB7XG4gICAgICAgIGZvbnQtc2l6ZTogMS4yZW07XG4gICAgfVxuXG4gICAgLmhvd2l0d29ya3MtaXRlbS1jb250ZW50IHtcbiAgICAgICAgcCB7XG4gICAgICAgICAgICBmb250LXNpemU6IC45ZW07XG4gICAgICAgIH1cbiAgICB9XG59XG5cbiNsYW5kaW5nLWZvb3Rlci1zb2NpYWwge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIHRleHQtYWxpZ246IHJpZ2h0O1xuICAgIHBhZGRpbmc6IDE2cHg7XG4gICAgaW9uLWljb24ge1xuICAgICAgICBtYXJnaW4tbGVmdDogMnZ3O1xuICAgICAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLW1lZGl1bSk7XG4gICAgICAgIGZvbnQtc2l6ZTogMS40ZW07XG4gICAgfVxufSJdfQ== */"
+module.exports = "ion-toolbar img {\n  margin-left: 16px; }\n\nion-slides {\n  max-height: 60vh; }\n\nion-slides ion-slide {\n    max-height: 60vh; }\n\n.landing-item-header p {\n  margin: 16px 0; }\n\n.landing-carousel-container {\n  position: relative;\n  max-height: 60vh; }\n\n.landing-carousel-container img {\n  max-height: 60vh;\n  width: 100%; }\n\n.landing-btn-getexperts {\n  position: absolute;\n  width: 100%;\n  text-align: center;\n  bottom: 1em;\n  left: 50%;\n  transform: translate(-50%, -50%); }\n\n.landing-item {\n  padding: 16px; }\n\n.landing-item-header div {\n  width: 20vw;\n  height: .6em;\n  margin: auto;\n  background-color: #3F9FEF; }\n\n.landing-item-header p {\n  text-align: center;\n  font-size: 2.8em;\n  color: #505050; }\n\n.howitworks-item {\n  margin-bottom: 3vh; }\n\n.howitworks-item-header {\n  position: relative; }\n\n.howitworks-item-header > p:first-child {\n  margin: 0;\n  color: #EDEDED; }\n\n.howitworks-item-header > p:nth-child(2) {\n  position: absolute;\n  top: 50%;\n  left: 5%;\n  margin: 0;\n  color: #3F9FEF;\n  font-weight: bold;\n  transform: translate(0, -50%); }\n\n.howitworks-item-content p,\n.whyveridoc-content p {\n  color: #969EA5; }\n\n.whyveridoc-header {\n  text-align: center; }\n\n.whyveridoc-header p {\n    color: #505050;\n    font-size: 1.4em; }\n\n.whyveridoc-item-content {\n  margin-bottom: 6vh; }\n\n.whyveridoc-item-content > p:nth-child(3) {\n  color: #505050;\n  font-size: 1.2em;\n  font-weight: bold; }\n\n.whyveridoc-item-content > p:nth-child(4) {\n  color: #929BA2; }\n\n.whyveridoc-btn-container {\n  text-align: center;\n  width: 100%; }\n\n#ourexperts-container {\n  background-color: #F8F4F4; }\n\n.ourexperts-content {\n  margin-top: 8vh; }\n\n.ourexperts-item-content {\n  height: 100%;\n  margin-bottom: 3vh;\n  padding: 16px; }\n\n.ourexperts-item-content > div {\n  width: 4.8em;\n  height: 4.8em;\n  margin: auto;\n  overflow: hidden;\n  border-radius: 50%; }\n\n.ourexperts-item-content > div img {\n    width: 100%; }\n\n.ourexperts-item-content > div p {\n    font-size: 1.2em; }\n\n.ourexperts-item-content > p:nth-child(2) {\n  color: #505050;\n  margin: 5px 0; }\n\n.ourexperts-item-content > p:nth-child(4) {\n  color: #A8AEB4;\n  margin-bottom: 5px 0 8vh 0; }\n\n#ourexperts-btn-more {\n  width: 100%;\n  text-align: center; }\n\n#briefinfo-container ion-grid p {\n  margin: 5px 0 5px 16px;\n  font-size: 1.4em;\n  color: #4889D9; }\n\n#briefinfo-container ion-grid p span {\n    font-size: .6em; }\n\n.review-item {\n  display: flex;\n  margin-bottom: 3vh;\n  padding: 16px; }\n\n.review-img {\n  flex: 0.5;\n  display: flex;\n  align-items: center;\n  justify-content: center; }\n\n.review-img div {\n    width: 4.8em;\n    height: 4.8em;\n    border-radius: 50%;\n    overflow: hidden; }\n\n.review-img div img {\n      width: 100%; }\n\n.review-content {\n  flex: 2;\n  padding-left: 16px; }\n\n.review-content p {\n    text-align: left; }\n\n.review-content > p:first-child {\n  font-size: 1em;\n  color: #3a4652; }\n\n.review-content > p:nth-child(2) {\n  font-size: .8em;\n  color: #6e7b88; }\n\n#landing-footer {\n  padding: 16px;\n  background: #484848; }\n\n#landing-footer > p {\n  color: #c1c1c1;\n  font-size: .8em;\n  margin: 5px 0; }\n\n#landing-footer-menu ion-row ion-col p {\n  color: #c1c1c1;\n  font-size: 1em;\n  margin: 5px 0; }\n\n.milestones-item {\n  display: flex;\n  align-items: center; }\n\n.milestones-item img {\n    height: 1.6em; }\n\n@media only screen and (max-width: 640px) {\n  .btn-side-navmenu {\n    display: none; }\n  .howitworks-item {\n    display: initial; }\n  .howitworks-img {\n    display: none; }\n  .howitworks-item-header > p:first-child {\n    font-size: 12em; }\n  .howitworks-item-header > p:nth-child(2) {\n    font-size: 1.8em; }\n  .howitworks-item-content p {\n    font-size: 1.2em; } }\n\n@media only screen and (min-width: 641px) {\n  .btn-side-menu {\n    display: none; }\n  .howitworks-item {\n    display: flex; }\n  .howitworks-txt {\n    flex: 1; }\n  .howitworks-img {\n    flex: 1; }\n  .howitworks-img {\n    display: block;\n    margin: auto;\n    text-align: center; }\n    .howitworks-img img {\n      width: 250px; }\n  .howitworks-item-header > p:first-child {\n    font-size: 6em; }\n  .howitworks-item-header > p:nth-child(2) {\n    font-size: 1.2em; }\n  .howitworks-item-content p {\n    font-size: .9em; } }\n\n#landing-footer-social {\n  width: 100%;\n  text-align: right;\n  padding: 16px; }\n\n#landing-footer-social ion-icon {\n    margin-left: 2vw;\n    color: var(--ion-color-medium);\n    font-size: 1.4em; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0RhdGExL1dvcmtzcGFjZS9pb25pYy92ZXJpZG9jL3NyYy9hcHAvcGFnZXMvbGFuZGluZy9sYW5kaW5nLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUVRLGlCQUFpQixFQUFBOztBQUl6QjtFQUNJLGdCQUFnQixFQUFBOztBQURwQjtJQUdRLGdCQUFnQixFQUFBOztBQUl4QjtFQUVRLGNBQWMsRUFBQTs7QUFJdEI7RUFDSSxrQkFBa0I7RUFDbEIsZ0JBQWdCLEVBQUE7O0FBR3BCO0VBQ0ksZ0JBQWdCO0VBQ2hCLFdBQVcsRUFBQTs7QUFHZjtFQUNJLGtCQUFrQjtFQUNsQixXQUFXO0VBQ1gsa0JBQWtCO0VBQ2xCLFdBQVc7RUFDWCxTQUFTO0VBQ1QsZ0NBQWdDLEVBQUE7O0FBR3BDO0VBQ0ksYUFBYSxFQUFBOztBQUdqQjtFQUVRLFdBQVc7RUFDWCxZQUFZO0VBQ1osWUFBWTtFQUNaLHlCQUF5QixFQUFBOztBQUxqQztFQVNRLGtCQUFrQjtFQUNsQixnQkFBZ0I7RUFDaEIsY0FBYyxFQUFBOztBQUl0QjtFQUNJLGtCQUFrQixFQUFBOztBQUd0QjtFQUNJLGtCQUFrQixFQUFBOztBQUd0QjtFQUNJLFNBQVM7RUFDVCxjQUFjLEVBQUE7O0FBR2xCO0VBQ0ksa0JBQWtCO0VBQ2xCLFFBQVE7RUFDUixRQUFRO0VBQ1IsU0FBUztFQUNULGNBQWM7RUFDZCxpQkFBaUI7RUFDakIsNkJBQTZCLEVBQUE7O0FBR2pDOztFQUdRLGNBQWMsRUFBQTs7QUFJdEI7RUFDSSxrQkFBa0IsRUFBQTs7QUFEdEI7SUFJUSxjQUFjO0lBQ2QsZ0JBQWdCLEVBQUE7O0FBSXhCO0VBQ0ksa0JBQWtCLEVBQUE7O0FBR3RCO0VBQ0ksY0FBYztFQUNkLGdCQUFnQjtFQUNoQixpQkFBaUIsRUFBQTs7QUFHckI7RUFDSSxjQUFjLEVBQUE7O0FBR2xCO0VBQ0ksa0JBQWtCO0VBQ2xCLFdBQVcsRUFBQTs7QUFHZjtFQUNJLHlCQUF5QixFQUFBOztBQUc3QjtFQUNJLGVBQWUsRUFBQTs7QUFHbkI7RUFDSSxZQUFZO0VBQ1osa0JBQWtCO0VBQ2xCLGFBQWEsRUFBQTs7QUFHakI7RUFDSSxZQUFZO0VBQ1osYUFBYTtFQUNiLFlBQVk7RUFDWixnQkFBZ0I7RUFDaEIsa0JBQWtCLEVBQUE7O0FBTHRCO0lBUVEsV0FBVyxFQUFBOztBQVJuQjtJQVlRLGdCQUFnQixFQUFBOztBQUl4QjtFQUNJLGNBQWM7RUFDZCxhQUFhLEVBQUE7O0FBR2pCO0VBQ0ksY0FBYztFQUNkLDBCQUEwQixFQUFBOztBQUc5QjtFQUNJLFdBQVc7RUFDWCxrQkFBa0IsRUFBQTs7QUFHdEI7RUFHWSxzQkFBc0I7RUFDdEIsZ0JBQWdCO0VBQ2hCLGNBQWMsRUFBQTs7QUFMMUI7SUFRZ0IsZUFBZSxFQUFBOztBQU0vQjtFQUNJLGFBQWE7RUFDYixrQkFBa0I7RUFDbEIsYUFBYSxFQUFBOztBQUdqQjtFQUNJLFNBQVM7RUFDVCxhQUFhO0VBQ2IsbUJBQW1CO0VBQ25CLHVCQUF1QixFQUFBOztBQUozQjtJQU1RLFlBQVk7SUFDWixhQUFhO0lBQ2Isa0JBQWtCO0lBQ2xCLGdCQUFnQixFQUFBOztBQVR4QjtNQVdZLFdBQVcsRUFBQTs7QUFLdkI7RUFDSSxPQUFPO0VBQ1Asa0JBQWtCLEVBQUE7O0FBRnRCO0lBSVEsZ0JBQWdCLEVBQUE7O0FBSXhCO0VBQ0ksY0FBYztFQUNkLGNBQWMsRUFBQTs7QUFHbEI7RUFDSSxlQUFlO0VBQ2YsY0FBYyxFQUFBOztBQUdsQjtFQUNJLGFBQWE7RUFDYixtQkFBbUIsRUFBQTs7QUFHdkI7RUFDSSxjQUFjO0VBQ2QsZUFBZTtFQUNmLGFBQWEsRUFBQTs7QUFHakI7RUFJZ0IsY0FBYztFQUNkLGNBQWM7RUFDZCxhQUFhLEVBQUE7O0FBTTdCO0VBQ0ksYUFBYTtFQUNiLG1CQUFtQixFQUFBOztBQUZ2QjtJQUlRLGFBQWEsRUFBQTs7QUFJckI7RUFDSTtJQUNJLGFBQWEsRUFBQTtFQUdqQjtJQUNJLGdCQUFnQixFQUFBO0VBR3BCO0lBQ0ksYUFBYSxFQUFBO0VBR2pCO0lBQ0ksZUFBZSxFQUFBO0VBR25CO0lBQ0ksZ0JBQWdCLEVBQUE7RUFHcEI7SUFFUSxnQkFBZ0IsRUFBQSxFQUNuQjs7QUFJVDtFQUNJO0lBQ0ksYUFBYSxFQUFBO0VBR2pCO0lBQ0ksYUFBYSxFQUFBO0VBR2pCO0lBQ0ksT0FBTyxFQUFBO0VBR1g7SUFDSSxPQUFPLEVBQUE7RUFHWDtJQUNJLGNBQWM7SUFDZCxZQUFZO0lBQ1osa0JBQWtCLEVBQUE7SUFIdEI7TUFLUSxZQUFZLEVBQUE7RUFJcEI7SUFDSSxjQUFjLEVBQUE7RUFHbEI7SUFDSSxnQkFBZ0IsRUFBQTtFQUdwQjtJQUVRLGVBQWUsRUFBQSxFQUNsQjs7QUFJVDtFQUNJLFdBQVc7RUFDWCxpQkFBaUI7RUFDakIsYUFBYSxFQUFBOztBQUhqQjtJQUtRLGdCQUFnQjtJQUNoQiw4QkFBOEI7SUFDOUIsZ0JBQWdCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9sYW5kaW5nL2xhbmRpbmcucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLXRvb2xiYXIge1xuICAgIGltZyB7XG4gICAgICAgIG1hcmdpbi1sZWZ0OiAxNnB4O1xuICAgIH1cbn1cblxuaW9uLXNsaWRlcyB7XG4gICAgbWF4LWhlaWdodDogNjB2aDtcbiAgICBpb24tc2xpZGUge1xuICAgICAgICBtYXgtaGVpZ2h0OiA2MHZoO1xuICAgIH1cbn1cblxuLmxhbmRpbmctaXRlbS1oZWFkZXIge1xuICAgIHAge1xuICAgICAgICBtYXJnaW46IDE2cHggMDtcbiAgICB9XG59XG5cbi5sYW5kaW5nLWNhcm91c2VsLWNvbnRhaW5lciB7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIG1heC1oZWlnaHQ6IDYwdmg7XG59XG5cbi5sYW5kaW5nLWNhcm91c2VsLWNvbnRhaW5lciBpbWcge1xuICAgIG1heC1oZWlnaHQ6IDYwdmg7XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbi5sYW5kaW5nLWJ0bi1nZXRleHBlcnRzIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIGJvdHRvbTogMWVtO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTtcbn1cblxuLmxhbmRpbmctaXRlbSB7XG4gICAgcGFkZGluZzogMTZweDtcbn1cblxuLmxhbmRpbmctaXRlbS1oZWFkZXIge1xuICAgIGRpdiB7XG4gICAgICAgIHdpZHRoOiAyMHZ3O1xuICAgICAgICBoZWlnaHQ6IC42ZW07XG4gICAgICAgIG1hcmdpbjogYXV0bztcbiAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogIzNGOUZFRjtcbiAgICB9XG5cbiAgICBwIHtcbiAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgICAgICBmb250LXNpemU6IDIuOGVtO1xuICAgICAgICBjb2xvcjogIzUwNTA1MDtcbiAgICB9XG59XG5cbi5ob3dpdHdvcmtzLWl0ZW0ge1xuICAgIG1hcmdpbi1ib3R0b206IDN2aDtcbn0gICAgXG5cbi5ob3dpdHdvcmtzLWl0ZW0taGVhZGVyIHtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG59XG5cbi5ob3dpdHdvcmtzLWl0ZW0taGVhZGVyPnA6Zmlyc3QtY2hpbGQge1xuICAgIG1hcmdpbjogMDtcbiAgICBjb2xvcjogI0VERURFRDtcbn1cblxuLmhvd2l0d29ya3MtaXRlbS1oZWFkZXI+cDpudGgtY2hpbGQoMikge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDUwJTtcbiAgICBsZWZ0OiA1JTtcbiAgICBtYXJnaW46IDA7XG4gICAgY29sb3I6ICMzRjlGRUY7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMCwgLTUwJSk7XG59XG5cbi5ob3dpdHdvcmtzLWl0ZW0tY29udGVudCxcbi53aHl2ZXJpZG9jLWNvbnRlbnQge1xuICAgIHAge1xuICAgICAgICBjb2xvcjogIzk2OUVBNTtcbiAgICB9XG59XG5cbi53aHl2ZXJpZG9jLWhlYWRlciB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuXG4gICAgcCB7XG4gICAgICAgIGNvbG9yOiAjNTA1MDUwO1xuICAgICAgICBmb250LXNpemU6IDEuNGVtO1xuICAgIH1cbn1cblxuLndoeXZlcmlkb2MtaXRlbS1jb250ZW50IHtcbiAgICBtYXJnaW4tYm90dG9tOiA2dmg7XG59XG5cbi53aHl2ZXJpZG9jLWl0ZW0tY29udGVudD5wOm50aC1jaGlsZCgzKSB7XG4gICAgY29sb3I6ICM1MDUwNTA7XG4gICAgZm9udC1zaXplOiAxLjJlbTtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbn1cblxuLndoeXZlcmlkb2MtaXRlbS1jb250ZW50PnA6bnRoLWNoaWxkKDQpIHtcbiAgICBjb2xvcjogIzkyOUJBMjtcbn1cblxuLndoeXZlcmlkb2MtYnRuLWNvbnRhaW5lciB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIHdpZHRoOiAxMDAlO1xufVxuXG4jb3VyZXhwZXJ0cy1jb250YWluZXIge1xuICAgIGJhY2tncm91bmQtY29sb3I6ICNGOEY0RjQ7XG59XG5cbi5vdXJleHBlcnRzLWNvbnRlbnQge1xuICAgIG1hcmdpbi10b3A6IDh2aDtcbn1cblxuLm91cmV4cGVydHMtaXRlbS1jb250ZW50IHtcbiAgICBoZWlnaHQ6IDEwMCU7XG4gICAgbWFyZ2luLWJvdHRvbTogM3ZoO1xuICAgIHBhZGRpbmc6IDE2cHg7XG59XG5cbi5vdXJleHBlcnRzLWl0ZW0tY29udGVudCA+IGRpdiB7XG4gICAgd2lkdGg6IDQuOGVtO1xuICAgIGhlaWdodDogNC44ZW07XG4gICAgbWFyZ2luOiBhdXRvO1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgYm9yZGVyLXJhZGl1czogNTAlO1xuXG4gICAgaW1nIHtcbiAgICAgICAgd2lkdGg6IDEwMCU7XG4gICAgfVxuXG4gICAgcCB7XG4gICAgICAgIGZvbnQtc2l6ZTogMS4yZW07XG4gICAgfVxufVxuXG4ub3VyZXhwZXJ0cy1pdGVtLWNvbnRlbnQ+cDpudGgtY2hpbGQoMikge1xuICAgIGNvbG9yOiAjNTA1MDUwO1xuICAgIG1hcmdpbjogNXB4IDA7XG59XG5cbi5vdXJleHBlcnRzLWl0ZW0tY29udGVudD5wOm50aC1jaGlsZCg0KSB7XG4gICAgY29sb3I6ICNBOEFFQjQ7XG4gICAgbWFyZ2luLWJvdHRvbTogNXB4IDAgOHZoIDA7XG59XG5cbiNvdXJleHBlcnRzLWJ0bi1tb3JlIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbiNicmllZmluZm8tY29udGFpbmVyIHtcbiAgICBpb24tZ3JpZCB7XG4gICAgICAgIHAge1xuICAgICAgICAgICAgbWFyZ2luOiA1cHggMCA1cHggMTZweDtcbiAgICAgICAgICAgIGZvbnQtc2l6ZTogMS40ZW07XG4gICAgICAgICAgICBjb2xvcjogIzQ4ODlEOTtcbiAgICAgICAgXG4gICAgICAgICAgICBzcGFuIHtcbiAgICAgICAgICAgICAgICBmb250LXNpemU6IC42ZW07XG4gICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICB9XG59XG5cbi5yZXZpZXctaXRlbSB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBtYXJnaW4tYm90dG9tOiAzdmg7XG4gICAgcGFkZGluZzogMTZweDtcbn1cblxuLnJldmlldy1pbWcge1xuICAgIGZsZXg6IDAuNTtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgZGl2IHtcbiAgICAgICAgd2lkdGg6IDQuOGVtO1xuICAgICAgICBoZWlnaHQ6IDQuOGVtO1xuICAgICAgICBib3JkZXItcmFkaXVzOiA1MCU7XG4gICAgICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgICAgIGltZyB7XG4gICAgICAgICAgICB3aWR0aDogMTAwJTtcbiAgICAgICAgfVxuICAgIH1cbn1cblxuLnJldmlldy1jb250ZW50IHtcbiAgICBmbGV4OiAyO1xuICAgIHBhZGRpbmctbGVmdDogMTZweDtcbiAgICBwIHtcbiAgICAgICAgdGV4dC1hbGlnbjogbGVmdDtcbiAgICB9XG59XG5cbi5yZXZpZXctY29udGVudCA+IHA6Zmlyc3QtY2hpbGQge1xuICAgIGZvbnQtc2l6ZTogMWVtO1xuICAgIGNvbG9yOiAjM2E0NjUyO1xufVxuXG4ucmV2aWV3LWNvbnRlbnQgPiBwOm50aC1jaGlsZCgyKSB7XG4gICAgZm9udC1zaXplOiAuOGVtO1xuICAgIGNvbG9yOiAjNmU3Yjg4O1xufVxuXG4jbGFuZGluZy1mb290ZXIge1xuICAgIHBhZGRpbmc6IDE2cHg7XG4gICAgYmFja2dyb3VuZDogIzQ4NDg0ODtcbn1cblxuI2xhbmRpbmctZm9vdGVyID4gcCB7XG4gICAgY29sb3I6ICNjMWMxYzE7XG4gICAgZm9udC1zaXplOiAuOGVtO1xuICAgIG1hcmdpbjogNXB4IDA7XG59XG5cbiNsYW5kaW5nLWZvb3Rlci1tZW51IHtcbiAgICBpb24tcm93IHtcbiAgICAgICAgaW9uLWNvbCAge1xuICAgICAgICAgICAgcCB7XG4gICAgICAgICAgICAgICAgY29sb3I6ICNjMWMxYzE7XG4gICAgICAgICAgICAgICAgZm9udC1zaXplOiAxZW07XG4gICAgICAgICAgICAgICAgbWFyZ2luOiA1cHggMDtcbiAgICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgIH1cbn1cblxuLm1pbGVzdG9uZXMtaXRlbSB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGltZyB7XG4gICAgICAgIGhlaWdodDogMS42ZW07XG4gICAgfVxufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6IDY0MHB4KSB7XG4gICAgLmJ0bi1zaWRlLW5hdm1lbnUge1xuICAgICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cblxuICAgIC5ob3dpdHdvcmtzLWl0ZW0ge1xuICAgICAgICBkaXNwbGF5OiBpbml0aWFsO1xuICAgIH1cblxuICAgIC5ob3dpdHdvcmtzLWltZyB7XG4gICAgICAgIGRpc3BsYXk6IG5vbmU7XG4gICAgfVxuXG4gICAgLmhvd2l0d29ya3MtaXRlbS1oZWFkZXI+cDpmaXJzdC1jaGlsZCB7XG4gICAgICAgIGZvbnQtc2l6ZTogMTJlbTtcbiAgICB9XG5cbiAgICAuaG93aXR3b3Jrcy1pdGVtLWhlYWRlcj5wOm50aC1jaGlsZCgyKSB7XG4gICAgICAgIGZvbnQtc2l6ZTogMS44ZW07XG4gICAgfVxuXG4gICAgLmhvd2l0d29ya3MtaXRlbS1jb250ZW50IHtcbiAgICAgICAgcCB7XG4gICAgICAgICAgICBmb250LXNpemU6IDEuMmVtO1xuICAgICAgICB9XG4gICAgfVxufVxuXG5AbWVkaWEgb25seSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDY0MXB4KSB7XG4gICAgLmJ0bi1zaWRlLW1lbnUge1xuICAgICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cblxuICAgIC5ob3dpdHdvcmtzLWl0ZW0ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgIH1cblxuICAgIC5ob3dpdHdvcmtzLXR4dCB7XG4gICAgICAgIGZsZXg6IDE7XG4gICAgfVxuXG4gICAgLmhvd2l0d29ya3MtaW1nIHtcbiAgICAgICAgZmxleDogMTtcbiAgICB9XG5cbiAgICAuaG93aXR3b3Jrcy1pbWcge1xuICAgICAgICBkaXNwbGF5OiBibG9jaztcbiAgICAgICAgbWFyZ2luOiBhdXRvO1xuICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgICAgIGltZyB7XG4gICAgICAgICAgICB3aWR0aDogMjUwcHg7XG4gICAgICAgIH1cbiAgICB9XG5cbiAgICAuaG93aXR3b3Jrcy1pdGVtLWhlYWRlcj5wOmZpcnN0LWNoaWxkIHtcbiAgICAgICAgZm9udC1zaXplOiA2ZW07XG4gICAgfVxuXG4gICAgLmhvd2l0d29ya3MtaXRlbS1oZWFkZXI+cDpudGgtY2hpbGQoMikge1xuICAgICAgICBmb250LXNpemU6IDEuMmVtO1xuICAgIH1cblxuICAgIC5ob3dpdHdvcmtzLWl0ZW0tY29udGVudCB7XG4gICAgICAgIHAge1xuICAgICAgICAgICAgZm9udC1zaXplOiAuOWVtO1xuICAgICAgICB9XG4gICAgfVxufVxuXG4jbGFuZGluZy1mb290ZXItc29jaWFsIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICB0ZXh0LWFsaWduOiByaWdodDtcbiAgICBwYWRkaW5nOiAxNnB4O1xuICAgIGlvbi1pY29uIHtcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDJ2dztcbiAgICAgICAgY29sb3I6IHZhcigtLWlvbi1jb2xvci1tZWRpdW0pO1xuICAgICAgICBmb250LXNpemU6IDEuNGVtO1xuICAgIH1cbn0iXX0= */"
 
 /***/ }),
 
@@ -182,19 +94,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constants */ "./src/app/pages/constants.ts");
 /* harmony import */ var _modal_contactus_contactus_page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modal/contactus/contactus.page */ "./src/app/pages/modal/contactus/contactus.page.ts");
+/* harmony import */ var src_app_services_api_api_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/api/api.service */ "./src/app/services/api/api.service.ts");
+
 
 
 
 
 
 var LandingPage = /** @class */ (function () {
-    function LandingPage(navCtrl, modalCtrl, altCtrl, event, platform) {
+    function LandingPage(navCtrl, modalCtrl, altCtrl, event, platform, loadingCtrl, apiService) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.modalCtrl = modalCtrl;
         this.altCtrl = altCtrl;
         this.event = event;
         this.platform = platform;
+        this.loadingCtrl = loadingCtrl;
+        this.apiService = apiService;
         /**
          * Array of Menu items for Browser platform.
          */
@@ -307,29 +223,7 @@ var LandingPage = /** @class */ (function () {
             },
             {
                 title: "Team Behind VeriDoc",
-                childs: [
-                    {
-                        id: 1,
-                        header: "John Smith",
-                        subheader: "CEO",
-                        img: "assets/imgs/img-profile1.jpg",
-                        content: "It takes only two minutes to create a user at VeriDoc. It's completely free and you can easily via Facebook, Google or your Email"
-                    },
-                    {
-                        id: 2,
-                        header: "John Smith",
-                        subheader: "CEO",
-                        img: "assets/imgs/img-profile2.jpg",
-                        content: "It takes only two minutes to create a user at VeriDoc. It's completely free and you can easily via Facebook, Google or your Email"
-                    },
-                    {
-                        id: 3,
-                        header: "John Smith",
-                        subheader: "CEO",
-                        img: "assets/imgs/img-profile3.jpg",
-                        content: "It takes only two minutes to create a user at VeriDoc. It's completely free and you can easily via Facebook, Google or your Email"
-                    },
-                ]
+                childs: []
             }
         ];
         /**
@@ -389,6 +283,50 @@ var LandingPage = /** @class */ (function () {
         if (!this.platform.is("mobile")) {
             this.slideOpts.slidesPerView = 3;
         }
+        this.getHighlightExperts();
+    };
+    LandingPage.prototype.getHighlightExperts = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var expertsLoader, expertsResult_1, tmpHighlightedExperts_1, error_1;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.loadingCtrl.create({
+                            message: "Loading..."
+                        })];
+                    case 1:
+                        expertsLoader = _a.sent();
+                        return [4 /*yield*/, expertsLoader.present()];
+                    case 2:
+                        _a.sent();
+                        _a.label = 3;
+                    case 3:
+                        _a.trys.push([3, 5, , 6]);
+                        return [4 /*yield*/, this.apiService.getHighlightedExperts().toPromise()];
+                    case 4:
+                        expertsResult_1 = _a.sent();
+                        console.log(expertsResult_1.data);
+                        tmpHighlightedExperts_1 = [];
+                        Object.keys(expertsResult_1.data).map(function (key) {
+                            tmpHighlightedExperts_1.push({
+                                id: key,
+                                header: expertsResult_1.data[key].fname + " " + expertsResult_1.data[key].lname,
+                                subheader: expertsResult_1.data[key].headline,
+                                img: expertsResult_1.data[key].avatar,
+                                content: expertsResult_1.data[key].expertbio
+                            });
+                        });
+                        this.landingPageContents[2].childs = tmpHighlightedExperts_1;
+                        expertsLoader.dismiss();
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_1 = _a.sent();
+                        console.log(error_1);
+                        expertsLoader.dismiss();
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * Scroll to specific position
@@ -531,223 +469,11 @@ var LandingPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"],
+            src_app_services_api_api_service__WEBPACK_IMPORTED_MODULE_5__["ApiService"]])
     ], LandingPage);
     return LandingPage;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/api/api.service.ts":
-/*!*********************************************!*\
-  !*** ./src/app/services/api/api.service.ts ***!
-  \*********************************************/
-/*! exports provided: ApiService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiService", function() { return ApiService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var src_app_pages_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/pages/constants */ "./src/app/pages/constants.ts");
-
-
-
-
-var ApiService = /** @class */ (function () {
-    function ApiService(http) {
-        this.http = http;
-        /**
-         * API url from constants
-         * @see src/app/pages/constants
-         */
-        this.apiUrl = src_app_pages_constants__WEBPACK_IMPORTED_MODULE_3__["BACKENDURL"];
-    }
-    /**
-     *
-     * @param req
-     * @returns observable
-     */
-    ApiService.prototype.signUp = function (req) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/register", req, { headers: headers });
-    };
-    /**
-     *
-     * @param credential(email: String, password: String)
-     * @returns observable
-     */
-    ApiService.prototype.login = function (credential) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/login", credential, { headers: headers });
-    };
-    /**
-     * Reset Password
-     * @param email: String
-     * @returns observable
-     */
-    ApiService.prototype.resetPassword = function (email) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/restPassword", { email: email }, { headers: headers });
-    };
-    /**
-     * Get Profile Info
-     * @param uid
-     * @returns observable
-     */
-    ApiService.prototype.getUser = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/getUser", { uid: uid }, { headers: headers });
-    };
-    /**
-     * Update User Profile
-     * @param user: Object
-     * @returns observable
-     */
-    ApiService.prototype.updateUser = function (user) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/updateUser", { user: user }, { headers: headers });
-    };
-    /**
-     * Get users by their role
-     * @param role user role
-     * 0: normal user
-     * 1: expert
-     * 2: admin
-     */
-    ApiService.prototype.getUsers = function (role) {
-        if (role === void 0) { role = ""; }
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/getUsers", { role: role }, { headers: headers });
-    };
-    ApiService.prototype.acceptUser = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/acceptUser", { uid: uid }, { headers: headers });
-    };
-    ApiService.prototype.deleteAccount = function (uid, role) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/user/deleteUser", { uid: uid, role: role }, { headers: headers });
-    };
-    /**
-     * Post Request
-     * @param post: Object
-     * @returns observable
-     */
-    ApiService.prototype.postRequest = function (post) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/postRequest", { post: post }, { headers: headers });
-    };
-    /**
-     * Get My Requests (User side)
-     * @param uid userid
-     * @returns observable
-     */
-    ApiService.prototype.getRequest = function (uid) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/getRequest", { uid: uid }, { headers: headers });
-    };
-    /**
-     * Get All requests by expertid
-     * @param expertId expert id
-     */
-    ApiService.prototype.getAllRequests = function (expertId) {
-        if (expertId === void 0) { expertId = ""; }
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/getAllRequests", { expertId: expertId }, { headers: headers });
-    };
-    /**
-     * Assign request to expert
-     * @param reqdata request data
-     */
-    ApiService.prototype.requestSetExpert = function (reqdata) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/setExpert", reqdata, { headers: headers });
-    };
-    ApiService.prototype.getRequestById = function (reqId) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/getRequestById", { reqId: reqId }, { headers: headers });
-    };
-    ApiService.prototype.uploadFiles = function (formData) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("enctype", "multipart/form-data");
-        return this.http.post(this.apiUrl + "/post/uploadAttachment", formData, { headers: headers }).toPromise();
-    };
-    /**
-     * Download File from server
-     * @param filename filename to download
-     */
-    ApiService.prototype.downloadFile = function (filename) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/downloadAttachment", { filename: filename }, { responseType: 'blob', headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().append('Content-Type', 'application/json') });
-    };
-    ApiService.prototype.processPayment = function (requestId) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/processPayment", { requestId: requestId }, { headers: headers });
-    };
-    /**
-     * Close Request
-     * @param id request id
-     * @returns observable
-     */
-    ApiService.prototype.closeRequest = function (id) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/closeRequest", { id: id }, { headers: headers });
-    };
-    /**
-     * Update Request Status
-     * @param id request id
-     * @param status request status
-     */
-    ApiService.prototype.updateRequestStatus = function (id, status) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/post/updateStatus", { id: id, status: status }, { headers: headers });
-    };
-    /**
-     * Provide user's feedback to expert
-     * @param feedback User Feedback: Object
-     */
-    ApiService.prototype.provideFeedback = function (feedback) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/review/provideReview", { feedback: feedback }, { headers: headers });
-    };
-    /**
-     * Provide expert's review for Request
-     * @param expertComment Expert's Comment: Object
-     */
-    ApiService.prototype.provideExpertComment = function (expertComment) {
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
-        headers = headers.set("Content-type", "application/json");
-        return this.http.post(this.apiUrl + "/expert/provideExpertComment", { comment: expertComment }, { headers: headers });
-    };
-    ApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
-    ], ApiService);
-    return ApiService;
 }());
 
 

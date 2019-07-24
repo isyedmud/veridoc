@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "613667227298",
-    "firebase_url": "https://veridoc-48392.firebaseio.com",
-    "project_id": "veridoc-48392",
-    "storage_bucket": "veridoc-48392.appspot.com"
+    "project_number": "308789628145",
+    "firebase_url": "https://veridoc-8917d.firebaseio.com",
+    "project_id": "veridoc-8917d",
+    "storage_bucket": "veridoc-8917d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:613667227298:android:7582e3e281cf510c",
+        "mobilesdk_app_id": "1:308789628145:android:7582e3e281cf510c",
         "android_client_info": {
           "package_name": "com.talent.veridoc"
         }
       },
       "oauth_client": [
         {
-          "client_id": "613667227298-ihklfbmpt3ftbgqvuceh5uglsbppcap7.apps.googleusercontent.com",
+          "client_id": "308789628145-cco00dgjnmv8qnuffvula4dlek7iv1r3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCeqv0bV0KaqJ_QyElQVlMu2VgXKIBEUig"
+          "current_key": "AIzaSyC5DvIdSfZvqMvBGHnUFETC_89MLDAYJWA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "613667227298-ihklfbmpt3ftbgqvuceh5uglsbppcap7.apps.googleusercontent.com",
+              "client_id": "308789628145-cco00dgjnmv8qnuffvula4dlek7iv1r3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

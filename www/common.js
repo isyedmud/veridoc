@@ -204,8 +204,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var DoctimePipe = /** @class */ (function () {
     function DoctimePipe() {
+        this.arrMonths = ['Jan', "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
     }
-    DoctimePipe.prototype.transform = function (value) {
+    DoctimePipe.prototype.transform = function (value, args) {
         var result = "";
         var d = new Date(value);
         var minVal = d.getMinutes();
@@ -215,9 +216,14 @@ var DoctimePipe = /** @class */ (function () {
         hourVal = hourVal % 12;
         hourVal = hourVal ? hourVal : 12;
         var dayVal = d.getDate();
-        var monVal = d.getMonth() + 1;
+        var monVal = this.arrMonths[d.getMonth()];
         var yearVal = d.getFullYear();
-        result = monVal + "/" + dayVal + "/" + yearVal + " " + hourVal + ":" + minVal + " " + ampm;
+        if (args == true) {
+            result = monVal + " " + dayVal + " " + yearVal + " " + hourVal + ":" + minVal + " " + ampm;
+        }
+        else {
+            result = monVal + " " + dayVal + " " + yearVal;
+        }
         return result;
     };
     DoctimePipe = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

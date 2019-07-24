@@ -1,0 +1,11 @@
+.provide-input-controls {
+    margin-top: 2vh;
+    display: flex;
+    div {
+        flex: 1;
+        padding: 0 16px;
+        ion-button {
+            width: 100%;
+        }
+    }
+}

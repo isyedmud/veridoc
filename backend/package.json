@@ -24,7 +24,7 @@
     "fcm-node": "^1.5.1",
     "guid": "0.0.12",
     "md5": "^2.2.1",
-    "mongoose": "^5.4.9",
+    "mongoose": "^5.7.5",
     "mongoose-paginate": "^5.0.3",
     "multer": "^1.4.1",
     "mustache": "^2.2.1",

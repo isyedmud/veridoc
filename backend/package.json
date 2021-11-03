@@ -36,7 +36,7 @@
     "prop-types-extra": "^1.1.0",
     "querystring": "^0.2.0",
     "request": "^2.69.0",
-    "validator": "^10.11.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
